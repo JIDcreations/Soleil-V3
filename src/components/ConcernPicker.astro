@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import { concerns, euro } from '../data/site';
+interface Props { headingId: string; title?: string }
+const { headingId, title = 'Wat wil je verbeteren?' } = Astro.props;
+---
+<div class="picker" data-tabs data-tabs-local>
+  <div class="picker-head">
+    <h2 id={headingId} class="h1">{title}</h2>
+    <div class="picker-chips" role="tablist" aria-labelledby={headingId}>
+      {concerns.map((c) => (
+        <button class="chip chip--lg" role="tab" type="button" id={`ct-${c.id}`} aria-controls={`cp-${c.id}`} data-hash={c.id} aria-selected="false">{c.label}</button>
+      ))}
+    </div>
+  </div>
+  {concerns.map((c, i) => (
+    <div class="picker-panel" role="tabpanel" id={`cp-${c.id}`} aria-labelledby={`ct-${c.id}`} hidden={i !== 0}>
+      <p class="picker-note">{c.note}</p>
+      <ul class="picker-grid" role="list" style={`--n:${c.offers.length}`}>
+        {c.offers.map((o, j) => (
+          <li style={`--i:${j}`}>
+            <a class="offer-tile" href={o.href}>
+              <figure><img src={`/img/${o.img}.webp`} alt={o.alt} loading="lazy" /></figure>
+              <span class="offer-tile-name">{o.name}</span>
+              <span class="offer-tile-line">{o.line}</span>
+              <span class="offer-tile-price">vanaf {euro(o.from)} <Icon name="arrow-right" /></span>
+            </a>
+          </li>
+        ))}
+        <li class="picker-start" style={`--i:${c.offers.length}`}>
+          <p class="h3">Twijfel je?</p>
+          <p>Begin met een huidanalyse. Dan weet ik precies wat jouw huid nodig heeft.</p>
+          <a class="link" href="/behandelingen/huidanalyse/">Over de huidanalyse, vanaf €25</a>
+        </li>
+      </ul>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,63 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import { nav, info, skin, pamperOffers, euro } from '../data/site';
+const path = Astro.url.pathname;
+const current = (href: string) => (path === href || (href !== '/' && path.startsWith(href)) ? 'page' : undefined);
+const inTreatments = path.startsWith('/behandelingen/') || path.startsWith('/verwennen/');
+const main = [
+  { href: '/tarieven/', label: 'Tarieven' },
+  { href: '/over-soleil/', label: 'Over Soleil' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="header" data-header>
+  <div class="wrap header-in">
+    <Brand />
+    <nav class="nav" aria-label="Hoofdmenu">
+      <div class="dd" data-dd>
+        <button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-beh" data-current={inTreatments ? 'true' : undefined}>
+          Behandelingen<Icon name="caret-down" />
+        </button>
+        <div class="dd-panel" id="dd-beh">
+          <div class="dd-col">
+            <p class="dd-title">Voor je huid</p>
+            <ul role="list">
+              {skin.map((o) => <li><a href={`/behandelingen/${o.slug}/`} aria-current={current(`/behandelingen/${o.slug}/`)}><span>{o.short}</span><small>vanaf {euro(o.from)}</small></a></li>)}
+            </ul>
+          </div>
+          <div class="dd-col">
+            <p class="dd-title">Om te ontspannen</p>
+            <ul role="list">
+              {pamperOffers.map((o) => <li><a href={o.href}><span>{o.name}</span><small>vanaf {euro(o.from)}</small></a></li>)}
+            </ul>
+          </div>
+          <div class="dd-foot">
+            <a class="link" href="/behandelingen/">Alle behandelingen</a>
+            <a class="link" href="/behandelingen/huidanalyse/">Nieuw? Begin met een huidanalyse</a>
+          </div>
+        </div>
+      </div>
+      {main.map((n) => <a href={n.href} aria-current={current(n.href)}>{n.label}</a>)}
+      <a class="btn btn--sm" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-menu-btn>
+      <span data-menu-label>Menu</span><i aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
+<div class="sheet" id="sheet" data-sheet>
+  <nav aria-label="Menu">
+    <a href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a>
+    {nav.map((n) => <a href={n.href} aria-current={current(n.href)}>{n.label}</a>)}
+  </nav>
+  <div class="sheet-foot">
+    <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+    <a class="btn btn--line" href={info.phoneHref}><Icon name="phone" />{info.phone}</a>
+  </div>
+</div>
+<div class="dock" data-dock>
+  <a class="btn btn--light" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+  <a class="call" href={info.phoneHref} aria-label={`Bel ${info.phone}`}><Icon name="phone" /></a>
+</div>

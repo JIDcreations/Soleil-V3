@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import Prices from '../../components/Prices.astro';
+import { skin, info, euro } from '../../data/site';
+
+export function getStaticPaths() {
+  return skin.map((t) => ({ params: { slug: t.slug }, props: { t } }));
+}
+const { t } = Astro.props;
+const others = skin.filter((s) => s.slug !== t.slug);
+const dur = t.prices.flatMap((p) => p.rows).map((r) => r[1]).filter(Boolean);
+---
+<Base title={t.name} description={`${t.name} bij Instituut Soleil in Beervelde. ${t.line} Vanaf ${euro(t.from)}.`} image={`/img/${t.img}.webp`}>
+  <link slot="head" rel="preload" as="image" href={`/img/${t.img}.webp`} />
+  <header class="page-head">
+    <div class="wrap page-head-in">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/behandelingen/">Behandelingen</a></li><li aria-current="page">{t.short}</li></ol>
+        <h1 class="h1" style="font-size:var(--step-5)">{t.name}</h1>
+        <p class="lede">{t.intro}</p>
+        <p class="fact"><span>Vanaf {euro(t.from)}</span>{dur.length > 0 && <span>{dur[0] === dur[dur.length - 1] ? dur[0] : `${dur[0]} tot ${dur[dur.length - 1]}`}</span>}</p>
+        <div class="actions">
+          <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+          <a class="link" href="#prijzen">Bekijk de prijzen</a>
+        </div>
+      </div>
+      <figure class="page-head-media"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <h2 class="h2">Voor wie</h2>
+        <ol class="forwho" role="list">
+          {t.forWho.map((f, i) => <li><span aria-hidden="true">{i + 1}</span>{f}</li>)}
+        </ol>
+      </div>
+      <div class="split">
+        <h2 class="h2">Hoe het verloopt</h2>
+        <p class="big-copy">{t.how}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand" id="prijzen">
+    <div class="wrap split">
+      <div class="flow">
+        <h2 class="h2">Prijzen</h2>
+        <p class="muted small">Alle prijzen zijn inclusief btw.</p>
+        {t.slug !== 'huidanalyse' && <p class="muted measure">Nog niet eerder bij mij geweest? Dan start je met een <a class="link" href="/behandelingen/huidanalyse/">skin consult of Discovery</a>.</p>}
+      </div>
+      <div>
+        {t.prices.map((p) => <Prices rows={p.rows} title={p.title} note={p.note} />)}
+        <div class="actions" style="margin-top:40px">
+          <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <h2 class="h3">Andere behandelingen</h2>
+      <nav class="others" aria-label="Andere behandelingen">
+        {others.map((o) => <a class="chip" href={`/behandelingen/${o.slug}/`}>{o.short}</a>)}
+        <a class="chip" href="/verwennen/">Verwennen</a>
+      </nav>
+    </div>
+  </section>
+</Base>

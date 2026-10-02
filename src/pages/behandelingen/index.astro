@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import TreatmentIndex from '../../components/TreatmentIndex.astro';
+import ConcernPicker from '../../components/ConcernPicker.astro';
+import { info, skinExpert } from '../../data/site';
+---
+<Base title="Behandelingen" description="Huidanalyse, gelaatsverzorging, Environ DF, peelings, microneedling, Neo-Lift en verwenbehandelingen bij Instituut Soleil in Beervelde.">
+  <header class="page-head page-head--plain">
+    <div class="wrap page-head-in">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Behandelingen</li></ol>
+        <h1 class="display">Behandelingen</h1>
+        <p class="lede">Om je huid te verbeteren, of om even helemaal tot rust te komen. Nieuw bij Soleil? Dan begin je met een <a class="link" href="/behandelingen/huidanalyse/">huidanalyse</a>.</p>
+      </div>
+    </div>
+  </header>
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <ConcernPicker headingId="kies" title="Waar wil je aan werken?" />
+    </div>
+  </section>
+  <section class="section sand" aria-labelledby="alle">
+    <div class="wrap">
+      <h2 id="alle" class="h1" style="margin-bottom:clamp(36px,4vw,56px)">Alle behandelingen</h2>
+      <TreatmentIndex />
+    </div>
+  </section>
+  <section class="section night">
+    <div class="wrap split">
+      <h2 class="h2">Huidverbetering op maat</h2>
+      <div class="flow">
+        <p class="big-copy">Werken we aan een specifiek huidprobleem? Dan stel ik een behandeling samen uit peeling, microneedling, Environ DF of Neo-Lift, op maat van wat jouw huid nodig heeft.</p>
+        <p class="muted">{skinExpert[1]}, {skinExpert[2]}. We starten altijd met een skin consult of een Discovery.</p>
+        <div class="actions" style="margin-top:32px">
+          <a class="btn btn--light" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+          <a class="link" href="/tarieven/">Alle tarieven</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

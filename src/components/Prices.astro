@@ -1,0 +1,18 @@
+---
+import { euro, type Row } from '../data/site';
+interface Props { rows: Row[]; title?: string; note?: string }
+const { rows, title, note } = Astro.props;
+---
+<table class="prices">
+  {title && <caption>{title}</caption>}
+  <tbody>
+    {rows.map(([n, d, p]) => (
+      <tr>
+        <th scope="row">{n}</th>
+        <td class="dur">{d}</td>
+        <td class="eur">{euro(p)}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+{note && <p class="price-note">{note}</p>}

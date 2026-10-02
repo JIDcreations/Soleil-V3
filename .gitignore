@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.DS_Store
+.impeccable/live
+.impeccable/review
+.impeccable/questions
+.impeccable/direction.json

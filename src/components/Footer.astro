@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+import Week from './Week.astro';
+import Status from './Status.astro';
+import { info, nav, skin } from '../data/site';
+interface Props { cta?: boolean }
+const { cta = true } = Astro.props;
+---
+<footer class="footer on-night">
+  <div class="wrap">
+    {cta && (
+      <div class="footer-cta">
+        <h2>Gun je huid de aandacht die ze verdient.</h2>
+        <div class="actions">
+          <a class="btn btn--light" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+          <a class="link" href="/behandelingen/huidanalyse/">Nieuw? Begin met een huidanalyse</a>
+        </div>
+      </div>
+    )}
+
+    <div class="footer-hours">
+      <div class="footer-hours-head">
+        <h2 class="h4">Openingsuren</h2>
+        <Status />
+      </div>
+      <Week />
+    </div>
+
+    <div class="footer-grid">
+      <div>
+        <h3>Instituut Soleil</h3>
+        <p>{info.street}<br />{info.city}</p>
+        <p style="margin-top:12px"><a href={info.phoneHref}>{info.phone}</a><br /><a href={`mailto:${info.email}`}>{info.email}</a></p>
+        <p class="small" style="margin-top:12px;color:var(--on-night-2);max-width:36ch">Tijdens een behandeling neem ik de telefoon niet op. Laat je naam en nummer achter, dan bel ik je terug.</p>
+      </div>
+      <div>
+        <h3>Behandelingen</h3>
+        <ul>
+          {skin.map((s) => <li><a href={`/behandelingen/${s.slug}/`}>{s.short}</a></li>)}
+          <li><a href="/verwennen/">Verwennen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Soleil</h3>
+        <ul>
+          {nav.filter((n) => n.href !== '/behandelingen/' && n.href !== '/verwennen/').map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href={info.webshop} target="_blank" rel="noopener">Webshop</a></li>
+          <li><a href={info.instagram} target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href={info.facebook} target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <span>© {new Date().getFullYear()} Instituut Soleil · btw {info.vat}</span>
+    <a href="https://instituutsoleil.be/privacy-policy/">Privacybeleid</a>
+  </div>
+</footer>

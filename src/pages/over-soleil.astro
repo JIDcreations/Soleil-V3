@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import { info, brands } from '../data/site';
+---
+<Base title="Over Soleil" description={`Al ${info.years} jaar huidexpert in Beervelde. Persoonlijk advies, merken met bewezen werking en een rustige plek om tot jezelf te komen.`}>
+  <header class="page-head">
+    <div class="wrap page-head-in">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Over Soleil</li></ol>
+        <h1 class="display">Al {info.years} jaar huidexpert in Beervelde</h1>
+        <p class="lede">Huidverbetering is altijd mijn passie gebleven. In een stijlvol kader en een rustgevende sfeer geef ik je huid de aandacht die ze verdient.</p>
+      </div>
+      <figure class="page-head-media"><img src="/img/zaakvoerder-verzorging.webp" alt="De zaakvoerder van Instituut Soleil in haar behandelruimte" fetchpriority="high" /></figure>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap statement-grid">
+      <h2 class="muted">Waarom ik doe wat ik doe</h2>
+      <p class="statement" data-ink>Ik kies uitdrukkelijk voor merken met veel actieve bestanddelen, jarenlang onderzoek en klinische testen. Elk jaar volg ik bijscholingen om ermee te mogen werken. Zo weet je zeker dat wat ik je aanraad ook echt werkt.</p>
+    </div>
+  </section>
+
+  <section class="section night" aria-labelledby="sta">
+    <div class="wrap">
+      <h2 id="sta" class="h1" style="margin-bottom:clamp(48px,6vw,88px)">Waar ik voor sta</h2>
+      <div class="beliefs">
+        <div><h3>Geen quick fix</h3><p class="muted">Elke huid is anders. Ik maak graag extra tijd vrij om je persoonlijk te adviseren en te begeleiden.</p></div>
+        <div><h3>Thuis telt</h3><p class="muted">Wonderen met enkel professionele behandelingen bestaan niet. 75% van het resultaat komt van je verzorging thuis.</p></div>
+        <div><h3>Bewezen werking</h3><p class="muted">Ik werk uitsluitend met producten en technieken die wetenschappelijk onderbouwd zijn.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="inst">
+    <div class="wrap">
+      <div style="display:grid;gap:20px;max-width:640px;margin-bottom:clamp(40px,5vw,72px)">
+        <h2 id="inst" class="h1">Het instituut</h2>
+        <p class="lede">Behandelruimtes met eigen toestellen, een duo-cabine en een relaxruimte om na te genieten.</p>
+      </div>
+      <div class="mosaic">
+        <figure class="reveal-img"><img src="/img/zaakvoerder-behandeling.webp" alt="De zaakvoerder geeft een rugmassage in de behandelruimte" loading="lazy" /></figure>
+        <figure class="reveal-img"><img src="/img/led-lichttherapie.webp" alt="Behandeltafel onder de LED-lamp" loading="lazy" /></figure>
+        <figure class="reveal-img"><img src="/img/zaakvoerder-toestel.webp" alt="De zaakvoerder naast een behandeltoestel" loading="lazy" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand" aria-labelledby="merken">
+    <div class="wrap split">
+      <h2 id="merken" class="h2">Merken waar ik mee werk</h2>
+      <ul class="forwho" role="list">
+        {brands.map((b, i) => <li><span aria-hidden="true">{i + 1}</span><div><strong style="font-weight:500">{b.name}</strong><br /><span class="muted" style="font:inherit;font-size:var(--step-0);color:var(--ink-2)">{b.line}</span></div></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import Prices from '../components/Prices.astro';
+import { skin, skinExpert, arrangements, services, laser, info, type Row } from '../data/site';
+
+const arrRows: Row[] = arrangements.flatMap((a) => {
+  const rows: Row[] = [[`${a.name}${a.duo ? ', per persoon' : ''}`, a.duration, a.solo]];
+  if (a.duo) rows.push([`${a.name}, duo`, a.duration, a.duo]);
+  return rows;
+});
+const groups = [
+  ...skin.map((s) => ({ id: s.slug, name: s.short, img: s.img, link: `/behandelingen/${s.slug}/`, tables: s.prices })),
+  { id: 'op-maat', name: 'Op maat', img: 'zaakvoerder-verzorging', link: '/behandelingen/', tables: [{ title: undefined, rows: [skinExpert], note: undefined }] },
+  { id: 'arrangementen', name: 'Arrangementen', img: 'arrangementen', link: '/verwennen/#arrangementen', tables: [{ title: undefined, rows: arrRows, note: undefined }] },
+  ...services.map((s) => ({ id: s.id, name: s.name, img: s.img, link: `/verwennen/#${s.id}`, tables: [{ title: undefined, rows: s.rows, note: s.note }] })),
+];
+---
+<Base title="Tarieven" description="Alle prijzen van Instituut Soleil in Beervelde: huidanalyse, gelaatsverzorging, huidverbetering, arrangementen, ontharing, manicure, pedicure en make-up.">
+  <header class="page-head page-head--plain">
+    <div class="wrap page-head-in">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Tarieven</li></ol>
+        <h1 class="display">Tarieven</h1>
+        <p class="lede">Alle prijzen zijn inclusief btw. Een skin consult is gratis bij aankoop van 3 producten.</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="jump" aria-label="Categorieën" data-jump>
+    <ul class="wrap" role="list">
+      {groups.map((g) => <li><a href={`#${g.id}`}>{g.name}</a></li>)}
+      <li><a href="#laser">Laser</a></li>
+    </ul>
+  </nav>
+
+  <section class="section" aria-label="Prijzen">
+    <div class="wrap price-sections">
+      {groups.map((g) => (
+        <section class="price-section" id={g.id} aria-labelledby={`h-${g.id}`}>
+          <div class="price-section-head">
+            <h2 id={`h-${g.id}`} class="h2">{g.name}</h2>
+            <p><a class="link" href={g.link}>Meer info</a></p>
+            <img src={`/img/${g.img}.webp`} alt="" loading="lazy" />
+          </div>
+          <div>{g.tables.map((t) => <Prices rows={t.rows} title={t.title} note={t.note} />)}</div>
+        </section>
+      ))}
+      <section class="price-section" id="laser" aria-labelledby="h-laser">
+        <div class="price-section-head"><h2 id="h-laser" class="h2">Laser</h2></div>
+        <div class="flow">
+          <p class="big-copy">{laser.text}</p>
+          <p><a class="link" href={laser.url} target="_blank" rel="noopener">Prijzen bij Haarlaser Team</a></p>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section--tight sand">
+    <div class="wrap actions" style="justify-content:space-between">
+      <p class="h3">Klaar om te boeken?</p>
+      <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+    </div>
+  </section>
+</Base>

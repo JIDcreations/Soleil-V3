@@ -1,0 +1,11 @@
+---
+interface Props { post: { slug: string; img: string; cat: string; date: string; title: string; excerpt: string } }
+const { post } = Astro.props;
+const date = new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(post.date));
+---
+<a class="post" href={`/journaal/${post.slug}/`}>
+  <figure class="reveal-img"><img src={`/img/${post.img}.webp`} alt="" loading="lazy" /></figure>
+  <p class="post-meta"><span>{post.cat}</span><time datetime={post.date}>{date}</time></p>
+  <h3>{post.title}</h3>
+  <p>{post.excerpt}</p>
+</a>

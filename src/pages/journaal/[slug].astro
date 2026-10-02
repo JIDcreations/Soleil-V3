@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import Week from '../../components/Week.astro';
+import PostCard from '../../components/PostCard.astro';
+import journal from '../../data/journal.json';
+import { info } from '../../data/site';
+
+export function getStaticPaths() {
+  return journal.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const date = new Intl.DateTimeFormat('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(p.date));
+// group consecutive list items
+type B = { type: string; text: string };
+const blocks: (B | { type: 'ul'; items: string[] })[] = [];
+for (const b of p.blocks as B[]) {
+  const last = blocks[blocks.length - 1] as any;
+  if (b.type === 'li') { if (last?.type === 'ul') last.items.push(b.text); else blocks.push({ type: 'ul', items: [b.text] }); }
+  else blocks.push(b);
+}
+const more = journal.filter((x) => x.slug !== p.slug).slice(0, 3);
+---
+<Base title={p.title} description={p.excerpt.slice(0, 155)} image={`/img/${p.img}.webp`}>
+  <article>
+    <header class="page-head page-head--plain" style="padding-bottom:0">
+      <div class="wrap-text" style="width:min(100% - 2 * var(--gutter), 900px);margin-inline:auto">
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/journaal/">Journaal</a></li><li aria-current="page">{p.cat}</li></ol>
+        <h1 class="h1">{p.title}</h1>
+        <p class="fact"><span>{p.cat}</span><span><time datetime={p.date}>{date}</time></span></p>
+      </div>
+    </header>
+    <div class="wrap"><figure class="article-hero reveal-img"><img src={`/img/${p.img}.webp`} alt="" /></figure></div>
+    <div class="wrap--text prose">
+      {blocks.map((b: any) =>
+        b.type === 'h2' ? <h2>{b.text}</h2> :
+        b.type === 'ul' ? <ul role="list">{b.items.map((i: string) => <li>{i}</li>)}</ul> :
+        b.type === 'hours' ? <div style="margin-block:1.6em"><Week light list /></div> :
+        <p>{b.text}</p>
+      )}
+      <div class="actions" style="margin-top:56px">
+        <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+        <a class="link" href="/behandelingen/huidanalyse/">Begin met een huidanalyse</a>
+      </div>
+    </div>
+  </article>
+  <section class="section" aria-labelledby="meer">
+    <div class="wrap">
+      <h2 id="meer" class="h2" style="margin-bottom:40px">Meer uit het journaal</h2>
+      <div class="posts posts--home">{more.map((m) => <PostCard post={m} />)}</div>
+    </div>
+  </section>
+</Base>

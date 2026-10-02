@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import { arrangements, euro } from '../data/site';
+interface Props { headingId: string; title?: string; lede?: string }
+const { headingId, title = 'Even helemaal weg', lede = 'Van kop tot teen verzorgd worden, alleen of met twee in de duo-cabine. Daarna geniet je nog even na in de relaxruimte.' } = Astro.props;
+---
+<div data-rail>
+  <div class="wrap rail-head">
+    <div style="display:grid;gap:18px;max-width:640px">
+      <h2 id={headingId} class="h1">{title}</h2>
+      <p class="lede">{lede}</p>
+    </div>
+    <div class="rail-ctrl">
+      <button type="button" data-prev aria-label="Vorige arrangementen"><Icon name="arrow-left" /></button>
+      <button type="button" data-next aria-label="Volgende arrangementen"><Icon name="arrow-right" /></button>
+    </div>
+  </div>
+  <ul class="rail" role="list" aria-label="Arrangementen" tabindex="0">
+    {arrangements.map((a) => (
+      <li class="arr">
+        <div class="arr-top"><h3>{a.name}</h3><span class="muted small">{a.duration}</span></div>
+        <ul role="list">{a.items.map((i) => <li>{i}</li>)}</ul>
+        <p class="arr-price">
+          <span><strong>{euro(a.solo)}</strong>{a.duo && ' per persoon'}</span>
+          {a.duo && <span><strong>{euro(a.duo)}</strong> duo</span>}
+        </p>
+      </li>
+    ))}
+  </ul>
+</div>

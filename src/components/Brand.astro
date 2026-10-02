@@ -1,0 +1,8 @@
+---
+import Logo from './Logo.astro';
+const draw = Astro.url.pathname === '/';
+---
+<a class="brand" href="/" aria-label="Instituut Soleil, naar de homepagina">
+  <Logo draw={draw} />
+  <span class="brand-word" aria-hidden="true"><small>instituut</small><span>SOLEIL</span></span>
+</a>

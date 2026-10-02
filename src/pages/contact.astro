@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Week from '../components/Week.astro';
+import Status from '../components/Status.astro';
+import Icon from '../components/Icon.astro';
+import { info } from '../data/site';
+---
+<Base title="Contact" description="Instituut Soleil, Rivierstraat 70, 9080 Beervelde. Boek online, bel 0470 22 92 02 of stuur een bericht." footerCta={false}>
+  <header class="page-head">
+    <div class="wrap page-head-in" style="align-items:start">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Contact</li></ol>
+        <h1 class="display">Rivierstraat 70, Beervelde</h1>
+        <p class="lede">Tijdens een behandeling neem ik de telefoon niet op. Boek gerust online, of laat je naam en nummer achter. Dan bel ik je terug.</p>
+        <div class="actions">
+          <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+          <a class="btn btn--line" href={info.phoneHref}><Icon name="phone" />{info.phone}</a>
+        </div>
+        <p style="margin-top:24px"><a class="link" href={`mailto:${info.email}`}>{info.email}</a></p>
+      </div>
+      <div class="flow" style="padding-top:clamp(0px,4vw,64px)">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:baseline">
+          <h2 class="h3">Openingsuren</h2>
+          <Status />
+        </div>
+        <Week light list />
+        <p class="small muted">Afspraken bij voorkeur online. Op zaterdagnamiddag kan het enkel op afspraak.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section night" aria-labelledby="route">
+    <div class="wrap offer">
+      <figure class="offer-media" data-parallax><img src="/img/zaakvoerder-behandeling.webp" alt="De behandelruimte van Instituut Soleil" loading="lazy" /></figure>
+      <div class="flow">
+        <h2 id="route" class="h1">Zo kom je bij Soleil</h2>
+        <p class="lede">{info.street} in {info.city}, deelgemeente van Lochristi, vlak bij Gent.</p>
+        <div class="actions" style="margin-top:32px">
+          <a class="btn btn--light" href={info.route} target="_blank" rel="noopener"><Icon name="map-pin" />Route plannen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="bericht">
+    <div class="wrap split">
+      <div class="flow">
+        <h2 id="bericht" class="h2">Stuur een bericht</h2>
+        <p class="muted measure">Een vraag over een behandeling of een cadeaubon? Ik antwoord zo snel mogelijk.</p>
+      </div>
+      <div>
+        <form class="form" data-form data-mailto={info.email} novalidate>
+          <div class="form-row">
+            <div class="field"><label for="n">Naam</label><input id="n" name="naam" autocomplete="name" required aria-describedby="n-err" /><span class="err" id="n-err">Vul je naam in.</span></div>
+            <div class="field"><label for="t">Telefoon <small>(niet verplicht)</small></label><input id="t" name="telefoon" type="tel" autocomplete="tel" /></div>
+          </div>
+          <div class="field"><label for="e">E-mail</label><input id="e" name="email" type="email" autocomplete="email" required aria-describedby="e-err" /><span class="err" id="e-err">Vul een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.be.</span></div>
+          <div class="field"><label for="m">Je vraag</label><textarea id="m" name="vraag" required aria-describedby="m-err"></textarea><span class="err" id="m-err">Schrijf kort je vraag.</span></div>
+          <div class="actions"><button class="btn" type="submit">Mail je vraag</button><span class="small muted">Je mailprogramma opent met je bericht, klaar om te versturen.</span></div>
+        </form>
+        <div class="done flow" tabindex="-1" hidden>
+          <p class="h3">Je mailprogramma is geopend</p>
+          <p class="muted">Verstuur het bericht daar. Opende er niets? Mail dan rechtstreeks naar <a class="link" href={`mailto:${info.email}`}>{info.email}</a> of bel <a class="link" href={info.phoneHref}>{info.phone}</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

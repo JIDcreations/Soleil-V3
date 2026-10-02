@@ -1,0 +1,153 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Status from '../components/Status.astro';
+import ConcernPicker from '../components/ConcernPicker.astro';
+import Arrangements from '../components/Arrangements.astro';
+import PostCard from '../components/PostCard.astro';
+import { info, brands } from '../data/site';
+import journal from '../data/journal.json';
+
+const steps = [
+  { n: 1, title: 'Huidanalyse', img: 'huidanalyse-scan', alt: 'Een gezicht op het scherm van de huidscanner', text: "Een grondige analyse met 3D-foto's. Zo weet ik welke behandeling en welke verzorging je huid nodig heeft.", link: { href: '/behandelingen/huidanalyse/', label: 'Over de huidanalyse' } },
+  { n: 2, title: 'Behandeling', img: 'led-lichttherapie', alt: 'Een behandeltafel onder de LED-lamp in het instituut', text: 'Regelmatig een behandeling op maat, die je huid stap voor stap verbetert. Geen quick fix, wel resultaat dat blijft.', link: { href: '/behandelingen/', label: 'Alle behandelingen' } },
+  { n: 3, title: 'Thuisverzorging', img: 'producten-exuviance', alt: 'Verzorgingsproducten van Exuviance voor thuis', text: 'Je dagelijkse routine met de juiste producten. Daar zit 75% van het resultaat, dus die stem ik mee af.', link: { href: info.webshop, label: 'Naar de webshop', external: true } },
+];
+---
+<Base
+  title="Instituut Soleil | Huidverbetering in Beervelde"
+  description="Huidinstituut in Beervelde. Huidanalyse, gelaatsverzorging, microneedling, peelings, Neo-Lift en verwenarrangementen, met eerlijk persoonlijk advies."
+>
+  <link slot="head" rel="preload" as="image" href="/img/zaakvoerder-behandeling.webp" fetchpriority="high" />
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <div>
+          <h1 id="h1" class="display">
+            <span class="line"><span>Stralen begint</span></span>
+            <span class="line"><span>bij een huid</span></span>
+            <span class="line"><span>in balans.</span></span>
+          </h1>
+          <p class="lede">Huidanalyse, behandelingen met bewezen werking en eerlijk advies. Al {info.years} jaar in Beervelde.</p>
+          <div class="actions">
+            <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+            <a class="link" href="/behandelingen/huidanalyse/">Nieuw? Begin met een huidanalyse</a>
+          </div>
+        </div>
+        <div class="hero-foot">
+          <Status />
+          <a href={info.route} target="_blank" rel="noopener">{info.street}, Beervelde</a>
+          <a href={info.phoneHref}>{info.phone}</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <figure class="m-main"><img src="/img/zaakvoerder-behandeling.webp" alt="De zaakvoerder van Instituut Soleil geeft een rugmassage in haar behandelruimte" width="1600" height="1111" fetchpriority="high" /></figure>
+        <figure class="m-side"><img src="/img/gelaatsverzorging.webp" alt="Een gezicht wordt gereinigd tijdens een gelaatsverzorging" width="1080" height="864" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Her approach, in her words -->
+  <section class="section" aria-labelledby="aanpak">
+    <div class="wrap statement-grid">
+      <h2 id="aanpak" class="muted">Al {info.years} jaar is huidverbetering mijn passie.</h2>
+      <div>
+        <p class="statement" data-ink>Een behandeling bij Soleil zorgt ervoor dat je terug straalt. Ik werk enkel met producten en technieken waarvan de werking wetenschappelijk onderbouwd is, en ik neem de tijd voor eerlijk advies.</p>
+        <p style="margin-top:40px"><a class="link" href="/over-soleil/">Lees mijn verhaal</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section class="section sand" aria-labelledby="werk">
+    <div class="wrap">
+      <div class="method-head">
+        <h2 id="werk" class="h1">Goede resultaten, in drie stappen</h2>
+        <p class="lede">Elke stap bouwt voort op de vorige. Daarom werk ik altijd in dezelfde volgorde.</p>
+      </div>
+      <div class="method" data-method>
+        <div class="method-steps">
+          {steps.map((s) => (
+            <article class="step">
+              <figure class="step-img"><img src={`/img/${s.img}.webp`} alt={s.alt} loading="lazy" /></figure>
+              <p class="step-n" aria-hidden="true">{s.n}</p>
+              <h3 class="h2"><span class="sr">Stap {s.n}: </span>{s.title}</h3>
+              <p class="muted">{s.text}</p>
+              <a class="link" href={s.link.href} {...(s.link.external ? { target: '_blank', rel: 'noopener' } : {})}>{s.link.label}</a>
+            </article>
+          ))}
+        </div>
+        <div class="method-stage" aria-hidden="true">
+          {steps.map((s) => <figure><img src={`/img/${s.img}.webp`} alt="" loading="lazy" /></figure>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Treatments -->
+  <section class="section" aria-labelledby="beh">
+    <div class="wrap">
+      <ConcernPicker headingId="beh" />
+      <p class="actions" style="margin-top:clamp(40px,5vw,64px)"><a class="link" href="/behandelingen/">Alle behandelingen</a><a class="link" href="/tarieven/">Alle tarieven</a></p>
+    </div>
+  </section>
+
+  <!-- Discovery -->
+  <section class="section night" aria-labelledby="disc">
+    <div class="wrap offer">
+      <figure class="offer-media" data-parallax><img src="/img/zaakvoerder-toestel.webp" alt="De zaakvoerder van Soleil naast een behandeltoestel" loading="lazy" /></figure>
+      <div>
+        <h2 id="disc" class="h1">Nieuw bij Soleil? Begin met een Discovery.</h2>
+        <div class="offer-meta"><span class="price-big">€100</span><span class="muted">90 minuten</span></div>
+        <ul class="ticks" role="list">
+          <li>Een huidscan met 3D-foto's</li>
+          <li>Een kennismakingsverzorging</li>
+          <li>Persoonlijk advies en een plan voor thuis</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn--light" href={info.booking} target="_blank" rel="noopener">Boek een Discovery</a>
+          <a class="link" href="/behandelingen/huidanalyse/">Over de huidanalyse</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arrangements -->
+  <section class="section sand" aria-labelledby="arr">
+    <Arrangements headingId="arr" />
+  </section>
+
+  <!-- Brands -->
+  <section class="section" aria-labelledby="merken">
+    <div class="wrap brands-wrap">
+      <div class="brands-intro">
+        <h2 id="merken" class="h1">Merken waar ik op vertrouw</h2>
+        <p class="muted measure">Ik kies uitdrukkelijk voor merken met veel actieve bestanddelen, jarenlang onderzoek en klinische testen. Elk jaar volg ik bijscholingen om ermee te mogen werken.</p>
+        <p><a class="link" href={info.webshop} target="_blank" rel="noopener">Naar de webshop</a></p>
+      </div>
+      <div class="brands">
+        {brands.map((b) => (
+          <article class="brand-card">
+            <figure class="reveal-img"><img src={`/img/${b.img}.webp`} alt={`Producten van ${b.name}`} loading="lazy" /></figure>
+            <div><h3>{b.name}</h3><p class="muted">{b.line}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal -->
+  <section class="section" style="padding-top:0" aria-labelledby="journaal">
+    <div class="wrap">
+      <div class="index-head">
+        <h2 id="journaal" class="h1">Journaal</h2>
+        <a class="link" href="/journaal/">Alle artikels</a>
+      </div>
+      <div class="posts posts--home">
+        {journal.filter((p) => p.slug !== 'nieuwe-openingsuren').slice(0, 3).map((p) => <PostCard post={p} />)}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,14 @@
+---
+import { hours } from '../data/site';
+interface Props { light?: boolean; list?: boolean }
+const { light = false, list = false } = Astro.props;
+const t = (s?: string) => s?.replace(':00', 'u').replace(':', 'u').replace(/^0/, '');
+---
+<div class:list={['week', { 'week--light': light, 'week--list': list }]} data-week>
+  {hours.map((h) => (
+    <div class:list={{ closed: !h.open }} data-day={h.d}>
+      <b><abbr title={h.day}>{h.short}</abbr></b>
+      <span>{h.open ? `${t(h.open)} - ${t(h.close)}` : 'Gesloten'}{h.note && <><br />{h.note}</>}</span>
+    </div>
+  ))}
+</div>

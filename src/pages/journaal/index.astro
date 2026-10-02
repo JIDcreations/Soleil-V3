@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import journal from '../../data/journal.json';
+---
+<Base title="Journaal" description="Huidtips per seizoen en nieuws uit Instituut Soleil in Beervelde.">
+  <header class="page-head page-head--plain">
+    <div class="wrap page-head-in">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Journaal</li></ol>
+        <h1 class="display">Journaal</h1>
+        <p class="lede">Huidtips per seizoen en nieuws uit het instituut.</p>
+      </div>
+    </div>
+  </header>
+  <section class="section" style="padding-top:0">
+    <div class="wrap posts">{journal.map((p) => <PostCard post={p} />)}</div>
+  </section>
+</Base>

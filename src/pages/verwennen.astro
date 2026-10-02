@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrangements from '../components/Arrangements.astro';
+import Prices from '../components/Prices.astro';
+import { info, services, laser } from '../data/site';
+---
+<Base title="Verwennen" description="Arrangementen solo of in de duo-cabine, massage, lichaamsverzorging, manicure, pedicure, ontharing en make-up bij Instituut Soleil in Beervelde." image="/img/duo-cabine.webp">
+  <header class="page-head">
+    <div class="wrap page-head-in">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Verwennen</li></ol>
+        <h1 class="display">Verwennen</h1>
+        <p class="lede">Van kop tot teen verzorgd worden. Alleen, of met twee in de duo-cabine, en daarna nagenieten in de relaxruimte.</p>
+        <div class="actions">
+          <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+          <a class="link" href="#losse">Losse verzorgingen</a>
+        </div>
+      </div>
+      <figure class="page-head-media"><img src="/img/duo-cabine.webp" alt="Twee personen krijgen tegelijk een gezichtsmassage in de duo-cabine" fetchpriority="high" /></figure>
+    </div>
+  </header>
+
+  <section class="section sand" id="arrangementen">
+    <Arrangements headingId="arr" title="Arrangementen" lede="Feeling en Relax boek je ook met twee, in de duo-cabine. Een arrangement is ook een mooi cadeau." />
+  </section>
+
+  <section class="section" id="losse" aria-labelledby="losse-t">
+    <div class="wrap">
+      <h2 id="losse-t" class="h1" style="margin-bottom:clamp(28px,3vw,40px)">Losse verzorgingen</h2>
+      <div data-tabs>
+        <div class="tabs" role="tablist" aria-label="Soort verzorging">
+          {services.map((s) => (
+            <button class="chip" role="tab" type="button" id={`t-${s.id}`} aria-controls={`p-${s.id}`} data-hash={s.id} aria-selected="false">{s.name}</button>
+          ))}
+        </div>
+        {services.map((s, i) => (
+          <div class="panel" role="tabpanel" id={`p-${s.id}`} aria-labelledby={`t-${s.id}`} tabindex="0" hidden={i !== 0}>
+            <figure><img src={`/img/${s.img}.webp`} alt={s.alt} loading="lazy" /></figure>
+            <div class="flow">
+              <p class="lede">{s.lede}</p>
+              <Prices rows={s.rows} note={s.note} />
+              {s.id === 'ontharing' && (
+                <div class="note-box">
+                  <h3 class="h4">Laserontharing</h3>
+                  <p class="muted measure">{laser.text}</p>
+                  <p><a class="link" href={laser.url} target="_blank" rel="noopener">Prijzen bij Haarlaser Team</a></p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

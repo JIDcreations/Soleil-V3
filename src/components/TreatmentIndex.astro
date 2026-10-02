@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { skinOffers, pamperOffers, euro } from '../data/site';
+interface Props { level?: 'h2' | 'h3' }
+const { level = 'h3' } = Astro.props;
+const H = level;
+const groups = [
+  { title: 'Voor je huid', items: skinOffers },
+  { title: 'Om te ontspannen', items: pamperOffers },
+];
+---
+<div class="index">
+  {groups.map((g) => (
+    <div class="index-group">
+      <H>{g.title}</H>
+      <ul class="index-list" role="list" data-index>
+        {g.items.map((it) => (
+          <li class="index-row">
+            <a href={it.href} data-img={`/img/${it.img}.webp`}>
+              <span class="thumb" aria-hidden="true"><img src={`/img/${it.img}.webp`} alt="" loading="lazy" /></span>
+              <span class="t">{it.name}</span>
+              <span class="d">{it.line}</span>
+              <span class="p">{`vanaf ${euro(it.from)}`}<Icon name="arrow-right" /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  <div class="index-float" aria-hidden="true"><img src="/img/huidanalyse-scan.webp" alt="" /></div>
+</div>
