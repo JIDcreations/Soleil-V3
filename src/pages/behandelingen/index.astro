@@ -1,42 +1,27 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { skin, services, laser, euro } from '../../data/site';
-
-const minPrice = (rows: (number | string)[]) => Math.min(...rows.map((p) => (typeof p === 'number' ? p : Number(String(p).match(/\d+/)?.[0] ?? 999))));
-const groups = [
-  {
-    title: 'Huidverbetering',
-    items: skin.map((s) => ({ href: `/behandelingen/${s.slug}/`, name: s.name, d: s.sub, img: s.img, from: s.from as number | undefined })),
-  },
-  {
-    title: 'Ontspanning',
-    items: [
-      ...services.map((s) => ({ href: `/verwennen/#${s.id}`, name: s.name, d: s.text, img: s.img, from: minPrice(s.rows.map((r) => r[2])) as number | undefined })),
-      { href: '/verwennen/#laser', name: laser.name, d: 'Definitief ontharen met de diodelaser, via Haarlaser Team.', img: 'ontharing', from: undefined },
-    ],
-  },
-];
+import { groups, href, euro } from '../../data/site';
 ---
-<Base title="Behandelingen" description="Huidanalyse, Skin Relax, Skin Expert en ontspanning bij Instituut Soleil in Beervelde.">
+<Base title="Behandelingen" description="Skin Discovery, huidanalyse, Skin Relax, Skin Expert en ontspanning bij Instituut Soleil in Beervelde.">
   <header class="page-head">
     <div class="wrap">
       <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Behandelingen</li></ol>
       <h1>Behandelingen</h1>
-      <p class="intro">Nieuw bij Soleil? Begin met een <a class="link" href="/behandelingen/huidanalyse/#prijzen">Skin Discovery</a>.</p>
+      <p class="intro">Nieuw bij Soleil? Begin met een <a class="link" href="/behandelingen/skin-discovery/">Skin Discovery</a>.</p>
     </div>
   </header>
   <section class="section" style="padding-top:0">
     <div class="wrap split split--even" style="align-items:start">
       {groups.map((g) => (
-        <div>
+        <div id={g.title.toLowerCase()} style="scroll-margin-top:calc(var(--header-h) + 16px)">
           <h2 class="eyebrow" style="font-size:0.78rem">{g.title}</h2>
           <ul class="list" role="list">
-            {g.items.map((it) => (
+            {g.items.map((t) => (
               <li>
-                <a href={it.href}>
-                  <span class="sq"><img src={`/img/${it.img}.webp`} alt="" loading="lazy" /></span>
-                  <span><strong>{it.name}</strong><span class="d">{it.d}</span></span>
-                  <span class="p">{it.from ? `vanaf ${euro(it.from)}` : 'meer info'}</span>
+                <a href={href(t)}>
+                  <span class="sq"><img src={`/img/${t.img}.webp`} alt="" loading="lazy" /></span>
+                  <span><strong>{t.name}</strong><span class="d">{t.sub}</span></span>
+                  <span class="p">{t.from > 0 ? `vanaf ${euro(t.from)}` : 'meer info'}</span>
                 </a>
               </li>
             ))}

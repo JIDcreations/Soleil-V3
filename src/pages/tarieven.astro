@@ -2,45 +2,35 @@
 import Base from '../layouts/Base.astro';
 import Prices from '../components/Prices.astro';
 import Book from '../components/Book.astro';
-import { skin, services, laser } from '../data/site';
+import { treatments, href } from '../data/site';
 
-const skinGroups = skin.map((s) => ({ id: s.slug, name: s.name, sub: s.sub, link: `/behandelingen/${s.slug}/`, s }));
+// Skin Discovery is already listed under Huidanalyse and Skin Relax.
+const list = treatments.filter((t) => t.slug !== 'skin-discovery');
 ---
 <Base title="Tarieven" description="Alle prijzen van Instituut Soleil in Beervelde: huidanalyse, Skin Relax, Skin Expert, arrangementen, lichaam, handen & voeten, epilaties en make-up.">
   <header class="page-head">
     <div class="wrap--narrow center">
       <ol class="crumbs" role="list" style="justify-content:center"><li><a href="/">Home</a></li><li aria-current="page">Tarieven</li></ol>
       <h1 class="rule">Tarieven</h1>
-      <p class="intro" style="margin-inline:auto">Weet je niet goed wat kiezen en wil je aan huidverbetering werken? Boek dan best een <a class="link" href="/behandelingen/huidanalyse/#prijzen">Skin Discovery</a>.</p>
+      <p class="intro" style="margin-inline:auto">Weet je niet goed wat kiezen en wil je aan huidverbetering werken? Boek dan best een <a class="link" href="/behandelingen/skin-discovery/">Skin Discovery</a>.</p>
       <nav class="jump" aria-label="Categorieën" style="justify-content:center">
-        {skinGroups.map((g) => <a href={`#${g.id}`}>{g.name}</a>)}
-        {services.map((s) => <a href={`#${s.id}`}>{s.name}</a>)}
-        <a href="#laser">{laser.name}</a>
+        {list.map((t) => <a href={`#${t.slug}`}>{t.name}</a>)}
       </nav>
     </div>
   </header>
 
   <section class="section" style="padding-top:8px">
     <div class="wrap--narrow">
-      {skinGroups.map(({ id, name, sub, link, s }) => (
-        <section class="tarief" id={id} aria-labelledby={`h-${id}`}>
-          <div class="tarief-head"><h2 id={`h-${id}`}>{name} <span class="muted" style="font-size:0.95rem">· {sub}</span></h2><a class="link" href={link}>Meer info</a></div>
-          {id === 'skin-expert' && <p>{s.intro}</p>}
-          {s.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
-          {s.parts?.map((p) => <Prices rows={p.prices.flatMap((g) => g.rows)} title={p.name} />)}
+      {list.map((t) => (
+        <section class="tarief" id={t.slug} aria-labelledby={`h-${t.slug}`}>
+          <div class="tarief-head"><h2 id={`h-${t.slug}`}>{t.name} <span class="muted" style="font-size:0.95rem">· {t.sub}</span></h2><a class="link" href={href(t)}>Meer info</a></div>
+          {(t.slug === 'skin-expert' || t.link) && <p>{t.intro}</p>}
+          {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
+          {t.parts?.map((p) => <Prices rows={p.prices.flatMap((g) => g.rows)} title={p.name} />)}
+          {t.note && <p class="price-note">{t.note}</p>}
+          {t.link && <p><a class="link" href={t.link.href} target="_blank" rel="noopener">{t.link.label}</a></p>}
         </section>
       ))}
-      {services.map((s) => (
-        <section class="tarief" id={s.id} aria-labelledby={`h-${s.id}`}>
-          <div class="tarief-head"><h2 id={`h-${s.id}`}>{s.name}</h2><a class="link" href={`/verwennen/#${s.id}`}>Meer info</a></div>
-          <Prices rows={s.rows} note={s.note} />
-        </section>
-      ))}
-      <section class="tarief" id="laser" aria-labelledby="h-laser">
-        <div class="tarief-head"><h2 id="h-laser">{laser.name}</h2></div>
-        <p>{laser.text}</p>
-        <p><a class="link" href={laser.url} target="_blank" rel="noopener">{laser.label}</a></p>
-      </section>
       <div class="block center" style="margin-top:32px">
         <p class="h3">Klaar om te boeken?</p>
         <div class="actions" style="justify-content:center;margin-top:14px"><Book /></div>

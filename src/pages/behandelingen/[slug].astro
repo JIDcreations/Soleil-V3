@@ -2,71 +2,69 @@
 import Base from '../../layouts/Base.astro';
 import Prices from '../../components/Prices.astro';
 import Book from '../../components/Book.astro';
-import { skin, euro } from '../../data/site';
+import TreatNav from '../../components/TreatNav.astro';
+import { treatments, href, euro } from '../../data/site';
 
 export function getStaticPaths() {
-  return skin.map((t) => ({ params: { slug: t.slug }, props: { t } }));
+  return treatments.map((t) => ({ params: { slug: t.slug }, props: { t } }));
 }
 const { t } = Astro.props;
-const others = skin.filter((s) => s.slug !== t.slug);
+const i = treatments.findIndex((x) => x.slug === t.slug);
+const prev = treatments[i - 1];
+const next = treatments[i + 1];
+const lowest = (rows: { rows: [string, string, number | string, string?][] }[]) =>
+  Math.min(...rows.flatMap((g) => g.rows).map((r) => (typeof r[2] === 'number' ? r[2] : 999)));
 ---
-<Base title={t.name} description={`${t.name} bij Instituut Soleil in Beervelde: ${t.sub}. Vanaf ${euro(t.from)}.`} image={`/img/${t.img}.webp`}>
-  <header class="page-head">
-    <div class="wrap">
-      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/behandelingen/">Behandelingen</a></li><li aria-current="page">{t.name}</li></ol>
-    </div>
-  </header>
+<Base title={t.name} description={`${t.name} bij Instituut Soleil in Beervelde: ${t.sub}.${t.from ? ` Vanaf ${euro(t.from)}.` : ''}`} image={`/img/${t.img}.webp`}>
+  <div class="wrap tpage">
+    <header class="tpage-crumbs">
+      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/behandelingen/">Behandelingen</a></li><li><a href={`/behandelingen/#${t.group?.toLowerCase()}`}>{t.group}</a></li><li aria-current="page">{t.name}</li></ol>
+    </header>
+    <TreatNav current={t} />
 
-  {t.parts ? (
-    <>
-      <section style="padding-bottom:clamp(32px,4vw,48px)">
-        <div class="wrap split">
-          <figure class="framed ratio-43"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
-          <div>
-            <span class="eyebrow">{t.sub}</span>
-            <h1>{t.name}</h1>
-            <p class="muted" style="margin-top:14px">{t.intro}</p>
-            <p class="small" style="margin-top:14px">Vanaf {euro(t.from)} · {t.parts.map((p, i) => <>{i > 0 && ' · '}<a class="link" href={`#${p.id}`}>{p.name}</a></>)}</p>
-            {t.tip && <p class="tip">{t.tip} <a class="link" href="/behandelingen/huidanalyse/#prijzen">Meer over de Skin Discovery</a></p>}
-          </div>
+    <article class="tpage-main">
+      <div class="tpage-head">
+        <figure class="framed ratio-43"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+        <div>
+          <span class="eyebrow">{t.sub}</span>
+          <h1>{t.name}</h1>
+          <p class="muted" style="margin-top:12px">{t.intro}</p>
+          {t.parts && <p class="small" style="margin-top:12px">{t.parts.map((p, j) => <>{j > 0 && ' · '}<a class="link" href={`#${p.id}`}>{p.name}</a></>)}</p>}
+          {t.prices.length > 0 && (
+            <div class="tpage-prices" id="prijzen">
+              {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
+              {t.note && <p class="price-note">{t.note}</p>}
+              {t.tip && <p class="tip">{t.tip}{t.slug !== 'skin-discovery' && <> <a class="link" href="/behandelingen/skin-discovery/">Naar de Skin Discovery</a></>}</p>}
+              <div class="actions"><Book label="Boek hier" /></div>
+            </div>
+          )}
+          {t.link && <div class="actions"><a class="btn" href={t.link.href} target="_blank" rel="noopener">{t.link.label}</a></div>}
         </div>
-      </section>
-      <section class="section beige" id="prijzen">
-        <div class="wrap">
+      </div>
+
+      {t.parts && (
+        <div id="prijzen">
+          {t.tip && <p class="tip">{t.tip} <a class="link" href="/behandelingen/skin-discovery/">Naar de Skin Discovery</a></p>}
           {t.parts.map((p) => (
-            <article class="treat" id={p.id}>
+            <section class="treat" id={p.id}>
               <figure class="ratio-43"><img src={`/img/${p.img}.webp`} alt={p.alt} loading="lazy" /></figure>
               <div>
                 <h2>{p.name}</h2>
-                <p class="sub">vanaf {euro(Math.min(...p.prices.flatMap((g) => g.rows).map((r) => (typeof r[2] === 'number' ? r[2] : 999))))}</p>
+                <p class="sub">vanaf {euro(lowest(p.prices))}</p>
                 <p>{p.text}</p>
                 {p.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
                 <div class="actions"><Book label="Boek hier" /></div>
               </div>
-            </article>
+            </section>
           ))}
         </div>
-      </section>
-    </>
-  ) : (
-    <section style="padding-bottom:var(--section)">
-      <div class="wrap split">
-        <figure class="framed ratio-43"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
-        <div id="prijzen">
-          <span class="eyebrow">{t.sub}</span>
-          <h1>{t.name}</h1>
-          <p class="muted" style="margin:14px 0 24px">{t.intro}</p>
-          {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
-          {t.tip && <p class="tip">{t.tip}</p>}
-          <div class="actions"><Book label="Boek hier" /></div>
-        </div>
-      </div>
-    </section>
-  )}
+      )}
 
-  <section class="section--tight">
-    <div class="wrap">
-      <p class="small muted">Andere behandelingen: {others.map((o, i) => <>{i > 0 && ' · '}<a class="link" href={`/behandelingen/${o.slug}/`}>{o.name}</a></>)} · <a class="link" href="/verwennen/">Ontspanning</a> · <a class="link" href="/tarieven/">Alle tarieven</a></p>
-    </div>
-  </section>
+
+      <nav class="pager" aria-label="Vorige en volgende behandeling">
+        {prev ? <a href={href(prev)}><small>Vorige</small>← {prev.name}</a> : <span></span>}
+        {next ? <a class="next" href={href(next)}><small>Volgende</small>{next.name} →</a> : <span></span>}
+      </nav>
+    </article>
+  </div>
 </Base>

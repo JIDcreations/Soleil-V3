@@ -2,10 +2,10 @@
 import Brand from './Brand.astro';
 import Icon from './Icon.astro';
 import Book from './Book.astro';
-import { info, skinMenu, relaxMenu, euro } from '../data/site';
+import { info, groups, href, euro } from '../data/site';
 const path = Astro.url.pathname;
 const current = (href: string) => (path === href || (href !== '/' && path.startsWith(href)) ? 'page' : undefined);
-const inTreatments = path.startsWith('/behandelingen/') || path.startsWith('/verwennen/');
+const inTreatments = path.startsWith('/behandelingen/');
 const main = [
   { href: '/tarieven/', label: 'Tarieven' },
   { href: '/over-soleil/', label: 'Over Soleil' },
@@ -22,21 +22,17 @@ const main = [
           Behandelingen<Icon name="caret-down" />
         </button>
         <div class="dd-panel" id="dd-beh">
-          <div>
-            <p class="dd-title">Huidverbetering</p>
-            <ul role="list">
-              {skinMenu.map((o) => <li><a href={o.href} aria-current={current(o.href)}><span>{o.label}</span><small>vanaf {euro(o.from)}</small></a></li>)}
-            </ul>
-          </div>
-          <div>
-            <p class="dd-title">Ontspanning</p>
-            <ul role="list">
-              {relaxMenu.map((o) => <li><a href={o.href}><span>{o.label}</span>{o.from && <small>vanaf {euro(o.from)}</small>}</a></li>)}
-            </ul>
-          </div>
+          {groups.map((g) => (
+            <div>
+              <p class="dd-title">{g.title}</p>
+              <ul role="list">
+                {g.items.map((t) => <li><a href={href(t)} aria-current={current(href(t))}><span>{t.name}</span>{t.from > 0 && <small>vanaf {euro(t.from)}</small>}</a></li>)}
+              </ul>
+            </div>
+          ))}
           <div class="dd-foot">
             <a class="link" href="/behandelingen/">Alle behandelingen</a>
-            <a class="link" href="/behandelingen/huidanalyse/#prijzen">Nieuw? Begin met een Discovery-behandeling</a>
+            <a class="link" href="/behandelingen/skin-discovery/">Nieuw? Begin met een Discovery-behandeling</a>
           </div>
         </div>
       </div>
@@ -52,8 +48,7 @@ const main = [
   <nav aria-label="Menu">
     <a href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a>
     <a href="/behandelingen/" aria-current={path === '/behandelingen/' ? 'page' : undefined}>Behandelingen</a>
-    {skinMenu.map((o) => <a class="sub" href={o.href} aria-current={current(o.href)}>{o.label}</a>)}
-    <a class="sub" href="/verwennen/" aria-current={current('/verwennen/')}>Ontspanning</a>
+    {groups.flatMap((g) => g.items).map((t) => <a class="sub" href={href(t)} aria-current={current(href(t))}>{t.name}</a>)}
     {main.map((n) => <a href={n.href} aria-current={current(n.href)}>{n.label}</a>)}
   </nav>
   <div class="sheet-foot">

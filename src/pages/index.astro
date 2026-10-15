@@ -1,11 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import Book from '../components/Book.astro';
-import { info, skin, brands, services, euro } from '../data/site';
+import { info, skin, relax, brands, href, euro } from '../data/site';
 
 const tiles = [
-  ...skin.map((s) => ({ href: `/behandelingen/${s.slug}/`, name: s.name, sub: s.sub, img: s.img, alt: s.alt, from: s.from })),
-  { href: '/verwennen/', name: 'Ontspanning', sub: 'arrangementen, lichaam, handen & voeten', img: 'massage-lichaam', alt: 'Rugmassage', from: Math.min(...services.flatMap((s) => s.rows.map((r) => (typeof r[2] === 'number' ? r[2] : 999)))) },
+  ...skin.filter((s) => s.slug !== 'skin-discovery').map((s) => ({ href: href(s), name: s.name, sub: s.sub, img: s.img, alt: s.alt, from: s.from })),
+  { href: '/behandelingen/#ontspanning', name: 'Ontspanning', sub: 'arrangementen, lichaam, handen & voeten', img: 'massage-lichaam', alt: 'Rugmassage', from: Math.min(...relax.filter((r) => r.from > 0).map((r) => r.from)) },
 ];
 ---
 <Base
@@ -22,7 +22,7 @@ const tiles = [
         <p>Huidverbetering met eerlijk, persoonlijk advies. Al {info.years} jaar in Beervelde.</p>
         <div class="actions">
           <Book />
-          <a class="link" href="/behandelingen/huidanalyse/#prijzen">Nieuw? Begin met een Discovery-behandeling</a>
+          <a class="link" href="/behandelingen/skin-discovery/">Nieuw? Begin met een Discovery-behandeling</a>
         </div>
       </div>
       <figure class="hero-media"><img src="/img/zaakvoerder-behandeling.webp" alt="Saskia geeft een rugmassage in haar behandelruimte" width="1600" height="1135" fetchpriority="high" /></figure>
@@ -68,7 +68,7 @@ const tiles = [
         <h2 id="disc">Begin met een Skin Discovery</h2>
         <p class="offer-price"><strong>€105</strong><span class="muted">90 minuten</span></p>
         <p class="muted" style="margin-top:14px">Leer jouw huid beter kennen. We combineren een huidanalyse met een aangepaste gelaatsverzorging en persoonlijk advies voor thuis. Ideaal als eerste behandeling.</p>
-        <div class="actions"><Book label="Boek een Skin Discovery" /></div>
+        <div class="actions"><Book label="Boek een Skin Discovery" /><a class="link" href="/behandelingen/skin-discovery/">Meer over de Skin Discovery</a></div>
       </div>
     </div>
   </section>

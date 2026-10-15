@@ -20,6 +20,14 @@ Bronnen: mail van de klant, Word-document "WIZARTS WEBSITE SOLEIL OPMERKINGEN", 
 - [x] Pagina Ontspanning (Verwennen): geen tabbladen meer, alle blokken onder elkaar
 - [x] Oude adressen (gelaatsverzorging, peelings, microneedling, neo-lift, environ-df) sturen door naar de nieuwe pagina's (`_redirects`)
 
+## Structuur behandelingen (na interne review)
+- [x] Elke behandeling heeft nu een eigen pagina met hetzelfde sjabloon (ook Arrangementen, Lichaam, Handen & voeten, Epilaties, Make-up, Laser ontharing)
+- [x] Skin Discovery heeft een eigen pagina: alle knoppen "Nieuw? Begin met een Discovery-behandeling" komen daar uit
+- [x] Op elke behandelingspagina: rustige balk met alle behandelingen bovenaan (2 regels op computer: Huidverbetering / Ontspanning; schuifbare rij op gsm), huidige behandeling aangeduid
+- [x] Onderaan elke behandelingspagina: "Vorige / Volgende" behandeling
+- [x] Combo-verzorgingen staan nu bij Handen & voeten (pedicure boek je via combo)
+- [x] Aparte pagina Ontspanning (Verwennen) vervangen door losse pagina's; oud adres stuurt door
+
 ## Menu en benamingen
 - [x] Uitklapmenu behouden (vond ze mooi), kolomtitel "Voor je huid" → "Huidverbetering"
 - [x] "Huidanalyse" → "Huidanalyse & advies, vanaf €60"

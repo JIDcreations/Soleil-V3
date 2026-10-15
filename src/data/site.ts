@@ -42,8 +42,10 @@ export type PriceGroup = { title?: string; line?: string; rows: Row[]; note?: st
 export const euro = (v: number | string) => (typeof v === 'number' ? `€${v}` : v);
 
 /* ---------- Huidverbetering: one page each ---------- */
+export type Group = 'Huidverbetering' | 'Ontspanning';
 export type Treatment = {
   slug: string;
+  group?: Group;
   name: string;
   sub: string;
   img: string;
@@ -52,12 +54,25 @@ export type Treatment = {
   intro: string;
   prices: PriceGroup[];
   tip?: string;
+  note?: string;
+  link?: { href: string; label: string };
   parts?: { id: string; name: string; img: string; alt: string; text: string; prices: PriceGroup[] }[];
 };
 
 export const discovery: Row = ['Skin Discovery', '90 min', 105, 'analyse + verzorging + advies, 1e kennismakingsbehandeling'];
 
 export const skin: Treatment[] = [
+  {
+    slug: 'skin-discovery',
+    name: 'Skin Discovery',
+    sub: 'nieuw? start hier',
+    img: 'zaakvoerder-toestel',
+    alt: 'Saskia naast een behandeltoestel in het instituut',
+    from: 105,
+    intro:
+      'Leer jouw huid beter kennen. We combineren een huidanalyse met een aangepaste gelaatsverzorging en persoonlijk advies voor thuis. Ideaal als eerste behandeling.',
+    prices: [{ rows: [discovery] }],
+  },
   {
     slug: 'huidanalyse',
     name: 'Huidanalyse & advies',
@@ -67,7 +82,7 @@ export const skin: Treatment[] = [
     from: 60,
     intro:
       'Met de huidscanner bekijk ik je huid tot in de diepere lagen. Daarna bespreken we samen wat ze nodig heeft, in het instituut en thuis.',
-    tip: 'Skin Discovery: leer jouw huid beter kennen. We combineren een huidanalyse met een aangepaste gelaatsverzorging en persoonlijk advies voor thuis. Ideaal als eerste behandeling.',
+    tip: 'Nieuw bij Soleil? Kies dan de Skin Discovery: analyse, verzorging en advies in één afspraak.',
     prices: [
       {
         rows: [
@@ -169,7 +184,7 @@ export const skin: Treatment[] = [
   },
 ];
 
-/* ---------- Ontspanning: one page (/verwennen/) with a block each ---------- */
+/* ---------- Ontspanning: one page each, same template ---------- */
 export type Arrangement = { name: string; duration: string; solo: number; duo?: number; items: string[] };
 export const arrangements: Arrangement[] = [
   { name: 'Mini', duration: '1u15', solo: 100, items: ['Skin Relax basisverzorging', 'Epilatie wenkbrauwen', 'Korte rugmassage'] },
@@ -178,97 +193,11 @@ export const arrangements: Arrangement[] = [
   { name: 'Relax', duration: '2u tot 2u30', solo: 150, duo: 290, items: ['Lichaamspeeling', 'Warme lichaamspakking + douche', 'Mini gelaatsverzorging'] },
   { name: 'Anti-stress', duration: '2u30', solo: 200, items: ['Skin Relax standaardverzorging', 'Epilatie wenkbrauwen', 'Relaxerende rugmassage', 'Warme rugpakking', 'Manicure met hydratatie', 'Korte voetmassage'] },
 ];
-export const arrangementRows: Row[] = arrangements.flatMap((a) => {
-  const rows: Row[] = [[a.name, a.duration, a.solo, a.items.join(', ').toLowerCase()]];
+const arrangementRows: Row[] = arrangements.flatMap((a) => {
+  const rows: Row[] = [[a.name, a.duration, a.solo, a.items.join(', ')]];
   if (a.duo) rows.push([`${a.name} duo`, a.duration, a.duo, 'met twee in de duo-cabine']);
   return rows;
 });
-
-export type ServiceGroup = { id: string; name: string; img: string; alt: string; text: string; rows: Row[]; note?: string; link?: { href: string; label: string } };
-export const services: ServiceGroup[] = [
-  {
-    id: 'arrangementen',
-    name: 'Arrangementen',
-    img: 'duo-cabine',
-    alt: 'Twee personen krijgen tegelijk een gezichtsmassage in de duo-cabine',
-    text: 'Van kop tot teen verzorgd worden, alleen of met twee in de duo-cabine. Daarna geniet je na in de relaxruimte.',
-    rows: arrangementRows,
-  },
-  {
-    id: 'combo',
-    name: 'Combo',
-    img: 'handen-voeten',
-    alt: 'Verzorging van de handen',
-    text: 'Een Skin Relax, gecombineerd met verzorgde handen of voeten.',
-    rows: [
-      ['Skin Relax basis + manicure', '', 90],
-      ['Skin Relax basis + pedicure', '', 95],
-      ['Skin Relax standaard + manicure', '', 115],
-      ['Skin Relax standaard + pedicure', '', 120],
-      ['Skin Relax standaard + manicure + pedicure', '', 145],
-    ],
-  },
-  {
-    id: 'lichaam',
-    name: 'Lichaamsbehandelingen',
-    img: 'massage-lichaam',
-    alt: 'Rugmassage',
-    text: 'Massage, peeling en een warme pakking.',
-    rows: [
-      ['Massage', '25 min', 35],
-      ['Lichaamspeeling met douche', '30 min', 40],
-      ['Lichaamspakking + douche', '40 min', 40],
-      ['Lichaamspeeling + pakking', '60 min', 80],
-    ],
-  },
-  {
-    id: 'handen-voeten',
-    name: 'Handen & voeten',
-    img: 'handen-voeten',
-    alt: 'Verzorging van de handen',
-    text: 'Manicure, gellak en pedicure.',
-    rows: [
-      ['Manicure / lakken', '30 min', '€25 / €35'],
-      ['Gellak verwijderen + verzorging', '20 min', 25],
-      ['Gellak en pedicure', '60 min', 65],
-      ['Kleine pedicure', '', 30],
-      ['Grote pedicure', '', 45],
-    ],
-    note: 'Een pedicure bied ik nooit apart aan. Kom je voor een Skin Relax, dan kan je een pedicure bijboeken en voorzie ik graag wat meer tijd. Boeken kan via de combo-verzorgingen.',
-  },
-  {
-    id: 'epilaties',
-    name: 'Epilaties',
-    img: 'ontharing',
-    alt: 'Ontharing met hars',
-    text: 'Ontharing met hars.',
-    rows: [
-      ['Onderbenen', '30 min', 25],
-      ['Onderbenen + achterzijde bil', '30 min', 38],
-      ['Volledige benen zonder bikini', '60 min', 48],
-      ['Bikini sliprand', '15 min', 15],
-      ['Bikini brazilian', '30 min', 40],
-      ['Oksels', '10 min', 15],
-      ['Wenkbrauwen', '15 min', 15],
-      ['Bovenlip, kin of wang, per zone', '10 min', 15],
-      ['Volledig gelaat', '25 min', 35],
-    ],
-  },
-  {
-    id: 'make-up',
-    name: 'Make-up',
-    img: 'make-up',
-    alt: 'Make-up wordt aangebracht met een kwast',
-    text: 'Minerale make-up van Jane Iredale. Leer ermee werken, altijd individueel.',
-    rows: [
-      ['Make-up foundation test', '20 min', 'gratis'],
-      ['Make-up + serum', '30 min', 35],
-      ['Make-up cursus, 1 persoon', '60 min', 60],
-      ['Verven wimpers', '15 min', 20],
-      ['Verven wenkbrauwen + epilatie', '20 min', 25],
-    ],
-  },
-];
 
 export const laser = {
   name: 'Laser ontharing',
@@ -277,6 +206,135 @@ export const laser = {
   label: 'Prijzen op haarlaser.team',
 };
 
+export const relax: Treatment[] = [
+  {
+    slug: 'arrangementen',
+    name: 'Arrangementen',
+    sub: 'solo of met twee',
+    img: 'duo-cabine',
+    alt: 'Twee personen krijgen tegelijk een gezichtsmassage in de duo-cabine',
+    from: 100,
+    intro: 'Van kop tot teen verzorgd worden, alleen of met twee in de duo-cabine. Daarna geniet je na in de relaxruimte.',
+    prices: [{ rows: arrangementRows }],
+  },
+  {
+    slug: 'lichaam',
+    name: 'Lichaamsbehandelingen',
+    sub: 'massage, peeling & pakking',
+    img: 'massage-lichaam',
+    alt: 'Rugmassage',
+    from: 35,
+    intro: 'Laat de spanning uit je lichaam wegvloeien met een massage, een peeling of een warme pakking.',
+    prices: [
+      {
+        rows: [
+          ['Massage', '25 min', 35],
+          ['Lichaamspeeling met douche', '30 min', 40],
+          ['Lichaamspakking + douche', '40 min', 40],
+          ['Lichaamspeeling + pakking', '60 min', 80],
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'handen-voeten',
+    name: 'Handen & voeten',
+    sub: 'manicure, gellak & pedicure',
+    img: 'handen-voeten',
+    alt: 'Verzorging van de handen',
+    from: 25,
+    intro: 'Verzorgde handen en voeten, los of in combinatie met een Skin Relax.',
+    note: 'Een pedicure bied ik nooit apart aan. Kom je voor een Skin Relax, dan kan je een pedicure bijboeken en voorzie ik graag wat meer tijd. Boeken kan via de combo-verzorgingen.',
+    prices: [
+      {
+        title: 'Handen & voeten',
+        rows: [
+          ['Manicure / lakken', '30 min', '€25 / €35'],
+          ['Gellak verwijderen + verzorging', '20 min', 25],
+          ['Gellak en pedicure', '60 min', 65],
+          ['Kleine pedicure', '', 30],
+          ['Grote pedicure', '', 45],
+        ],
+      },
+      {
+        title: 'Combo met Skin Relax',
+        rows: [
+          ['Skin Relax basis + manicure', '', 90],
+          ['Skin Relax basis + pedicure', '', 95],
+          ['Skin Relax standaard + manicure', '', 115],
+          ['Skin Relax standaard + pedicure', '', 120],
+          ['Skin Relax standaard + manicure + pedicure', '', 145],
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'epilaties',
+    name: 'Epilaties',
+    sub: 'ontharing met hars',
+    img: 'ontharing',
+    alt: 'Ontharing met hars',
+    from: 15,
+    intro: 'Ontharing met hars, voor gelaat en lichaam. Definitief ontharen kan met de laser.',
+    prices: [
+      {
+        rows: [
+          ['Onderbenen', '30 min', 25],
+          ['Onderbenen + achterzijde bil', '30 min', 38],
+          ['Volledige benen zonder bikini', '60 min', 48],
+          ['Bikini sliprand', '15 min', 15],
+          ['Bikini brazilian', '30 min', 40],
+          ['Oksels', '10 min', 15],
+          ['Wenkbrauwen', '15 min', 15],
+          ['Bovenlip, kin of wang, per zone', '10 min', 15],
+          ['Volledig gelaat', '25 min', 35],
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'make-up',
+    name: 'Make-up',
+    sub: 'minerale make-up',
+    img: 'make-up',
+    alt: 'Make-up wordt aangebracht met een kwast',
+    from: 20,
+    intro: 'Minerale make-up van Jane Iredale. Leer ermee werken, altijd individueel.',
+    prices: [
+      {
+        rows: [
+          ['Make-up foundation test', '20 min', 'gratis'],
+          ['Make-up + serum', '30 min', 35],
+          ['Make-up cursus, 1 persoon', '60 min', 60],
+          ['Verven wimpers', '15 min', 20],
+          ['Verven wenkbrauwen + epilatie', '20 min', 25],
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'laser',
+    name: laser.name,
+    sub: 'definitief ontharen',
+    img: 'ontharing',
+    alt: 'Ontharing',
+    from: 0,
+    intro: laser.text,
+    prices: [],
+    link: { href: laser.url, label: laser.label },
+  },
+];
+
+skin.forEach((t) => (t.group = 'Huidverbetering'));
+relax.forEach((t) => (t.group = 'Ontspanning'));
+/* Every treatment, in menu order. One page each at /behandelingen/<slug>/. */
+export const treatments: Treatment[] = [...skin, ...relax];
+export const href = (t: Treatment) => `/behandelingen/${t.slug}/`;
+export const groups = [
+  { title: 'Huidverbetering' as Group, items: skin },
+  { title: 'Ontspanning' as Group, items: relax },
+];
+
 export const brands = [
   { name: 'Environ', img: 'producten-environ', line: 'Huidverzorging op basis van vitamine A, met jarenlang onderzoek achter elk product.' },
   { name: 'ISOV', img: '', line: 'Koreaanse huidverzorging die wetenschap en actieve ingrediënten combineert voor doelgerichte huidverbetering.' },
@@ -284,25 +342,12 @@ export const brands = [
   { name: 'Jane Iredale', img: 'producten-jane-iredale', line: 'Minerale make-up die je huid verzorgt terwijl je ze draagt.' },
 ];
 
-export const nav = [
-  { href: '/behandelingen/', label: 'Behandelingen' },
-  { href: '/tarieven/', label: 'Tarieven' },
-  { href: '/over-soleil/', label: 'Over Soleil' },
-  { href: '/contact/', label: 'Contact' },
-];
-
-/* Menu and footer entries */
-export const skinMenu = skin.map((s) => ({ href: `/behandelingen/${s.slug}/`, label: s.name, from: s.from }));
-const minPrice = (rows: Row[]) => Math.min(...rows.map((r) => (typeof r[2] === 'number' ? r[2] : Number(String(r[2]).match(/\d+/)?.[0] ?? 999))));
-export const relaxMenu = [
-  ...services.map((s) => ({ href: `/verwennen/#${s.id}`, label: s.name, from: minPrice(s.rows) as number | undefined })),
-  { href: '/verwennen/#laser', label: laser.name, from: undefined },
-];
+/* Footer list, in the client's own wording and order */
 export const footerTreatments = [
   { href: '/behandelingen/skin-relax/', label: 'Skin Relax Facials' },
   { href: '/behandelingen/skin-expert/', label: 'Skin Expert Facials' },
-  { href: '/verwennen/#epilaties', label: 'Epilaties' },
-  { href: '/verwennen/#lichaam', label: 'Lichaamsbehandelingen' },
-  { href: '/verwennen/#arrangementen', label: 'Arrangementen' },
-  { href: '/verwennen/#laser', label: 'Definitieve ontharing met laser' },
+  { href: '/behandelingen/epilaties/', label: 'Epilaties' },
+  { href: '/behandelingen/lichaam/', label: 'Lichaamsbehandelingen' },
+  { href: '/behandelingen/arrangementen/', label: 'Arrangementen' },
+  { href: '/behandelingen/laser/', label: 'Definitieve ontharing met laser' },
 ];

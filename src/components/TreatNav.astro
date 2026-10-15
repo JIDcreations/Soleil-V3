@@ -1,0 +1,19 @@
+---
+/* Navigation between treatments, shown on every treatment page.
+   Desktop: a sidebar list. Phone: one scrollable row, the current one in view. */
+import { groups, href, type Treatment } from '../data/site';
+interface Props { current: Treatment }
+const { current } = Astro.props;
+---
+<nav class="tnav" aria-label="Behandelingen">
+  {groups.map((g) => (
+    <div class="tnav-group">
+      <p class="tnav-title">{g.title}</p>
+      <ul role="list">
+        {g.items.map((t) => (
+          <li><a href={href(t)} aria-current={t.slug === current.slug ? 'page' : undefined}>{t.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</nav>

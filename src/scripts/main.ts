@@ -81,3 +81,10 @@ $$<HTMLFormElement>('[data-form]').forEach((form) => {
     if (done) { done.hidden = false; done.focus(); }
   });
 });
+
+/* ---------- Treatment row (phone): keep the current treatment in view ---------- */
+const tnav = $('.tnav');
+const cur = tnav?.querySelector<HTMLElement>('[aria-current="page"]');
+if (tnav && cur && tnav.scrollWidth > tnav.clientWidth) {
+  tnav.scrollLeft = cur.offsetLeft - (tnav.clientWidth - cur.offsetWidth) / 2;
+}
