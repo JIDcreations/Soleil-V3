@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Prices from '../../components/Prices.astro';
 import Book from '../../components/Book.astro';
 import TreatNav from '../../components/TreatNav.astro';
+import Why from '../../components/Why.astro';
 import { treatments, href, euro } from '../../data/site';
 
 export function getStaticPaths() {
@@ -41,6 +42,8 @@ const lowest = (rows: { rows: [string, string, number | string, string?][] }[]) 
           {t.link && <div class="actions"><a class="btn" href={t.link.href} target="_blank" rel="noopener">{t.link.label}</a></div>}
         </div>
       </div>
+
+      {t.why && <Why why={t.why} />}
 
       {t.parts && (
         <div id="prijzen">

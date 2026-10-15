@@ -420,3 +420,35 @@ a.tile:hover .sq img { transform: scale(1.03); }
   .tpage-head .framed { max-width: 340px; }
   .tpage-main .treat { grid-template-columns: 1fr; }
 }
+
+/* Homepage USPs */
+.usps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); text-align: center; }
+.usp-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%; background: var(--beige); color: var(--bronze); }
+.usp-icon svg { width: 28px; height: 28px; }
+.usp h3 { font-weight: 500; margin-bottom: 6px; }
+.usp p { font-size: 0.92rem; color: var(--ink-2); max-width: 26ch; margin-inline: auto; }
+@media (max-width: 860px) { .usps { grid-template-columns: 1fr 1fr; } }
+
+/* Per treatment: problem / solution / benefit as a small FAQ */
+.faq { margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { display: flex; align-items: center; gap: 16px; padding: 16px 4px; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover .faq-q { color: var(--bronze); }
+.faq-icon { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--beige); color: var(--bronze); }
+.faq-icon svg { width: 20px; height: 20px; }
+.faq-q { flex: 1; font-weight: 500; transition: color 0.2s; }
+.faq-toggle { color: var(--bronze); transition: transform 0.3s var(--ease); }
+.faq-toggle svg { width: 18px; height: 18px; }
+.faq details[open] .faq-toggle { transform: rotate(45deg); }
+.faq details p { padding: 0 4px 20px 60px; color: var(--ink-2); max-width: 68ch; }
+@media (prefers-reduced-motion: no-preference) {
+  .faq details[open] p { animation: faq-in 0.35s var(--ease); }
+  @keyframes faq-in { from { opacity: 0; transform: translateY(-4px); } }
+}
+
+/* Homepage welcome: portrait + short personal text */
+.welcome { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr); gap: clamp(32px, 7vw, 96px); align-items: center; max-width: 960px; }
+.welcome .framed { max-width: 380px; }
+@media (max-width: 700px) { .welcome { grid-template-columns: 1fr; } .welcome .framed { max-width: 300px; } }
+.beige .usp-icon, .beige .faq-icon { background: var(--white); }

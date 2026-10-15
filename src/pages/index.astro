@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Book from '../components/Book.astro';
-import { info, skin, relax, brands, href, euro } from '../data/site';
+import Icon from '../components/Icon.astro';
+import { info, skin, relax, brands, usps, href, euro } from '../data/site';
 
 const tiles = [
   ...skin.filter((s) => s.slug !== 'skin-discovery').map((s) => ({ href: href(s), name: s.name, sub: s.sub, img: s.img, alt: s.alt, from: s.from })),
@@ -29,15 +30,36 @@ const tiles = [
     </div>
   </section>
 
-  <section class="section--tight" aria-labelledby="welkom">
-    <div class="wrap--narrow center fade">
-      <h2 id="welkom" class="rule">Welkom bij Soleil</h2>
-      <p class="muted" style="margin-top:20px">Ik ben {info.owner}. In een stijlvol en rustgevend kader neem ik de tijd om naar jou en je huid te luisteren. Met actieve producten en technieken die hun werking bewezen hebben, werken we samen aan een gezondere huid.</p>
-      <p style="margin-top:16px"><a class="link" href="/over-soleil/">Lees mijn verhaal</a></p>
+  <section class="section" aria-labelledby="welkom">
+    <div class="wrap welcome">
+      <figure class="framed framed--left sq fade"><img src="/img/zaakvoerder-portret.webp" alt={`${info.owner}, zaakvoerder van Instituut Soleil`} width="1080" height="1080" loading="lazy" /></figure>
+      <div class="fade">
+        <span class="eyebrow">Welkom bij Soleil</span>
+        <h2 id="welkom">Ik ben {info.owner}</h2>
+        <p class="muted" style="margin-top:14px">Al {info.years} jaar begeleid ik klanten naar een gezondere, sterkere huid. In een stijlvol en rustgevend kader neem ik de tijd om naar jou en je huid te luisteren, met producten en technieken die hun werking bewezen hebben.</p>
+        <p style="margin-top:20px"><a class="link" href="/over-soleil/">Lees mijn verhaal</a></p>
+      </div>
     </div>
   </section>
 
-  <section class="section beige" aria-labelledby="beh">
+  <section class="section beige" aria-labelledby="usp">
+    <div class="wrap">
+      <div class="head center">
+        <h2 id="usp" class="rule">Waarom Soleil</h2>
+      </div>
+      <ul class="usps" role="list">
+        {usps.map((u) => (
+          <li class="usp fade">
+            <span class="usp-icon"><Icon name={u.icon} /></span>
+            <h3>{u.title}</h3>
+            <p>{u.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="beh">
     <div class="wrap">
       <div class="head center">
         <h2 id="beh" class="rule">Behandelingen</h2>

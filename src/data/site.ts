@@ -56,6 +56,8 @@ export type Treatment = {
   tip?: string;
   note?: string;
   link?: { href: string; label: string };
+  /* Problem the visitor recognises, what Soleil does about it, what she gains. Kept to one or two lines each. */
+  why?: { problem: string; solution: string; benefit: string };
   parts?: { id: string; name: string; img: string; alt: string; text: string; prices: PriceGroup[] }[];
 };
 
@@ -64,6 +66,7 @@ export const discovery: Row = ['Skin Discovery', '90 min', 105, 'analyse + verzo
 export const skin: Treatment[] = [
   {
     slug: 'skin-discovery',
+    why: { problem: 'Je wilt iets aan je huid doen, maar je weet niet waar te beginnen of welke producten bij je passen.', solution: 'In één afspraak analyseer ik je huid, geef ik een verzorging op maat en stel ik samen een plan voor thuis op.', benefit: 'Je weet meteen wat je huid nodig heeft en geeft geen geld meer uit aan producten die niet werken.' },
     name: 'Skin Discovery',
     sub: 'nieuw? start hier',
     img: 'zaakvoerder-toestel',
@@ -75,6 +78,7 @@ export const skin: Treatment[] = [
   },
   {
     slug: 'huidanalyse',
+    why: { problem: 'Je smeert al jaren crèmes, maar ziet weinig verschil. Wat er onder het oppervlak gebeurt, zie je niet.', solution: 'Met de huidscanner bekijk ik pigment, rimpels, talg, vocht en zonschade tot in de diepere lagen.', benefit: 'Advies dat gebaseerd is op wat je huid echt nodig heeft, niet op trends of giswerk.' },
     name: 'Huidanalyse & advies',
     sub: 'je huid beter leren kennen',
     img: 'huidanalyse-scan',
@@ -95,6 +99,7 @@ export const skin: Treatment[] = [
   },
   {
     slug: 'skin-relax',
+    why: { problem: 'Je huid voelt dof of droog en je loopt al een tijd op je tandvlees.', solution: 'Een verzorgende gelaatsbehandeling, afgestemd op je huid, in een rustig en warm kader.', benefit: 'Een frisse, verzorgde huid en een uur waarin je helemaal tot rust komt.' },
     name: 'Skin Relax',
     sub: 'ontspannen & revitaliseren',
     img: 'gelaatsverzorging',
@@ -124,6 +129,7 @@ export const skin: Treatment[] = [
   },
   {
     slug: 'skin-expert',
+    why: { problem: 'Fijne lijntjes, pigmentvlekken, littekens of acne die niet weggaan met gewone verzorging.', solution: 'Doelgerichte behandelingen met peeling, needling of Neo-Lift, in kuurvorm en met de juiste verzorging thuis.', benefit: 'Zichtbare huidverbetering stap voor stap, met technieken waarvan de werking bewezen is.' },
     name: 'Skin Expert',
     sub: 'herstellen & vernieuwen',
     img: 'led-lichttherapie',
@@ -194,7 +200,7 @@ export const arrangements: Arrangement[] = [
   { name: 'Anti-stress', duration: '2u30', solo: 200, items: ['Skin Relax standaardverzorging', 'Epilatie wenkbrauwen', 'Relaxerende rugmassage', 'Warme rugpakking', 'Manicure met hydratatie', 'Korte voetmassage'] },
 ];
 const arrangementRows: Row[] = arrangements.flatMap((a) => {
-  const rows: Row[] = [[a.name, a.duration, a.solo, a.items.join(', ')]];
+  const rows: Row[] = [[a.name, a.duration, a.solo, a.items.join(' · ')]];
   if (a.duo) rows.push([`${a.name} duo`, a.duration, a.duo, 'met twee in de duo-cabine']);
   return rows;
 });
@@ -209,6 +215,7 @@ export const laser = {
 export const relax: Treatment[] = [
   {
     slug: 'arrangementen',
+    why: { problem: 'Je hebt het druk en vindt zelden tijd voor jezelf.', solution: 'Van kop tot teen verzorgd worden, alleen of met twee in de duo-cabine, en daarna nagenieten in de relaxruimte.', benefit: 'Even helemaal weg, zonder iets te moeten. Ook een mooi cadeau.' },
     name: 'Arrangementen',
     sub: 'solo of met twee',
     img: 'duo-cabine',
@@ -219,6 +226,7 @@ export const relax: Treatment[] = [
   },
   {
     slug: 'lichaam',
+    why: { problem: 'Spanning in je rug en schouders, of een huid die ruw en droog aanvoelt.', solution: 'Massage, lichaamspeeling of een warme pakking, rustig en met aandacht.', benefit: 'Een ontspannen lichaam en een zachte, verzorgde huid.' },
     name: 'Lichaamsbehandelingen',
     sub: 'massage, peeling & pakking',
     img: 'massage-lichaam',
@@ -238,6 +246,7 @@ export const relax: Treatment[] = [
   },
   {
     slug: 'handen-voeten',
+    why: { problem: 'Je handen en voeten krijgen in de drukte het minst aandacht.', solution: 'Manicure, gellak en pedicure, ook te combineren met een Skin Relax.', benefit: 'Verzorgde handen en voeten, en alles in één afspraak.' },
     name: 'Handen & voeten',
     sub: 'manicure, gellak & pedicure',
     img: 'handen-voeten',
@@ -270,6 +279,7 @@ export const relax: Treatment[] = [
   },
   {
     slug: 'epilaties',
+    why: { problem: 'Ongewenste haartjes die je liever niet zelf weghaalt.', solution: 'Ontharing met hars, nauwkeurig en hygiënisch, voor gelaat en lichaam.', benefit: 'Een gladde huid voor langere tijd, zonder gedoe thuis.' },
     name: 'Epilaties',
     sub: 'ontharing met hars',
     img: 'ontharing',
@@ -294,6 +304,7 @@ export const relax: Treatment[] = [
   },
   {
     slug: 'make-up',
+    why: { problem: 'Make-up die je huid uitdroogt of verstopt, of je weet niet goed hoe je ermee werkt.', solution: 'Minerale make-up van Jane Iredale, met persoonlijke uitleg, altijd individueel.', benefit: 'Make-up die je huid verzorgt terwijl je ze draagt, en die je zelf leert aanbrengen.' },
     name: 'Make-up',
     sub: 'minerale make-up',
     img: 'make-up',
@@ -314,6 +325,7 @@ export const relax: Treatment[] = [
   },
   {
     slug: 'laser',
+    why: { problem: 'Je bent het scheren en harsen beu.', solution: 'Definitieve ontharing met de diodelaser, door een erkende laserspecialist van Haarlaser Team, in het instituut.', benefit: 'Blijvend resultaat, met een gratis test- en uitlegsessie vooraf.' },
     name: laser.name,
     sub: 'definitief ontharen',
     img: 'ontharing',
@@ -340,6 +352,14 @@ export const brands = [
   { name: 'ISOV', img: '', line: 'Koreaanse huidverzorging die wetenschap en actieve ingrediënten combineert voor doelgerichte huidverbetering.' },
   { name: 'Exuviance', img: 'producten-exuviance', line: 'Zachte, effectieve zuren voor een gladdere, egalere huid.' },
   { name: 'Jane Iredale', img: 'producten-jane-iredale', line: 'Minerale make-up die je huid verzorgt terwijl je ze draagt.' },
+];
+
+/* Why Soleil: the homepage USPs */
+export const usps = [
+  { icon: 'medal', title: '27 jaar ervaring', text: 'Al 27 jaar huidexpert in Beervelde, met elk jaar bijscholing.' },
+  { icon: 'scan', title: 'Eerst analyse', text: 'Met de huidscanner zie ik wat je huid echt nodig heeft, voor we beginnen.' },
+  { icon: 'chat-circle', title: 'Eerlijk advies', text: 'Geen snelle trends of loze beloftes, wel een aanpak die past bij jouw huid.' },
+  { icon: 'house-line', title: 'Ook thuis begeleid', text: '75% van het resultaat komt van je verzorging thuis. Die stem ik mee af.' },
 ];
 
 /* Footer list, in the client's own wording and order */
