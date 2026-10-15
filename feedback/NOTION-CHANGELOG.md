@@ -5,7 +5,7 @@ Dag Saskia, je feedback is volledig verwerkt. Er zijn nu twee versies om te verg
 ## Twee versies
 Wisselen kan via het knopje **Versie A / Versie B** linksonder op elke pagina. De inhoud is in beide versies dezelfde, alleen de vormgeving verschilt.
 - **Versie A:** exact volgens je feedback, in de stijl van Geneviève Oushoorn (wit, beige, brons).
-- **Versie B:** ons voorstel, moderner en frisser, in dezelfde huisstijlkleuren (wit, warm beige en een zacht mokkabruin).
+- **Versie B:** ons voorstel, moderner en frisser, in dezelfde huisstijlkleuren (wit, warm beige en een zacht hazelnootbruin).
 
 ## Vragen voor jou
 - [ ] Welke versie spreekt je het meest aan?

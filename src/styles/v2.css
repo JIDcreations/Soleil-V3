@@ -6,23 +6,23 @@
    Soleil, version B (agency proposal).
    Design read: premium consumer skin clinic, modern editorial, photo-led.
    Dials: variance 7, motion 5, density 3.
-   Palette: Soleil house colours, white, warm beige and a soft mocha brown.
+   Palette: Soleil house colours, white, warm beige and a soft hazelnut brown.
    Shape rule: no rounded corners anywhere (client request).
    Type rule: seven sizes only (--fs-*), headings at weight 400.
    Light theme only: the client explicitly does not want dark surfaces.
    ========================================================================== */
 :root {
-  /* Soleil house colours: white, warm beige and a soft mocha brown (client: "veel zachter", not grey). */
+  /* Soleil house colours: white, warm beige and a soft hazelnut brown (client: "veel zachter", not grey). */
   --bone: #fbf9f6;       /* page */
   --paper: #ffffff;
-  --mist: #f6eee4;       /* beige surface */
-  --sand: #efe3d3;       /* deeper beige: footer, highlighted panels */
-  --forest: #a68870;     /* soft mocha: buttons (white text 3.3:1, chosen by look). Name kept from the first draft. */
-  --forest-2: #957760;   /* hover */
+  --mist: #f5efe6;       /* beige surface */
+  --sand: #ece4d6;       /* deeper beige: footer, highlighted panels */
+  --forest: #a58a68;     /* hazelnut: buttons (white text 3.3:1, chosen by look; mocha read pink). Name kept from the first draft. */
+  --forest-2: #937858;   /* hover */
   --ink: #4b3a2f;        /* warm dark brown text */
   --moss: #73604f;       /* secondary text */
   --tan: #c4a283;        /* logo colour */
-  --tan-ink: #86664f;    /* brown as text on light (5.4:1) */
+  --tan-ink: #806544;    /* brown as text on light (5.6:1) */
   --glow: #f1e6d8;
   --line: rgb(75 58 47 / 0.12);
 
