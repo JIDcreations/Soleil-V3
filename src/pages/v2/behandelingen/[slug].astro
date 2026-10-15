@@ -9,8 +9,8 @@ export function getStaticPaths() {
 }
 const { t } = Astro.props;
 const i = treatments.findIndex((x) => x.slug === t.slug);
-const prev = treatments[i - 1];
-const next = treatments[i + 1];
+const prev = treatments[(i - 1 + treatments.length) % treatments.length];
+const next = treatments[(i + 1) % treatments.length];
 const href = (slug: string) => `/v2/behandelingen/${slug}/`;
 const lowest = (gs: { rows: [string, string, number | string, string?][] }[]) => Math.min(...gs.flatMap((g) => g.rows).map((r) => (typeof r[2] === 'number' ? r[2] : 999)));
 ---
@@ -86,8 +86,10 @@ const lowest = (gs: { rows: [string, string, number | string, string?][] }[]) =>
     </aside>
   </section>
 
-  <nav class="wrap pager section" style="padding-bottom:0" aria-label="Vorige en volgende behandeling">
-    {prev ? <a href={href(prev.slug)}><span class="ph"><img src={`/img/${prev.img}.webp`} alt="" loading="lazy" /></span><span><small>Vorige</small><strong>{prev.name}</strong></span></a> : <span></span>}
-    {next ? <a class="next" href={href(next.slug)}><span><small>Volgende</small><strong>{next.name}</strong></span><span class="ph"><img src={`/img/${next.img}.webp`} alt="" loading="lazy" /></span></a> : <span></span>}
+  <nav class="wrap section" style="padding-bottom:0" aria-label="Vorige en volgende behandeling">
+    <div class="pager">
+      <a href={href(prev.slug)}><small><Icon name="arrow-left" />Vorige behandeling</small><strong>{prev.name}</strong></a>
+      <a href={href(next.slug)}><small>Volgende behandeling<Icon name="arrow-right" /></small><strong>{next.name}</strong></a>
+    </div>
   </nav>
 </Base>

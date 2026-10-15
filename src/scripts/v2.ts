@@ -13,19 +13,53 @@ const setMenu = (open: boolean) => {
 btn?.addEventListener('click', () => setMenu(!root.classList.contains('menu-open')));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 
-/* Dropdown: hover on pointer devices, click and keyboard everywhere */
-$$('[data-dd]').forEach((dd) => {
-  const b = $<HTMLButtonElement>('.dd-btn', dd)!;
+/* Behandelingen panel: hover on pointer devices, click and keyboard everywhere */
+const megaBtn = $<HTMLButtonElement>('[data-dd-btn]');
+const mega = $('[data-mega]');
+if (megaBtn && mega) {
   let t: number | undefined;
-  const set = (open: boolean) => { dd.classList.toggle('is-open', open); b.setAttribute('aria-expanded', String(open)); };
-  b.addEventListener('click', () => set(!dd.classList.contains('is-open')));
+  let hoverOpenedAt = 0;
+  const set = (open: boolean) => { mega.classList.toggle('is-open', open); megaBtn.setAttribute('aria-expanded', String(open)); };
+  // A click right after hover opened the panel should not close it again.
+  megaBtn.addEventListener('click', () => {
+    const open = mega.classList.contains('is-open');
+    if (open && Date.now() - hoverOpenedAt < 600) return;
+    set(!open);
+  });
   if (matchMedia('(hover: hover)').matches) {
-    dd.addEventListener('pointerenter', () => { clearTimeout(t); set(true); });
-    dd.addEventListener('pointerleave', () => { t = window.setTimeout(() => set(false), 180); });
+    [megaBtn, mega].forEach((el) => {
+      el.addEventListener('pointerenter', () => { clearTimeout(t); if (!mega.classList.contains('is-open')) hoverOpenedAt = Date.now(); set(true); });
+      el.addEventListener('pointerleave', () => { t = window.setTimeout(() => set(false), 200); });
+    });
   }
-  dd.addEventListener('focusout', (e) => { if (!dd.contains(e.relatedTarget as Node)) set(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
-});
+  mega.addEventListener('focusout', (e) => { if (!mega.contains(e.relatedTarget as Node) && e.relatedTarget !== megaBtn) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mega.classList.contains('is-open')) { set(false); megaBtn.focus(); } });
+  document.addEventListener('click', (e) => { if (!mega.contains(e.target as Node) && !megaBtn.contains(e.target as Node)) set(false); });
+}
+
+/* Header line once the page scrolls (IntersectionObserver on a sentinel, no scroll listener) */
+const hd = $('[data-header]');
+const sentinel = document.createElement('div');
+sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px';
+document.body.prepend(sentinel);
+new IntersectionObserver(([e]) => hd?.classList.toggle('is-scrolled', !e.isIntersecting)).observe(sentinel);
+/* Mobile booking button appears once the hero is out of view */
+const dockEl = $('[data-dock]');
+const far = document.createElement('div');
+far.style.cssText = 'position:absolute;top:70vh;height:1px;width:1px';
+document.body.prepend(far);
+new IntersectionObserver(([e]) => dockEl?.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0)).observe(far);
+$$('[data-sheet] a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+/* Info line: today's opening hours */
+const todayEl = $('[data-today]');
+if (todayEl) {
+  const wdNow = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Brussels', weekday: 'short' }).format(new Date());
+  const dNow = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(wdNow);
+  const h = (JSON.parse(todayEl.dataset.hours || '[]') as { d: number; t: string }[]).find((x) => x.d === dNow);
+  const svg = todayEl.querySelector('svg')?.outerHTML ?? '';
+  todayEl.innerHTML = `${svg}${h?.t ? `Vandaag open ${h.t}` : 'Vandaag gesloten'}`;
+}
 
 /* Reveals: content enters once, in reading order */
 const io = new IntersectionObserver(

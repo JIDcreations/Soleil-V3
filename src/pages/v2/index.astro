@@ -4,36 +4,29 @@ import Icon from '../../components/Icon.astro';
 import { info, brands, skin, relax, usps, reviews, reviewsArePlaceholders, euro } from '../../data/site';
 
 const t = (slug: string) => [...skin, ...relax].find((x) => x.slug === slug)!;
-const tiles = [
-  { t: t('skin-relax'), cls: '' },
-  { t: t('skin-expert'), cls: '' },
-  { t: t('huidanalyse'), cls: '' },
-  { t: { ...t('arrangementen'), name: 'Ontspanning', sub: 'arrangementen, lichaam, handen & voeten' }, cls: '', href: '/v2/behandelingen/#ontspanning' },
+const cards = [
+  { ...t('huidanalyse'), href: '/v2/behandelingen/huidanalyse/' },
+  { ...t('skin-relax'), href: '/v2/behandelingen/skin-relax/' },
+  { ...t('skin-expert'), href: '/v2/behandelingen/skin-expert/' },
+  { ...t('arrangementen'), name: 'Ontspanning', sub: 'arrangementen, lichaam, handen & voeten', img: 'massage-lichaam', href: '/v2/behandelingen/#ontspanning' },
 ];
 const icons = ['medal', 'scan', 'chat-circle', 'house-line'];
-const steps = [
-  { img: 'huidanalyse-scan', alt: 'Een gezicht op het scherm van de huidscanner', title: 'Analyse', text: 'Met de huidscanner zie ik wat je huid nodig heeft, tot in de diepere lagen.' },
-  { img: 'led-lichttherapie', alt: 'Behandeltafel onder de LED-lamp', title: 'Behandeling', text: 'Een behandeling op maat die je huid stap voor stap verbetert.' },
-  { img: 'producten-exuviance', alt: 'Verzorgingsproducten voor thuis', title: 'Thuisverzorging', text: '75% van het resultaat komt van wat je thuis doet. Die routine stem ik mee af.' },
-];
 ---
 <Base title="Instituut Soleil | Huidverbetering in Beervelde" description="Instituut Soleil in Beervelde: huidanalyse, Skin Relax en Skin Expert, ontspanning en eerlijk persoonlijk advies.">
   <link slot="head" rel="preload" as="image" href="/img/zaakvoerder-behandeling.webp" fetchpriority="high" />
 
   <section class="hero" aria-labelledby="h1">
-    <div class="wrap hero-in">
-      <div>
-        <p class="label rv">Huidinstituut in Beervelde</p>
-        <h1 id="h1" class="display rv" style="--d:1">Stralen begint bij een huid <em>in balans.</em></h1>
-        <p class="lede rv" style="--d:2">Huidverbetering met bewezen technieken en eerlijk, persoonlijk advies. Al {info.years} jaar.</p>
-        <div class="actions rv" style="--d:3">
-          <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
-          <a class="link" href="/v2/behandelingen/skin-discovery/">Start met een Skin Discovery<Icon name="arrow-right" /></a>
+    <div class="wrap">
+      <div class="hero-frame">
+        <img src="/img/zaakvoerder-behandeling.webp" alt="Saskia geeft een behandeling in haar instituut" width="1600" height="1135" fetchpriority="high" />
+        <div class="hero-copy">
+          <h1 id="h1" class="display rv">Stralen begint bij een huid <em>in balans.</em></h1>
+          <p class="lede rv" style="--d:1">Huidverbetering met bewezen technieken en eerlijk, persoonlijk advies. Al {info.years} jaar in Beervelde.</p>
+          <div class="actions rv" style="--d:2">
+            <a class="btn btn--light" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
+            <a class="link" href="/v2/behandelingen/skin-discovery/">Start met een Skin Discovery<Icon name="arrow-right" /></a>
+          </div>
         </div>
-      </div>
-      <div class="hero-media">
-        <figure class="ph"><img src="/img/zaakvoerder-behandeling.webp" alt="Saskia geeft een behandeling in haar instituut" width="1600" height="1135" fetchpriority="high" /></figure>
-        <p class="hero-badge"><strong>{info.years}</strong><span>jaar huidexpert</span></p>
       </div>
     </div>
   </section>
@@ -42,17 +35,45 @@ const steps = [
     <div class="wrap">
       <ul class="usp" role="list">
         {usps.map((u, i) => (
+          <li class="rv" style={`--d:${i}`}><Icon name={icons[i]} /><h3>{u.title}</h3><p>{u.text}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="beh">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="beh" class="h1 rv">Behandelingen</h2>
+        <a class="link rv" href="/v2/tarieven/">Alle tarieven<Icon name="arrow-right" /></a>
+      </div>
+      <a class="disc rv" href="/v2/behandelingen/skin-discovery/">
+        <div>
+          <p class="label">Nieuw bij Soleil?</p>
+          <h3>Begin met een Skin Discovery</h3>
+          <p class="t">Een huidanalyse, een verzorging op maat en persoonlijk advies voor thuis. Ideaal als eerste behandeling.</p>
+        </div>
+        <div class="disc-side">
+          <p><strong>{euro(105)}</strong><small>90 minuten</small></p>
+          <span class="btn btn--light">Bekijk<Icon name="arrow-right" /></span>
+        </div>
+      </a>
+      <ul class="cards" role="list">
+        {cards.map((c, i) => (
           <li class="rv" style={`--d:${i}`}>
-            <Icon name={icons[i]} />
-            <h3>{u.title}</h3>
-            <p>{u.text}</p>
+            <a href={c.href}>
+              <figure class="ph"><img src={`/img/${c.img}.webp`} alt="" loading="lazy" /></figure>
+              <h3>{c.name}<Icon name="arrow-up-right" /></h3>
+              <p>{c.sub}</p>
+              <p class="price">vanaf {euro(c.from)}</p>
+            </a>
           </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <section class="section" aria-label="Over Saskia">
+  <section aria-label="Over Saskia">
     <div class="wrap manifesto">
       <figure class="ph rv-img"><img src="/img/zaakvoerder-portret.webp" alt={`${info.owner}, zaakvoerder van Instituut Soleil`} loading="lazy" /></figure>
       <div>
@@ -65,54 +86,14 @@ const steps = [
     </div>
   </section>
 
-  <section aria-labelledby="beh">
+  <section class="section" aria-labelledby="reviews">
     <div class="wrap">
-      <h2 id="beh" class="h1 rv" style="margin-bottom:clamp(28px,4vw,48px)">Behandelingen</h2>
-      <div class="bento">
-        <a class="b-disc rv" href="/v2/behandelingen/skin-discovery/">
-          <span class="go" aria-hidden="true"><Icon name="arrow-up-right" /></span>
-          <div>
-            <p class="label" style="color:var(--glow)">Nieuw bij Soleil?</p>
-            <h3 class="h2" style="margin-top:14px">Begin met een Skin Discovery</h3>
-          </div>
-          <div>
-            <p class="price"><strong>{euro(105)}</strong><span>90 minuten</span></p>
-            <p>Een huidanalyse, een verzorging op maat en persoonlijk advies voor thuis. Ideaal als eerste behandeling.</p>
-          </div>
-        </a>
-        {tiles.map((x, i) => (
-          <a class="rv" style={`--d:${i + 1}`} href={x.href ?? `/v2/behandelingen/${x.t.slug}/`}>
-            <img src={`/img/${x.t.img}.webp`} alt="" loading="lazy" />
-            <span class="go" aria-hidden="true"><Icon name="arrow-up-right" /></span>
-            <h3>{x.t.name}</h3>
-            <p>{x.t.sub}{x.t.from > 0 && <>, vanaf {euro(x.t.from)}</>}</p>
-          </a>
-        ))}
+      <div class="sec-head">
+        <div>
+          <h2 id="reviews" class="h1 rv">Wat klanten zeggen</h2>
+          {reviewsArePlaceholders && <p class="muted rv" style="font-size:0.92rem">Voorbeeldreviews: deze vervangen we door echte reviews van klanten.</p>}
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="aanpak">
-    <div class="wrap method">
-      <div class="method-head">
-        <h2 id="aanpak" class="h1 rv">Zo werk ik aan je huid</h2>
-        <p class="lede rv" style="--d:1">Elke stap bouwt voort op de vorige. Daarom werk ik altijd in dezelfde volgorde.</p>
-      </div>
-      <ol class="steps" role="list">
-        {steps.map((s, i) => (
-          <li class="step rv" style={`--d:${i}`}>
-            <figure class="ph"><img src={`/img/${s.img}.webp`} alt={s.alt} loading="lazy" /></figure>
-            <div><h3 class="h3">{s.title}</h3><p>{s.text}</p></div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <section aria-labelledby="reviews" style="padding-bottom:var(--section)">
-    <div class="wrap">
-      <h2 id="reviews" class="h1 rv">Wat klanten zeggen</h2>
-      {reviewsArePlaceholders && <p class="muted rv" style="margin-top:12px;font-size:0.92rem">Voorbeeldreviews: deze vervangen we door echte reviews van klanten.</p>}
       <ul class="quotes" role="list">
         {reviews.map((r, i) => (
           <li class="rv" style={`--d:${i}`}>
@@ -126,7 +107,10 @@ const steps = [
 
   <section aria-labelledby="merken">
     <div class="wrap">
-      <h2 id="merken" class="h1 rv" style="margin-bottom:clamp(20px,3vw,32px)">Merken waar ik op vertrouw</h2>
+      <div class="sec-head">
+        <h2 id="merken" class="h1 rv">Merken waar ik op vertrouw</h2>
+        <a class="link rv" href={info.webshop} target="_blank" rel="noopener">Webshop<Icon name="arrow-up-right" /></a>
+      </div>
       <ul class="brands" role="list">
         {brands.map((b) => (
           <li class="rv">
@@ -147,9 +131,7 @@ const steps = [
         <img src="/img/instituut-massage.webp" alt="" loading="lazy" />
         <div>
           <h2 id="cta" class="h1">Even helemaal tijd voor jezelf.</h2>
-          <div class="actions">
-            <a class="btn btn--light" href="/v2/behandelingen/arrangementen/">Bekijk de arrangementen<Icon name="arrow-right" /></a>
-          </div>
+          <div class="actions"><a class="btn btn--light" href="/v2/behandelingen/arrangementen/">Bekijk de arrangementen<Icon name="arrow-right" /></a></div>
         </div>
       </div>
     </div>
