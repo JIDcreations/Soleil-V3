@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Book from '../components/Book.astro';
 import Icon from '../components/Icon.astro';
-import { info, skin, relax, brands, usps, href, euro } from '../data/site';
+import { info, skin, relax, brands, usps, reviews, reviewsArePlaceholders, href, euro } from '../data/site';
 
 const tiles = [
   ...skin.filter((s) => s.slug !== 'skin-discovery').map((s) => ({ href: href(s), name: s.name, sub: s.sub, img: s.img, alt: s.alt, from: s.from })),
@@ -53,6 +53,23 @@ const tiles = [
             <span class="usp-icon"><Icon name={u.icon} /></span>
             <h3>{u.title}</h3>
             <p>{u.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="reviews">
+    <div class="wrap">
+      <div class="head center">
+        <h2 id="reviews" class="rule">Wat klanten zeggen</h2>
+        {reviewsArePlaceholders && <p class="small">Voorbeeldreviews: deze vervangen we door echte reviews van klanten.</p>}
+      </div>
+      <ul class="reviews" role="list">
+        {reviews.map((r) => (
+          <li class="fade">
+            <blockquote>“{r.text}”</blockquote>
+            <p><strong>{r.name}</strong><span>{r.place}</span></p>
           </li>
         ))}
       </ul>

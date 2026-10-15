@@ -407,3 +407,15 @@ em { font-style: italic; font-weight: 400; }
 .ft .ft-top p.h2 { font-size: clamp(1.9rem, 1.3rem + 2vw, 3rem); color: var(--bone); line-height: 1.05; letter-spacing: -0.035em; }
 .gallery .ph:nth-child(n+4) { grid-column: span 2; }
 @media (max-width: 700px) { .gallery .ph:nth-child(n+4) { grid-column: auto; } .gallery .ph:nth-child(1) { grid-column: 1 / -1; } }
+
+/* Reviews: first quote large on bronze, two smaller on beige */
+.quotes { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; margin-top: clamp(28px, 4vw, 48px); }
+.quotes li { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: clamp(24px, 3vw, 36px); border-radius: var(--r); background: var(--mist); }
+.quotes li:first-child { background: var(--forest); color: #fff; }
+.quotes li:first-child span { color: var(--glow); }
+.quotes blockquote { font-size: 1.1rem; line-height: 1.5; letter-spacing: -0.01em; }
+.quotes li:first-child blockquote { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.7rem); line-height: 1.3; letter-spacing: -0.02em; }
+.quotes p { display: grid; font-size: 0.9rem; }
+.quotes strong { font-weight: 500; }
+.quotes span { color: var(--moss); }
+@media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }

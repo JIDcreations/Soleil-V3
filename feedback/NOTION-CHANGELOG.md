@@ -19,7 +19,7 @@ Wisselen kan via het knopje **Versie A / Versie B** linksonder op elke pagina. D
 ## Nieuw
 - **Waarom Soleil:** 4 troeven op de homepage (27 jaar ervaring, eerst analyse, eerlijk advies, ook thuis begeleid).
 - **Herken je dit? / Wat ik doe / Wat jij eraan hebt:** op elke behandelingspagina, telkens aangepast aan de behandeling.
-- **Reviews:** komen erbij zodra je er een paar doorstuurt (we tonen enkel echte reviews).
+- **Wat klanten zeggen:** reviewsectie op de homepage. Nu staan er voorbeeldreviews (zo aangeduid); die vervangen we door echte reviews zodra je ze doorstuurt.
 - **Elke behandeling een eigen pagina,** met bovenaan een balk om snel naar een andere behandeling te gaan en onderaan "Vorige / Volgende".
 - **Skin Discovery** heeft een eigen pagina.
 

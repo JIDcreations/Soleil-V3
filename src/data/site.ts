@@ -362,6 +362,16 @@ export const usps = [
   { icon: 'house-line', title: 'Ook thuis begeleid', text: '75% van het resultaat komt van je verzorging thuis. Die stem ik mee af.' },
 ];
 
+/* Reviews. PLACEHOLDERS until the client sends real ones: set placeholder to false
+   (or remove the flag) per review once it is a real, approved review. While any review
+   is a placeholder, the section shows a visible "voorbeeldreviews" label. */
+export const reviews = [
+  { text: 'Na drie peelings voelt mijn huid zoveel zachter. Saskia neemt echt de tijd om uit te leggen wat ze doet en waarom.', name: 'Voorbeeldreview', place: 'Skin Expert Peel', placeholder: true },
+  { text: 'De Skin Discovery was een eyeopener. Eindelijk weet ik welke producten bij mijn huid passen.', name: 'Voorbeeldreview', place: 'Skin Discovery', placeholder: true },
+  { text: 'Een uur Skin Relax en ik ben weer helemaal mezelf. Rustig, warm en altijd persoonlijk.', name: 'Voorbeeldreview', place: 'Skin Relax', placeholder: true },
+];
+export const reviewsArePlaceholders = reviews.some((r) => r.placeholder);
+
 /* Footer list, in the client's own wording and order */
 export const footerTreatments = [
   { href: '/behandelingen/skin-relax/', label: 'Skin Relax Facials' },
