@@ -23,7 +23,7 @@ const list = treatments.filter((t) => t.slug !== 'skin-discovery');
     <div class="wrap--narrow">
       {list.map((t) => (
         <section class="tarief" id={t.slug} aria-labelledby={`h-${t.slug}`}>
-          <div class="tarief-head"><h2 id={`h-${t.slug}`}>{t.name} <span class="muted" style="font-size:0.95rem">· {t.sub}</span></h2><a class="link" href={href(t)}>Meer info</a></div>
+          <div class="tarief-head"><h2 id={`h-${t.slug}`}>{t.name} <span class="muted small">· {t.sub}</span></h2><a class="link" href={href(t)}>Meer info</a></div>
           {(t.slug === 'skin-expert' || t.link) && <p>{t.intro}</p>}
           {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
           {t.parts?.map((p) => <Prices rows={p.prices.flatMap((g) => g.rows)} title={p.name} />)}

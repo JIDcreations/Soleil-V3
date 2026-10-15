@@ -14,7 +14,7 @@ import { groups, href, euro } from '../../data/site';
     <div class="wrap split split--even" style="align-items:start">
       {groups.map((g) => (
         <div id={g.title.toLowerCase()} style="scroll-margin-top:calc(var(--header-h) + 16px)">
-          <h2 class="eyebrow" style="font-size:0.78rem">{g.title}</h2>
+          <h2 class="eyebrow">{g.title}</h2>
           <ul class="list" role="list">
             {g.items.map((t) => (
               <li>

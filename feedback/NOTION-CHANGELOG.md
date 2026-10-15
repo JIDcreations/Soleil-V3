@@ -18,7 +18,7 @@ Wisselen kan via het knopje **Versie A / Versie B** linksonder op elke pagina. D
 
 ## Feedbackronde 2 (versie B)
 - [x] Geen "vanaf" meer voor de prijs bij de behandelingen (ook in versie A)
-- [x] Lettergroottes: overal dezelfde 7 maten, alles iets kleiner en minder vet
+- [x] Lettergroottes: overal dezelfde 7 maten (in beide versies), alles iets kleiner en minder vet
 - [x] Bruin zachter en warmer; grote vlakken nu in warm beige in plaats van bruin
 - [x] Logo groot bovenaan de pagina, kleiner zodra je scrolt
 - [x] Onderkant site in zacht beige, rustigere teksten
