@@ -5,7 +5,7 @@ Dag Saskia, je feedback is volledig verwerkt. Er zijn nu twee versies om te verg
 ## Twee versies
 Wisselen kan via het knopje **Versie A / Versie B** linksonder op elke pagina. De inhoud is in beide versies dezelfde, alleen de vormgeving verschilt.
 - **Versie A:** exact volgens je feedback, in de stijl van Geneviève Oushoorn (wit, beige, brons).
-- **Versie B:** ons voorstel, moderner en frisser, in dezelfde huisstijlkleuren (wit, beige, brons). Titels zijn hier groter.
+- **Versie B:** ons voorstel, moderner en frisser, in dezelfde huisstijlkleuren (wit, beige en een zacht bruin).
 
 ## Vragen voor jou
 - [ ] Welke versie spreekt je het meest aan?
@@ -15,6 +15,17 @@ Wisselen kan via het knopje **Versie A / Versie B** linksonder op elke pagina. D
 - [ ] Foto's voor ISOV, Exuviance (andere foto?) en laserontharing?
 - [ ] Origineel logobestand (SVG, AI of PDF)?
 - [ ] Moeten berichten via het contactformulier rechtstreeks in je mailbox komen?
+- [ ] Met welk programma verstuur je de nieuwsbrief (bv. Mailchimp)? Dan koppelen we de inschrijvingen.
+
+## Feedbackronde 2 (versie B)
+- [x] Geen "vanaf" meer voor de prijs bij de behandelingen (ook in versie A)
+- [x] Lettergroottes: overal dezelfde 7 maten, alles iets kleiner en minder vet
+- [x] Bruin veel zachter; grote vlakken nu in zacht beige in plaats van bruin
+- [x] Logo groot bovenaan de pagina, kleiner zodra je scrolt
+- [x] Onderkant site in zacht beige, rustigere teksten
+- [x] Merken als vier vierkante tegels, zoals in versie A
+- [x] Nieuwsbrief: klein kaartje rechtsonder, verschijnt één keer (ook in versie A)
+- [x] Geen afgeronde hoeken meer, overal rechte hoeken (ook in versie A)
 
 ## Nieuw
 - **Waarom Soleil:** 4 troeven op de homepage (27 jaar ervaring, eerst analyse, eerlijk advies, ook thuis begeleid).

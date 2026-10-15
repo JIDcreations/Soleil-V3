@@ -21,7 +21,7 @@ import { groups, href, euro } from '../../data/site';
                 <a href={href(t)}>
                   <span class="sq"><img src={`/img/${t.img}.webp`} alt="" loading="lazy" /></span>
                   <span><strong>{t.name}</strong><span class="d">{t.sub}</span></span>
-                  <span class="p">{t.from > 0 ? `vanaf ${euro(t.from)}` : 'meer info'}</span>
+                  <span class="p">{t.from > 0 ? euro(t.from) : 'meer info'}</span>
                 </a>
               </li>
             ))}

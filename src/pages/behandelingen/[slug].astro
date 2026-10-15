@@ -53,7 +53,7 @@ const lowest = (rows: { rows: [string, string, number | string, string?][] }[]) 
               <figure class="ratio-43"><img src={`/img/${p.img}.webp`} alt={p.alt} loading="lazy" /></figure>
               <div>
                 <h2>{p.name}</h2>
-                <p class="sub">vanaf {euro(lowest(p.prices))}</p>
+                <p class="sub">{euro(lowest(p.prices))}</p>
                 <p>{p.text}</p>
                 {p.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
                 <div class="actions"><Book label="Boek hier" /></div>

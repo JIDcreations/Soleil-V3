@@ -26,7 +26,7 @@ const main = [
             <div>
               <p class="dd-title">{g.title}</p>
               <ul role="list">
-                {g.items.map((t) => <li><a href={href(t)} aria-current={current(href(t))}><span>{t.name}</span>{t.from > 0 && <small>vanaf {euro(t.from)}</small>}</a></li>)}
+                {g.items.map((t) => <li><a href={href(t)} aria-current={current(href(t))}><span>{t.name}</span>{t.from > 0 && <small>{euro(t.from)}</small>}</a></li>)}
               </ul>
             </div>
           ))}

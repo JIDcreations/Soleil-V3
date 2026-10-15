@@ -33,6 +33,7 @@
   --frame: clamp(12px, 2.4vw, 28px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --header-h: 88px;
+  --nl-btn: var(--bronze); --nl-bg: var(--white); --nl-ink: var(--ink); /* newsletter card */
 
   color-scheme: light;
 }
@@ -66,7 +67,7 @@ h3, .h3 { font-size: var(--fs-h3); font-weight: 500; line-height: 1.4; }
 p { text-wrap: pretty; }
 strong, b { font-weight: 600; }
 ::selection { background: var(--tan); color: #fff; }
-:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; border-radius: 0; }
 
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .skip { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: var(--bronze); color: #fff; }
@@ -113,7 +114,7 @@ strong, b { font-weight: 600; }
    ========================================================================== */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 44px; padding: 10px 22px; border-radius: 999px;
+  min-height: 44px; padding: 10px 22px; border-radius: 0;
   background: var(--bronze); color: #fff; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em;
   transition: background-color 0.25s var(--ease);
 }
@@ -330,7 +331,7 @@ a.tile:hover .sq img { transform: scale(1.03); }
 /* Mobile booking dock */
 .dock { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; display: none; gap: 8px; }
 .dock .btn { flex: 1; box-shadow: 0 8px 24px -10px rgb(59 50 43 / 0.5); }
-.dock .call { display: grid; place-items: center; width: 48px; border-radius: 999px; background: #fff; color: var(--bronze); box-shadow: 0 0 0 1px var(--line), 0 8px 24px -10px rgb(59 50 43 / 0.4); }
+.dock .call { display: grid; place-items: center; width: 48px; border-radius: 0; background: #fff; color: var(--bronze); box-shadow: 0 0 0 1px var(--line), 0 8px 24px -10px rgb(59 50 43 / 0.4); }
 .dock .call svg { width: 20px; height: 20px; }
 @media (max-width: 900px) {
   .dock { display: flex; transform: translateY(120%); transition: transform 0.35s var(--ease); }
@@ -347,7 +348,7 @@ a.tile:hover .sq img { transform: scale(1.03); }
 .field { display: grid; gap: 6px; }
 .field label { font-size: 0.85rem; font-weight: 500; }
 .field label small { font-weight: 400; color: var(--ink-2); }
-.field input, .field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 2px; background: #fff; font-size: 1rem; }
+.field input, .field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 0; background: #fff; font-size: 1rem; }
 .field textarea { min-height: 140px; resize: vertical; }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--bronze); box-shadow: 0 0 0 3px rgb(148 106 67 / 0.15); }
 .err { display: none; font-size: 0.82rem; color: #9a3b2c; }
@@ -394,7 +395,7 @@ a.tile:hover .sq img { transform: scale(1.03); }
 .tnav-group { display: flex; align-items: center; gap: 12px; }
 .tnav-title { flex: 0 0 9.5em; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bronze); }
 .tnav ul { display: flex; flex-wrap: wrap; gap: 2px; }
-.tnav li a { display: block; white-space: nowrap; padding: 6px 12px; border-radius: 999px; color: var(--ink-2); transition: color 0.2s, background-color 0.2s; }
+.tnav li a { display: block; white-space: nowrap; padding: 6px 12px; border-radius: 0; color: var(--ink-2); transition: color 0.2s, background-color 0.2s; }
 .tnav li a:hover { color: var(--bronze); }
 .tnav li a[aria-current='page'] { color: var(--ink); background: var(--beige); font-weight: 500; }
 .tpage-main { min-width: 0; }
@@ -423,7 +424,7 @@ a.tile:hover .sq img { transform: scale(1.03); }
 
 /* Homepage USPs */
 .usps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); text-align: center; }
-.usp-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%; background: var(--beige); color: var(--bronze); }
+.usp-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 0; background: var(--beige); color: var(--bronze); }
 .usp-icon svg { width: 28px; height: 28px; }
 .usp h3 { font-weight: 500; margin-bottom: 6px; }
 .usp p { font-size: 0.92rem; color: var(--ink-2); max-width: 26ch; margin-inline: auto; }
@@ -435,7 +436,7 @@ a.tile:hover .sq img { transform: scale(1.03); }
 .faq summary { display: flex; align-items: center; gap: 16px; padding: 16px 4px; cursor: pointer; list-style: none; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary:hover .faq-q { color: var(--bronze); }
-.faq-icon { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--beige); color: var(--bronze); }
+.faq-icon { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 0; background: var(--beige); color: var(--bronze); }
 .faq-icon svg { width: 20px; height: 20px; }
 .faq-q { flex: 1; font-weight: 500; transition: color 0.2s; }
 .faq-toggle { color: var(--bronze); transition: transform 0.3s var(--ease); }
@@ -454,8 +455,8 @@ a.tile:hover .sq img { transform: scale(1.03); }
 .beige .usp-icon, .beige .faq-icon { background: var(--white); }
 
 /* Temporary A/B design switch (remove before go-live) */
-.vswitch { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--ink); box-shadow: 0 12px 30px -12px rgb(59 50 43 / 0.6); font: 500 0.82rem/1 var(--sans); }
-.vswitch a { padding: 9px 14px; border-radius: 999px; color: rgb(255 255 255 / 0.75); }
+.vswitch { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; gap: 4px; padding: 4px; border-radius: 0; background: var(--ink); box-shadow: 0 12px 30px -12px rgb(59 50 43 / 0.6); font: 500 0.82rem/1 var(--sans); }
+.vswitch a { padding: 9px 14px; border-radius: 0; color: rgb(255 255 255 / 0.75); }
 .vswitch a[aria-current='true'] { background: #fff; color: var(--ink); }
 .vswitch span { align-self: center; padding: 0 6px 0 10px; color: var(--tan); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.7rem; }
 @media (max-width: 900px) { .vswitch { bottom: 76px; } }

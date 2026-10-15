@@ -31,7 +31,7 @@ const lowest = (gs: { rows: [string, string, number | string, string?][] }[]) =>
       <ol class="crumbs" role="list"><li><a href="/v2/">Home</a></li><li><a href={`/v2/behandelingen/#${t.group?.toLowerCase()}`}>{t.group}</a></li><li aria-current="page">{t.name}</li></ol>
       <h1 class="h1 rv">{t.name}</h1>
       <p class="lede rv" style="--d:1">{t.intro}</p>
-      {t.from > 0 && <p class="rv" style="--d:2;margin-top:20px;font-weight:500">Vanaf {euro(t.from)}</p>}
+      {t.from > 0 && <p class="rv" style="--d:2;margin-top:20px;font-weight:500">{euro(t.from)}</p>}
     </div>
     <figure class="ph rv-img"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
   </header>
@@ -52,7 +52,7 @@ const lowest = (gs: { rows: [string, string, number | string, string?][] }[]) =>
               <figure class="ph"><img src={`/img/${p.img}.webp`} alt={p.alt} loading="lazy" /></figure>
               <div>
                 <h2 class="h3">{p.name}</h2>
-                <p class="from">vanaf {euro(lowest(p.prices))}</p>
+                <p class="from">{euro(lowest(p.prices))}</p>
                 <p>{p.text}</p>
                 {p.prices.map((g) => <Prices rows={g.rows} title={g.title} />)}
               </div>

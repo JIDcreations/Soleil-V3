@@ -1,0 +1,96 @@
+---
+/* Newsletter sign-up: a small card bottom right, shown once per visitor after a while or
+   halfway down the page. Sign-ups go to Netlify Forms (form "nieuwsbrief").
+   Colours come from the page: --nl-btn, --nl-bg, --nl-ink, with version B values as fallback. */
+---
+<aside class="nl" id="nieuwsbrief" aria-labelledby="nl-title" hidden data-nl>
+  <button class="nl-x" type="button" aria-label="Sluiten" data-nl-close>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+  </button>
+  <form name="nieuwsbrief" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-nl-form>
+    <input type="hidden" name="form-name" value="nieuwsbrief" />
+    <p hidden><label>Laat dit leeg <input name="bot-field" /></label></p>
+    <p class="nl-title" id="nl-title">Schrijf je in voor de nieuwsbrief</p>
+    <p class="nl-text">Af en toe huidtips, nieuwe behandelingen en acties in je mailbox.</p>
+    <div class="nl-row">
+      <label class="nl-sr" for="nl-email">E-mailadres</label>
+      <input id="nl-email" type="email" name="email" required autocomplete="email" placeholder="Je e-mailadres" />
+      <button type="submit">Inschrijven</button>
+    </div>
+    <p class="nl-fine">Uitschrijven kan altijd. <a href="https://instituutsoleil.be/privacy-policy/">Privacybeleid</a></p>
+    <p class="nl-msg" role="status" data-nl-msg></p>
+  </form>
+</aside>
+
+<style>
+  .nl {
+    position: fixed; right: 16px; bottom: 16px; z-index: 75;
+    width: min(340px, calc(100vw - 32px)); padding: 22px 22px 18px;
+    background: var(--nl-bg, #fbf9f6); color: var(--nl-ink, #4a3f37);
+    box-shadow: 0 0 0 1px rgb(74 63 55 / 0.1), 0 18px 40px -18px rgb(74 63 55 / 0.45);
+    font-size: 0.875rem; line-height: 1.55;
+    opacity: 0; transform: translateY(12px); transition: opacity 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nl.is-on { opacity: 1; transform: none; }
+  .nl[hidden] { display: none; }
+  .nl-x { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 36px; height: 36px; background: none; border: 0; color: inherit; cursor: pointer; }
+  .nl-x svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .nl-title { font-size: 1.125rem; font-weight: 400; padding-right: 28px; margin: 0 0 4px; line-height: 1.3; }
+  .nl-text { margin: 0 0 14px; opacity: 0.8; }
+  .nl-row { display: flex; }
+  .nl-row input { flex: 1; min-width: 0; padding: 11px 12px; border: 1px solid rgb(74 63 55 / 0.2); border-right: 0; border-radius: 0; background: #fff; font: inherit; color: inherit; }
+  .nl-row input:focus { outline: 2px solid var(--nl-btn, #86705f); outline-offset: -2px; }
+  .nl-row button { padding: 0 16px; border: 0; border-radius: 0; background: var(--nl-btn, #86705f); color: #fff; font: inherit; font-weight: 500; cursor: pointer; white-space: nowrap; }
+  .nl-fine { margin: 10px 0 0; font-size: 0.75rem; opacity: 0.75; }
+  .nl-fine a { text-decoration: underline; }
+  .nl-msg { margin: 8px 0 0; }
+  .nl-msg:empty { display: none; }
+  .nl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (max-width: 960px) { .nl { right: 12px; left: 12px; bottom: 12px; width: auto; } }
+  @media (prefers-reduced-motion: reduce) { .nl { transition: none; } }
+</style>
+
+<script>
+  const KEY = 'soleil-nieuwsbrief';
+  const box = document.querySelector<HTMLElement>('[data-nl]');
+  const form = box?.querySelector<HTMLFormElement>('[data-nl-form]');
+  const msg = box?.querySelector<HTMLElement>('[data-nl-msg]');
+  const get = () => { try { return localStorage.getItem(KEY); } catch { return 'x'; } };
+  const set = (v: string) => { try { localStorage.setItem(KEY, v); } catch {} };
+  // Dismissed less than 60 days ago, or already signed up: stay away.
+  const seen = get();
+  const quiet = seen === 'ingeschreven' || (seen && Date.now() - Number(seen) < 60 * 864e5);
+
+  if (box && form && !quiet) {
+    let shown = false;
+    const show = () => {
+      if (shown || document.documentElement.classList.contains('menu-open')) return;
+      shown = true;
+      box.hidden = false;
+      requestAnimationFrame(() => box.classList.add('is-on'));
+      removeEventListener('scroll', onScroll);
+    };
+    const hide = () => { box.classList.remove('is-on'); setTimeout(() => (box.hidden = true), 400); };
+    const onScroll = () => { if (scrollY > (document.documentElement.scrollHeight - innerHeight) * 0.5) show(); };
+    setTimeout(show, 20000);
+    addEventListener('scroll', onScroll, { passive: true });
+
+    box.querySelector('[data-nl-close]')?.addEventListener('click', () => { set(String(Date.now())); hide(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !box.hidden) { set(String(Date.now())); hide(); } });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = new URLSearchParams(new FormData(form) as any).toString();
+      try {
+        const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        if (!r.ok) throw new Error(String(r.status));
+        set('ingeschreven');
+        form.querySelector('.nl-row')?.remove();
+        msg!.textContent = 'Bedankt, je bent ingeschreven.';
+        setTimeout(hide, 3000);
+      } catch {
+        msg!.textContent = 'Inschrijven lukte niet. Probeer het later opnieuw.';
+      }
+    });
+  }
+</script>

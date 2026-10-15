@@ -65,7 +65,7 @@ const icons = ['medal', 'scan', 'chat-circle', 'house-line'];
               <figure class="ph"><img src={`/img/${c.img}.webp`} alt="" loading="lazy" /></figure>
               <h3>{c.name}<Icon name="arrow-up-right" /></h3>
               <p>{c.sub}</p>
-              <p class="price">vanaf {euro(c.from)}</p>
+              <p class="price">{euro(c.from)}</p>
             </a>
           </li>
         ))}
@@ -91,7 +91,7 @@ const icons = ['medal', 'scan', 'chat-circle', 'house-line'];
       <div class="sec-head">
         <div>
           <h2 id="reviews" class="h1 rv">Wat klanten zeggen</h2>
-          {reviewsArePlaceholders && <p class="muted rv" style="font-size:0.92rem">Voorbeeldreviews: deze vervangen we door echte reviews van klanten.</p>}
+          {reviewsArePlaceholders && <p class="muted rv">Voorbeeldreviews: deze vervangen we door echte reviews van klanten.</p>}
         </div>
       </div>
       <ul class="quotes" role="list">
@@ -108,17 +108,18 @@ const icons = ['medal', 'scan', 'chat-circle', 'house-line'];
   <section aria-labelledby="merken">
     <div class="wrap">
       <div class="sec-head">
-        <h2 id="merken" class="h1 rv">Merken waar ik op vertrouw</h2>
-        <a class="link rv" href={info.webshop} target="_blank" rel="noopener">Webshop<Icon name="arrow-up-right" /></a>
+        <div>
+          <h2 id="merken" class="h1 rv">Merken waar ik op vertrouw</h2>
+          <p class="muted rv">Merken met veel actieve bestanddelen, jarenlang onderzoek en klinische testen.</p>
+        </div>
+        <a class="link rv" href={info.webshop} target="_blank" rel="noopener">Naar de webshop<Icon name="arrow-up-right" /></a>
       </div>
-      <ul class="brands" role="list">
-        {brands.map((b) => (
-          <li class="rv">
-            <a class="row" href={info.webshop} target="_blank" rel="noopener">
-              <h3>{b.name}</h3>
-              <p>{b.line}</p>
-              <span class="thumb" aria-hidden="true">{b.img ? <img src={`/img/${b.img}.webp`} alt="" loading="lazy" /> : 'ISOV'}</span>
-            </a>
+      <ul class="btiles" role="list">
+        {brands.map((b, i) => (
+          <li class="rv" style={`--d:${i}`}>
+            <figure class="ph">{b.img ? <img src={`/img/${b.img}.webp`} alt={`Producten van ${b.name}`} loading="lazy" /> : <span class="word" aria-hidden="true">{b.name}</span>}</figure>
+            <h3>{b.name}</h3>
+            <p>{b.line}</p>
           </li>
         ))}
       </ul>

@@ -4,6 +4,7 @@ import '../styles/v2.css';
 import Header from '../components/v2/Header.astro';
 import Footer from '../components/v2/Footer.astro';
 import VersionSwitch from '../components/VersionSwitch.astro';
+import Newsletter from '../components/Newsletter.astro';
 interface Props { title: string; description: string }
 const { title, description } = Astro.props;
 const full = title.includes('Soleil') ? title : `${title} | Instituut Soleil Beervelde`;
@@ -28,6 +29,7 @@ const postitSrc = import.meta.env.PUBLIC_POSTIT_SRC ?? 'https://wizarts-postits.
     <Header />
     <main id="main" tabindex="-1"><slot /></main>
     <Footer />
+    <Newsletter />
     <VersionSwitch />
     <script>
       import '../scripts/v2.ts';
