@@ -22,30 +22,30 @@ const more = journal.filter((x) => x.slug !== p.slug).slice(0, 3);
 ---
 <Base title={p.title} description={p.excerpt.slice(0, 155)} image={`/img/${p.img}.webp`}>
   <article>
-    <header class="page-head page-head--plain" style="padding-bottom:0">
-      <div class="wrap-text" style="width:min(100% - 2 * var(--gutter), 900px);margin-inline:auto">
+    <header class="page-head" style="padding-bottom:0">
+      <div class="wrap--narrow">
         <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/journaal/">Journaal</a></li><li aria-current="page">{p.cat}</li></ol>
-        <h1 class="h1">{p.title}</h1>
-        <p class="fact"><span>{p.cat}</span><span><time datetime={p.date}>{date}</time></span></p>
+        <p class="post-meta"><span>{p.cat}</span><time datetime={p.date}>{date}</time></p>
+        <h1 style="margin-top:8px">{p.title}</h1>
       </div>
     </header>
-    <div class="wrap"><figure class="article-hero reveal-img"><img src={`/img/${p.img}.webp`} alt="" /></figure></div>
-    <div class="wrap--text prose">
+    <div class="wrap--narrow"><figure class="article-hero"><img src={`/img/${p.img}.webp`} alt="" /></figure></div>
+    <div class="wrap--narrow prose">
       {blocks.map((b: any) =>
         b.type === 'h2' ? <h2>{b.text}</h2> :
         b.type === 'ul' ? <ul role="list">{b.items.map((i: string) => <li>{i}</li>)}</ul> :
-        b.type === 'hours' ? <div style="margin-block:1.6em"><Week light list /></div> :
+        b.type === 'hours' ? <div style="margin-block:1.6em"><Week /></div> :
         <p>{b.text}</p>
       )}
       <div class="actions" style="margin-top:56px">
-        <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
-        <a class="link" href="/behandelingen/huidanalyse/">Begin met een huidanalyse</a>
+        <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+        <a class="link" href="/behandelingen/huidanalyse/#prijzen">Nieuw? Begin met een Discovery-behandeling</a>
       </div>
     </div>
   </article>
   <section class="section" aria-labelledby="meer">
     <div class="wrap">
-      <h2 id="meer" class="h2" style="margin-bottom:40px">Meer uit het journaal</h2>
+      <h2 id="meer" style="margin-bottom:28px">Meer uit het journaal</h2>
       <div class="posts posts--home">{more.map((m) => <PostCard post={m} />)}</div>
     </div>
   </section>

@@ -1,57 +1,77 @@
 ---
 import Base from '../layouts/Base.astro';
 import { info, brands } from '../data/site';
+
+const insta = [
+  { img: 'instituut-massage', alt: 'De behandelruimte met warm licht en een massagetafel' },
+  { img: 'zaakvoerder-behandeling', alt: 'Saskia geeft een rugmassage' },
+  { img: 'led-lichttherapie', alt: 'Behandeltafel onder de LED-lamp' },
+  { img: 'duo-cabine', alt: 'Twee personen in de duo-cabine' },
+  { img: 'zaakvoerder-toestel', alt: 'Saskia naast een behandeltoestel' },
+  { img: 'gelaatsverzorging', alt: 'Een gelaatsverzorging in de behandelruimte' },
+];
 ---
-<Base title="Over Soleil" description={`Al ${info.years} jaar huidexpert in Beervelde. Persoonlijk advies, merken met bewezen werking en een rustige plek om tot jezelf te komen.`}>
+<Base title="Over Soleil" description={`Ik ben ${info.owner}, het gezicht achter Instituut Soleil. Al ${info.years} jaar begeleid ik klanten naar een mooiere, sterkere en meer gebalanceerde huid.`} image="/img/zaakvoerder-portret.webp">
   <header class="page-head">
-    <div class="wrap page-head-in">
-      <div>
-        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Over Soleil</li></ol>
-        <h1 class="display">Al {info.years} jaar huidexpert in Beervelde</h1>
-        <p class="lede">Huidverbetering is altijd mijn passie gebleven. In een stijlvol kader en een rustgevende sfeer geef ik je huid de aandacht die ze verdient.</p>
-      </div>
-      <figure class="page-head-media"><img src="/img/zaakvoerder-verzorging.webp" alt="De zaakvoerder van Instituut Soleil in haar behandelruimte" fetchpriority="high" /></figure>
+    <div class="wrap">
+      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Over Soleil</li></ol>
     </div>
   </header>
 
-  <section class="section">
-    <div class="wrap statement-grid">
-      <h2 class="muted">Waarom ik doe wat ik doe</h2>
-      <p class="statement" data-ink>Ik kies uitdrukkelijk voor merken met veel actieve bestanddelen, jarenlang onderzoek en klinische testen. Elk jaar volg ik bijscholingen om ermee te mogen werken. Zo weet je zeker dat wat ik je aanraad ook echt werkt.</p>
-    </div>
-  </section>
-
-  <section class="section night" aria-labelledby="sta">
-    <div class="wrap">
-      <h2 id="sta" class="h1" style="margin-bottom:clamp(48px,6vw,88px)">Waar ik voor sta</h2>
-      <div class="beliefs">
-        <div><h3>Geen quick fix</h3><p class="muted">Elke huid is anders. Ik maak graag extra tijd vrij om je persoonlijk te adviseren en te begeleiden.</p></div>
-        <div><h3>Thuis telt</h3><p class="muted">Wonderen met enkel professionele behandelingen bestaan niet. 75% van het resultaat komt van je verzorging thuis.</p></div>
-        <div><h3>Bewezen werking</h3><p class="muted">Ik werk uitsluitend met producten en technieken die wetenschappelijk onderbouwd zijn.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="inst">
-    <div class="wrap">
-      <div style="display:grid;gap:20px;max-width:640px;margin-bottom:clamp(40px,5vw,72px)">
-        <h2 id="inst" class="h1">Het instituut</h2>
-        <p class="lede">Behandelruimtes met eigen toestellen, een duo-cabine en een relaxruimte om na te genieten.</p>
-      </div>
-      <div class="mosaic">
-        <figure class="reveal-img"><img src="/img/zaakvoerder-behandeling.webp" alt="De zaakvoerder geeft een rugmassage in de behandelruimte" loading="lazy" /></figure>
-        <figure class="reveal-img"><img src="/img/led-lichttherapie.webp" alt="Behandeltafel onder de LED-lamp" loading="lazy" /></figure>
-        <figure class="reveal-img"><img src="/img/zaakvoerder-toestel.webp" alt="De zaakvoerder naast een behandeltoestel" loading="lazy" /></figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="section sand" aria-labelledby="merken">
+  <section style="padding-bottom:var(--section)">
     <div class="wrap split">
-      <h2 id="merken" class="h2">Merken waar ik mee werk</h2>
-      <ul class="forwho" role="list">
-        {brands.map((b, i) => <li><span aria-hidden="true">{i + 1}</span><div><strong style="font-weight:500">{b.name}</strong><br /><span class="muted" style="font:inherit;font-size:var(--step-0);color:var(--ink-2)">{b.line}</span></div></li>)}
+      <figure class="framed sq"><img src="/img/zaakvoerder-portret.webp" alt={`${info.owner}, zaakvoerder van Instituut Soleil`} width="1080" height="1080" fetchpriority="high" /></figure>
+      <div>
+        <span class="eyebrow">Over Soleil</span>
+        <h1>Mijn persoonlijk verhaal</h1>
+        <div class="flow muted" style="margin-top:18px">
+          <p>Ik ben {info.owner}, het gezicht achter Instituut Soleil. Al {info.years} jaar begeleid ik met veel passie klanten naar een mooiere, sterkere en meer gebalanceerde huid.</p>
+          <p>Mijn interesse in duurzame huidverbetering is ook heel persoonlijk gegroeid. Ik heb zelf jarenlang geworsteld met acne en pigmentvlekken en weet hoe frustrerend een probleemhuid kan zijn. Door te werken met doordachte huidverbeterende merken zoals Environ en Jane Iredale kreeg ik mijn eigen huid beter onder controle. Die ervaring motiveerde mij om mij steeds verder te verdiepen en bij te scholen.</p>
+          <p>Ik kies bewust voor actieve producten, innovatieve technieken en behandelingen die ondersteund worden door wetenschappelijk onderzoek en kennis. Geen snelle TikTok-trends of loze beloftes, maar eerlijk advies en een aanpak die past bij jouw huid.</p>
+          <p>In een stijlvol en rustgevend kader neem ik de tijd om naar jou en je huid te luisteren. Samen werken we stap voor stap aan een huid die gezonder, egaler, sterker en meer in balans aanvoelt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bronze" aria-labelledby="sta">
+    <div class="wrap">
+      <h2 id="sta" style="margin-bottom:clamp(24px,3vw,36px)">Waar ik voor sta</h2>
+      <div class="beliefs">
+        <div><h3>Geen quick fix</h3><p>Elke huid is anders. Ik maak graag extra tijd vrij om je persoonlijk te adviseren en te begeleiden.</p></div>
+        <div><h3>Thuis telt</h3><p>Wonderen met enkel professionele behandelingen bestaan niet. 75% van het resultaat komt van je verzorging thuis.</p></div>
+        <div><h3>Bewezen werking</h3><p>Ik werk uitsluitend met producten en technieken die wetenschappelijk onderbouwd zijn.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="merken">
+    <div class="wrap">
+      <div class="head center">
+        <h2 id="merken" class="rule">Merken waar ik mee werk</h2>
+      </div>
+      <ul class="tiles" role="list">
+        {brands.map((b) => (
+          <li class="tile fade">
+            <figure class="sq">{b.img ? <img src={`/img/${b.img}.webp`} alt={`Producten van ${b.name}`} loading="lazy" /> : <span class="tile-word" aria-hidden="true">{b.name}</span>}</figure>
+            <div><h3>{b.name}</h3><p>{b.line}</p></div>
+          </li>
+        ))}
       </ul>
+      <p class="center" style="margin-top:36px"><a class="btn btn--line" href={info.webshop} target="_blank" rel="noopener">Naar de webshop</a></p>
+    </div>
+  </section>
+
+  <section class="section beige" aria-labelledby="inst">
+    <div class="wrap">
+      <div class="head center">
+        <h2 id="inst" class="rule">Het instituut</h2>
+        <p>Een stijlvol en warm kader waar verzorging en ontspanning samenkomen.</p>
+      </div>
+      <ul class="ig" role="list">
+        {insta.map((i) => <li class="sq fade"><img src={`/img/${i.img}.webp`} alt={i.alt} loading="lazy" /></li>)}
+      </ul>
+      <p class="center" style="margin-top:28px"><a class="link" href={info.instagram} target="_blank" rel="noopener">Volg Soleil op Instagram</a></p>
     </div>
   </section>
 </Base>

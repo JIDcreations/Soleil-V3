@@ -1,71 +1,72 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Prices from '../../components/Prices.astro';
-import { skin, info, euro } from '../../data/site';
+import Book from '../../components/Book.astro';
+import { skin, euro } from '../../data/site';
 
 export function getStaticPaths() {
   return skin.map((t) => ({ params: { slug: t.slug }, props: { t } }));
 }
 const { t } = Astro.props;
 const others = skin.filter((s) => s.slug !== t.slug);
-const dur = t.prices.flatMap((p) => p.rows).map((r) => r[1]).filter(Boolean);
 ---
-<Base title={t.name} description={`${t.name} bij Instituut Soleil in Beervelde. ${t.line} Vanaf ${euro(t.from)}.`} image={`/img/${t.img}.webp`}>
-  <link slot="head" rel="preload" as="image" href={`/img/${t.img}.webp`} />
+<Base title={t.name} description={`${t.name} bij Instituut Soleil in Beervelde: ${t.sub}. Vanaf ${euro(t.from)}.`} image={`/img/${t.img}.webp`}>
   <header class="page-head">
-    <div class="wrap page-head-in">
-      <div>
-        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/behandelingen/">Behandelingen</a></li><li aria-current="page">{t.short}</li></ol>
-        <h1 class="h1" style="font-size:var(--step-5)">{t.name}</h1>
-        <p class="lede">{t.intro}</p>
-        <p class="fact"><span>Vanaf {euro(t.from)}</span>{dur.length > 0 && <span>{dur[0] === dur[dur.length - 1] ? dur[0] : `${dur[0]} tot ${dur[dur.length - 1]}`}</span>}</p>
-        <div class="actions">
-          <a class="btn btn--tan" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
-          <a class="link" href="#prijzen">Bekijk de prijzen</a>
-        </div>
-      </div>
-      <figure class="page-head-media"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+    <div class="wrap">
+      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/behandelingen/">Behandelingen</a></li><li aria-current="page">{t.name}</li></ol>
     </div>
   </header>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="split">
-        <h2 class="h2">Voor wie</h2>
-        <ol class="forwho" role="list">
-          {t.forWho.map((f, i) => <li><span aria-hidden="true">{i + 1}</span>{f}</li>)}
-        </ol>
-      </div>
-      <div class="split">
-        <h2 class="h2">Hoe het verloopt</h2>
-        <p class="big-copy">{t.how}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section sand" id="prijzen">
-    <div class="wrap split">
-      <div class="flow">
-        <h2 class="h2">Prijzen</h2>
-        <p class="muted small">Alle prijzen zijn inclusief btw.</p>
-        {t.slug !== 'huidanalyse' && <p class="muted measure">Nog niet eerder bij mij geweest? Dan start je met een <a class="link" href="/behandelingen/huidanalyse/">skin consult of Discovery</a>.</p>}
-      </div>
-      <div>
-        {t.prices.map((p) => <Prices rows={p.rows} title={p.title} note={p.note} />)}
-        <div class="actions" style="margin-top:40px">
-          <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
+  {t.parts ? (
+    <>
+      <section style="padding-bottom:clamp(32px,4vw,48px)">
+        <div class="wrap split">
+          <figure class="framed ratio-43"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+          <div>
+            <span class="eyebrow">{t.sub}</span>
+            <h1>{t.name}</h1>
+            <p class="muted" style="margin-top:14px">{t.intro}</p>
+            <p class="small" style="margin-top:14px">Vanaf {euro(t.from)} · {t.parts.map((p, i) => <>{i > 0 && ' · '}<a class="link" href={`#${p.id}`}>{p.name}</a></>)}</p>
+            {t.tip && <p class="tip">{t.tip} <a class="link" href="/behandelingen/huidanalyse/#prijzen">Meer over de Skin Discovery</a></p>}
+          </div>
+        </div>
+      </section>
+      <section class="section beige" id="prijzen">
+        <div class="wrap">
+          {t.parts.map((p) => (
+            <article class="treat" id={p.id}>
+              <figure class="ratio-43"><img src={`/img/${p.img}.webp`} alt={p.alt} loading="lazy" /></figure>
+              <div>
+                <h2>{p.name}</h2>
+                <p class="sub">vanaf {euro(Math.min(...p.prices.flatMap((g) => g.rows).map((r) => (typeof r[2] === 'number' ? r[2] : 999))))}</p>
+                <p>{p.text}</p>
+                {p.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
+                <div class="actions"><Book label="Boek hier" /></div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
+  ) : (
+    <section style="padding-bottom:var(--section)">
+      <div class="wrap split">
+        <figure class="framed ratio-43"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+        <div id="prijzen">
+          <span class="eyebrow">{t.sub}</span>
+          <h1>{t.name}</h1>
+          <p class="muted" style="margin:14px 0 24px">{t.intro}</p>
+          {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
+          {t.tip && <p class="tip">{t.tip}</p>}
+          <div class="actions"><Book label="Boek hier" /></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <section class="section">
-    <div class="wrap split">
-      <h2 class="h3">Andere behandelingen</h2>
-      <nav class="others" aria-label="Andere behandelingen">
-        {others.map((o) => <a class="chip" href={`/behandelingen/${o.slug}/`}>{o.short}</a>)}
-        <a class="chip" href="/verwennen/">Verwennen</a>
-      </nav>
+  <section class="section--tight">
+    <div class="wrap">
+      <p class="small muted">Andere behandelingen: {others.map((o, i) => <>{i > 0 && ' · '}<a class="link" href={`/behandelingen/${o.slug}/`}>{o.name}</a></>)} · <a class="link" href="/verwennen/">Ontspanning</a> · <a class="link" href="/tarieven/">Alle tarieven</a></p>
     </div>
   </section>
 </Base>

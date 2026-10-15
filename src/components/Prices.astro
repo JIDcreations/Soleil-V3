@@ -6,9 +6,9 @@ const { rows, title, note } = Astro.props;
 <table class="prices">
   {title && <caption>{title}</caption>}
   <tbody>
-    {rows.map(([n, d, p]) => (
+    {rows.map(([n, d, p, sub]) => (
       <tr>
-        <th scope="row">{n}</th>
+        <th scope="row">{n}{sub && <small>{sub}</small>}</th>
         <td class="dur">{d}</td>
         <td class="eur">{euro(p)}</td>
       </tr>

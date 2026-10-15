@@ -12,7 +12,7 @@ for (const p of paths) {
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
     page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
-    await page.goto(`http://localhost:4321${p}`, { waitUntil: 'networkidle' });
+    await page.goto(`http://localhost:${process.env.PORT || 4321}${p}`, { waitUntil: 'networkidle' });
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } window.scrollTo(0, 0); });
     await page.waitForTimeout(400);
     const slug = p.replace(/\//g, '_').replace(/^_|_$/g, '') || 'home';
@@ -21,11 +21,6 @@ for (const p of paths) {
     await ctx.close();
   }
 }
-// first viewport with motion, after the entrance settles
-const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-const page = await ctx.newPage();
-await page.goto(`http://localhost:4321${paths[0]}`, { waitUntil: 'networkidle' });
-await page.waitForTimeout(3200);
-await page.screenshot({ path: `${out}/motion-hero.png` });
+
 await browser.close();
 console.log('done');
