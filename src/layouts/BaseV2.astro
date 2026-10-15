@@ -21,7 +21,7 @@ const postitSrc = import.meta.env.PUBLIC_POSTIT_SRC ?? 'https://wizarts-postits.
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#fbf9f6" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script is:inline>document.documentElement.classList.add('js');try{const t=localStorage.getItem('soleil-tint');if(t)document.documentElement.dataset.tint=t;}catch{}</script>
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <slot name="head" />
     <script is:inline defer src={postitSrc} data-postit-laag data-project="soleil" data-vaste-header="[data-header]"></script>
   </head>

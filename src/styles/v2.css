@@ -45,13 +45,10 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --header-h: 72px;      /* scrolled height; at the top the header is --header-top */
   --header-top: 104px;
-  --nl-btn: var(--forest); --nl-ink: var(--ink); /* newsletter card follows the tint */
+  --nl-btn: var(--forest); --nl-ink: var(--ink); /* newsletter card in the site colours */
   color-scheme: light;
 }
 @media (max-width: 960px) { :root { --header-top: 88px; --header-h: 64px; } }
-/* Tints to compare (switch bottom left). Mokka is the default above. */
-:root[data-tint='goud'] { --forest: #a98458; --forest-2: #957248; --tan-ink: #87683d; --sand: #f1e6d2; --mist: #f7f0e3; }
-:root[data-tint='nude'] { --forest: #a5807a; --forest-2: #936e68; --tan-ink: #8a645e; --sand: #f1e4df; --mist: #f8efec; }
 
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
@@ -438,11 +435,10 @@ em { font-style: italic; font-weight: 400; }
 /* Version switch (shared with version A, styles duplicated there) */
 .vswitch-wrap { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: grid; gap: 6px; justify-items: start; }
 .vswitch { display: flex; gap: 4px; padding: 4px; background: var(--ink); box-shadow: 0 12px 30px -12px rgb(59 50 43 / 0.6); font: 500 var(--fs-small)/1 var(--sans); }
-.vswitch a, .vswitch button { display: inline-flex; align-items: center; gap: 6px; padding: 9px 12px; color: rgb(255 255 255 / 0.75); }
-.vswitch a[aria-current='true'], .vswitch button[aria-pressed='true'] { background: var(--bone); color: var(--ink); }
-.vswitch i { width: 10px; height: 10px; }
+.vswitch a { display: inline-flex; align-items: center; gap: 6px; padding: 9px 12px; color: rgb(255 255 255 / 0.75); }
+.vswitch a[aria-current='true'] { background: var(--bone); color: var(--ink); }
 .vswitch span { align-self: center; min-width: 5.2em; padding: 0 6px 0 10px; color: #fff; letter-spacing: 0.08em; text-transform: uppercase; font-size: var(--fs-label); }
-@media (max-width: 960px) { .vswitch-wrap { bottom: 84px; } .vswitch a, .vswitch button { padding: 8px 9px; } }
+@media (max-width: 960px) { .vswitch-wrap { bottom: 84px; } .vswitch a { padding: 8px 9px; } }
 
 .dock { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: none; }
 @media (max-width: 960px) { .dock { display: block; transform: translateY(140%); transition: transform 0.4s var(--ease); } .dock.is-on { transform: none; } }
