@@ -1,0 +1,36 @@
+---
+/* Version B (agency proposal). Lives under /v2/, not indexed, own stylesheet. */
+import '../styles/v2.css';
+import Header from '../components/v2/Header.astro';
+import Footer from '../components/v2/Footer.astro';
+import VersionSwitch from '../components/VersionSwitch.astro';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const full = title.includes('Soleil') ? title : `${title} | Instituut Soleil Beervelde`;
+// Review layer (post-its), same as version A. Remove before go-live.
+const postitSrc = import.meta.env.PUBLIC_POSTIT_SRC ?? 'https://wizarts-postits.netlify.app/postits.js';
+---
+<!doctype html>
+<html lang="nl-BE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{full}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f6f5f1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <slot name="head" />
+    <script is:inline defer src={postitSrc} data-postit-laag data-project="soleil" data-vaste-header="[data-header]"></script>
+  </head>
+  <body>
+    <Header />
+    <main id="main" tabindex="-1"><slot /></main>
+    <Footer />
+    <VersionSwitch />
+    <script>
+      import '../scripts/v2.ts';
+    </script>
+  </body>
+</html>

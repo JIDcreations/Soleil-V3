@@ -1,0 +1,31 @@
+---
+import Base from '../../../layouts/BaseV2.astro';
+import Icon from '../../../components/Icon.astro';
+import { groups, euro } from '../../../data/site';
+---
+<Base title="Behandelingen" description="Skin Discovery, huidanalyse, Skin Relax, Skin Expert en ontspanning bij Instituut Soleil in Beervelde.">
+  <header class="wrap ph-head">
+    <ol class="crumbs" role="list"><li><a href="/v2/">Home</a></li><li aria-current="page">Behandelingen</li></ol>
+    <h1 class="h1">Behandelingen</h1>
+    <p class="lede">Nieuw bij Soleil? Begin met een <a class="link" href="/v2/behandelingen/skin-discovery/">Skin Discovery</a>.</p>
+  </header>
+  <section class="wrap">
+    {groups.map((g) => (
+      <div class="tlist-group" id={g.title.toLowerCase()} style="scroll-margin-top:calc(var(--header-h) + 40px)">
+        <p class="label">{g.title}</p>
+        <ul class="tlist" role="list">
+          {g.items.map((t, i) => (
+            <li class="rv" style={`--d:${i}`}>
+              <a href={`/v2/behandelingen/${t.slug}/`}>
+                <span class="ph"><img src={`/img/${t.img}.webp`} alt="" loading="lazy" /></span>
+                <h2>{t.name}</h2>
+                <span class="d">{t.sub}</span>
+                <span class="p">{t.from > 0 ? `vanaf ${euro(t.from)}` : 'meer info'}<Icon name="arrow-right" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+</Base>

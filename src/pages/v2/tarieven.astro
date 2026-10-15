@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/BaseV2.astro';
+import Icon from '../../components/Icon.astro';
+import Prices from '../../components/Prices.astro';
+import { info, treatments } from '../../data/site';
+// Skin Discovery is already listed under Huidanalyse and Skin Relax.
+const list = treatments.filter((t) => t.slug !== 'skin-discovery');
+---
+<Base title="Tarieven" description="Alle prijzen van Instituut Soleil in Beervelde.">
+  <header class="wrap ph-head">
+    <ol class="crumbs" role="list"><li><a href="/v2/">Home</a></li><li aria-current="page">Tarieven</li></ol>
+    <h1 class="h1">Tarieven</h1>
+    <p class="lede">Weet je niet goed wat kiezen en wil je aan huidverbetering werken? Boek dan best een <a class="link" href="/v2/behandelingen/skin-discovery/">Skin Discovery</a>.</p>
+    <nav class="chips" aria-label="Categorieën">
+      {list.map((t) => <a href={`#${t.slug}`}>{t.name}</a>)}
+    </nav>
+  </header>
+  <section class="wrap">
+    <div class="rates">
+      {list.map((t) => (
+        <section class="rate" id={t.slug} aria-labelledby={`r-${t.slug}`}>
+          <div class="rate-head"><h2 id={`r-${t.slug}`}>{t.name}</h2><a href={`/v2/behandelingen/${t.slug}/`}>Meer info</a></div>
+          <p>{t.sub}</p>
+          {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
+          {t.parts?.map((p) => <Prices rows={p.prices.flatMap((g) => g.rows)} title={p.name} />)}
+          {t.note && <p class="price-note">{t.note}</p>}
+          {t.link && <p style="padding-block:12px 8px"><a class="link" href={t.link.href} target="_blank" rel="noopener">{t.link.label}<Icon name="arrow-up-right" /></a></p>}
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>

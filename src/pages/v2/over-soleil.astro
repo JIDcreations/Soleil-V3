@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/BaseV2.astro';
+import Icon from '../../components/Icon.astro';
+import { info, brands } from '../../data/site';
+const gallery = [
+  { img: 'instituut-massage', alt: 'De behandelruimte met warm licht' },
+  { img: 'duo-cabine', alt: 'Twee personen in de duo-cabine' },
+  { img: 'led-lichttherapie', alt: 'Behandeltafel onder de LED-lamp' },
+  { img: 'zaakvoerder-toestel', alt: 'Saskia naast een behandeltoestel' },
+  { img: 'gelaatsverzorging', alt: 'Een gelaatsverzorging' },
+  { img: 'zaakvoerder-behandeling', alt: 'Saskia geeft een behandeling' },
+];
+---
+<Base title="Over Soleil" description={`Ik ben ${info.owner}, het gezicht achter Instituut Soleil.`}>
+  <header class="wrap ph-head">
+    <ol class="crumbs" role="list"><li><a href="/v2/">Home</a></li><li aria-current="page">Over Soleil</li></ol>
+    <h1 class="h1">Mijn persoonlijk verhaal</h1>
+  </header>
+
+  <section class="wrap story">
+    <figure class="ph rv-img"><img src="/img/zaakvoerder-portret.webp" alt={`${info.owner}, zaakvoerder van Instituut Soleil`} width="1080" height="1080" fetchpriority="high" /></figure>
+    <div class="prose">
+      <p class="rv">Ik ben {info.owner}, het gezicht achter Instituut Soleil. Al {info.years} jaar begeleid ik met veel passie klanten naar een mooiere, sterkere en meer gebalanceerde huid.</p>
+      <p class="rv">Mijn interesse in duurzame huidverbetering is ook heel persoonlijk gegroeid. Ik heb zelf jarenlang geworsteld met acne en pigmentvlekken en weet hoe frustrerend een probleemhuid kan zijn. Door te werken met doordachte huidverbeterende merken zoals Environ en Jane Iredale kreeg ik mijn eigen huid beter onder controle. Die ervaring motiveerde mij om mij steeds verder te verdiepen en bij te scholen.</p>
+      <p class="rv">Ik kies bewust voor actieve producten, innovatieve technieken en behandelingen die ondersteund worden door wetenschappelijk onderzoek en kennis. Geen snelle TikTok-trends of loze beloftes, maar eerlijk advies en een aanpak die past bij jouw huid.</p>
+      <p class="rv">In een stijlvol en rustgevend kader neem ik de tijd om naar jou en je huid te luisteren. Samen werken we stap voor stap aan een huid die gezonder, egaler, sterker en meer in balans aanvoelt.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sta">
+    <div class="wrap values">
+      <div class="rv"><h2 id="sta" class="h2">Waar ik voor sta</h2><p>Drie principes die elke behandeling bepalen.</p></div>
+      <div class="rv" style="--d:1"><h3 class="h3">Geen quick fix</h3><p>Elke huid is anders. Ik maak graag extra tijd vrij om je persoonlijk te adviseren en te begeleiden.</p></div>
+      <div class="rv" style="--d:2"><h3 class="h3">Thuis telt</h3><p>Wonderen met enkel professionele behandelingen bestaan niet. 75% van het resultaat komt van je verzorging thuis.</p></div>
+      <div class="rv" style="--d:3;grid-column:span 2"><h3 class="h3">Bewezen werking</h3><p>Ik werk uitsluitend met producten en technieken die wetenschappelijk onderbouwd zijn.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="merken">
+    <div class="wrap">
+      <h2 id="merken" class="h1 rv" style="margin-bottom:clamp(20px,3vw,32px)">Merken waar ik mee werk</h2>
+      <ul class="brands" role="list">
+        {brands.map((b) => (
+          <li class="rv">
+            <a class="row" href={info.webshop} target="_blank" rel="noopener">
+              <h3>{b.name}</h3>
+              <p>{b.line}</p>
+              <span class="thumb" aria-hidden="true">{b.img ? <img src={`/img/${b.img}.webp`} alt="" loading="lazy" /> : 'ISOV'}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p style="margin-top:28px"><a class="link" href={info.webshop} target="_blank" rel="noopener">Naar de webshop<Icon name="arrow-up-right" /></a></p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-bottom:0" aria-labelledby="inst">
+    <div class="wrap">
+      <h2 id="inst" class="h1 rv">Het instituut</h2>
+      <p class="lede rv" style="margin-block:16px clamp(28px,4vw,48px)">Een stijlvol en warm kader waar verzorging en ontspanning samenkomen.</p>
+      <div class="gallery">
+        {gallery.map((g) => <figure class="ph rv-img"><img src={`/img/${g.img}.webp`} alt={g.alt} loading="lazy" /></figure>)}
+      </div>
+      <p style="margin-top:28px"><a class="link" href={info.instagram} target="_blank" rel="noopener">Volg Soleil op Instagram<Icon name="arrow-up-right" /></a></p>
+    </div>
+  </section>
+</Base>

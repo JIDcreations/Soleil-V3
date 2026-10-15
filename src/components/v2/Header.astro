@@ -1,0 +1,53 @@
+---
+import Logo from '../Logo.astro';
+import Icon from '../Icon.astro';
+import { info, groups, euro } from '../../data/site';
+const path = Astro.url.pathname;
+const href = (slug: string) => `/v2/behandelingen/${slug}/`;
+const current = (h: string) => (path === h || (h !== '/v2/' && path.startsWith(h)) ? 'page' : undefined);
+const main = [
+  { href: '/v2/tarieven/', label: 'Tarieven' },
+  { href: '/v2/over-soleil/', label: 'Over Soleil' },
+  { href: '/v2/contact/', label: 'Contact' },
+];
+---
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="hd" data-header>
+  <div class="wrap hd-in">
+    <a class="brand" href="/v2/" aria-label="Instituut Soleil, naar de homepagina">
+      <Logo />
+      <span class="brand-word" aria-hidden="true"><small>instituut</small><span>SOLEIL</span></span>
+    </a>
+    <nav class="nv" aria-label="Hoofdmenu">
+      <div class="dd" data-dd>
+        <button class="dd-btn" type="button" aria-expanded="false" aria-controls="v2-dd" data-current={path.startsWith('/v2/behandelingen/') ? 'true' : undefined}>Behandelingen<Icon name="caret-down" /></button>
+        <div class="dd-panel" id="v2-dd">
+          {groups.map((g) => (
+            <div class="dd-col">
+              <p class="label">{g.title}</p>
+              <ul role="list">
+                {g.items.map((t) => <li><a href={href(t.slug)} aria-current={current(href(t.slug))}><span>{t.name}</span>{t.from > 0 && <small>vanaf {euro(t.from)}</small>}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+      {main.map((n) => <a href={n.href} aria-current={current(n.href)}>{n.label}</a>)}
+      <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="v2-sheet" data-menu-btn><span data-menu-label>Menu</span></button>
+  </div>
+</header>
+<div class="sheet" id="v2-sheet" data-sheet>
+  <nav aria-label="Menu">
+    <a href="/v2/">Home</a>
+    <a href="/v2/behandelingen/">Behandelingen</a>
+    {groups.flatMap((g) => g.items).map((t) => <a class="sub" href={href(t.slug)}>{t.name}</a>)}
+    {main.map((n) => <a href={n.href}>{n.label}</a>)}
+  </nav>
+  <div class="actions">
+    <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
+    <a class="btn btn--ghost" href={info.phoneHref}><Icon name="phone" />{info.phone}</a>
+  </div>
+</div>
+<a class="dock btn" href={info.booking} target="_blank" rel="noopener" data-dock>Afspraak maken</a>
