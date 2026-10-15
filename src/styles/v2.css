@@ -236,7 +236,7 @@ em { font-style: italic; font-weight: 400; }
 .sec-head p { margin-top: 12px; }
 
 /* Treatments: Skin Discovery banner + four equal cards */
-.disc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 48px; align-items: center; padding: clamp(24px, 3vw, 40px); border-radius: 0; background: var(--sand); color: var(--ink); }
+.disc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 48px; align-items: center; padding: clamp(24px, 3vw, 40px); border-radius: 0; background: var(--mist); color: var(--ink); }
 .disc h3 { font-size: var(--fs-h2); margin-top: 10px; }
 .disc p.t { margin-top: 10px; max-width: 54ch; color: var(--moss); }
 .disc-side { display: flex; align-items: center; gap: 28px; }
@@ -348,10 +348,9 @@ em { font-style: italic; font-weight: 400; }
 .prices .eur { white-space: nowrap; text-align: right; width: 1%; font-weight: 400; }
 .price-note { margin-top: 14px; font-size: var(--fs-small); color: var(--moss); }
 
-/* Problem / solution / benefit: three tinted panels with icons */
+/* Problem / solution / benefit: three equal panels with icons */
 .why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 8px; }
 .why > div { padding: 26px; border-radius: 0; background: var(--mist); }
-.why > div:nth-child(2) { background: var(--sand); }
 .why svg { width: 26px; height: 26px; color: var(--tan-ink); margin-bottom: 28px; }
 .why h3 { font-size: var(--fs-lg); letter-spacing: -0.01em; margin-bottom: 8px; }
 .why p { font-size: var(--fs-body); color: var(--moss); }
@@ -395,7 +394,7 @@ em { font-style: italic; font-weight: 400; }
 @media (max-width: 860px) { .story { grid-template-columns: 1fr; } .story .ph { position: static; aspect-ratio: 4 / 3; } }
 .values { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 14px; }
 .values > div { padding: clamp(24px, 3vw, 36px); border-radius: 0; background: var(--mist); }
-.values > div:first-child { background: var(--sand); grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+.values > div:first-child { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
 .values h3 { margin-bottom: 10px; }
 .values p { color: var(--moss); }
 @media (max-width: 860px) { .values { grid-template-columns: 1fr; } .values > div:first-child { grid-row: auto; } }
@@ -408,7 +407,7 @@ em { font-style: italic; font-weight: 400; }
 /* Contact */
 .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
 .card { padding: clamp(24px, 3vw, 40px); border-radius: 0; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
-.card--forest { background: var(--sand); box-shadow: none; }
+.card--forest { background: var(--mist); box-shadow: none; }
 .card h2 { font-size: var(--fs-h2); letter-spacing: -0.025em; margin-bottom: 18px; }
 .big-line { font-size: var(--fs-h2); letter-spacing: -0.02em; line-height: 1.2; font-weight: 400; }
 .week { display: grid; gap: 6px; }
