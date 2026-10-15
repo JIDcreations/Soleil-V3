@@ -6,9 +6,36 @@ const isB = path === '/v2/' || path.startsWith('/v2/');
 const inB = (p: string) => p === '/' || /^\/(behandelingen|tarieven|over-soleil|contact)\//.test(p);
 const a = isB ? path.replace(/^\/v2/, '') || '/' : path;
 const b = isB ? path : inB(path) ? `/v2${path}` : '/v2/';
+// Version B only: compare brown tints live (stored per visitor). Remove with the switch.
+const tints = [
+  { id: 'mokka', label: 'Mokka', swatch: '#9a7a62' },
+  { id: 'goud', label: 'Zandgoud', swatch: '#a98458' },
+  { id: 'nude', label: 'Nude', swatch: '#a5807a' },
+];
 ---
-<nav class="vswitch" aria-label="Ontwerpversie">
-  <span>Ontwerp</span>
-  <a href={a} aria-current={!isB ? 'true' : undefined}>Versie A</a>
-  <a href={b} aria-current={isB ? 'true' : undefined}>Versie B</a>
-</nav>
+<div class="vswitch-wrap">
+  {isB && (
+    <div class="vswitch vswitch--tint" role="group" aria-label="Kleur vergelijken">
+      <span>Kleur</span>
+      {tints.map((t) => <button type="button" data-tint-btn={t.id} aria-pressed="false"><i style={`background:${t.swatch}`}></i>{t.label}</button>)}
+    </div>
+  )}
+  <nav class="vswitch" aria-label="Ontwerpversie">
+    <span>Ontwerp</span>
+    <a href={a} aria-current={!isB ? 'true' : undefined}>Versie A</a>
+    <a href={b} aria-current={isB ? 'true' : undefined}>Versie B</a>
+  </nav>
+</div>
+{isB && (
+  <script is:inline>
+    (() => {
+      const set = (id) => {
+        document.documentElement.dataset.tint = id;
+        try { localStorage.setItem('soleil-tint', id); } catch {}
+        document.querySelectorAll('[data-tint-btn]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tintBtn === id)));
+      };
+      set(document.documentElement.dataset.tint || 'mokka');
+      document.querySelectorAll('[data-tint-btn]').forEach((b) => b.addEventListener('click', () => set(b.dataset.tintBtn)));
+    })();
+  </script>
+)}
