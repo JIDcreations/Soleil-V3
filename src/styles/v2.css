@@ -6,25 +6,25 @@
    Soleil, version B (agency proposal).
    Design read: premium consumer skin clinic, modern editorial, photo-led.
    Dials: variance 7, motion 5, density 3.
-   Palette: Soleil house colours, white, beige and a soft taupe brown.
+   Palette: Soleil house colours, white, warm beige and a soft caramel brown.
    Shape rule: no rounded corners anywhere (client request).
    Type rule: seven sizes only (--fs-*), headings at weight 400.
    Light theme only: the client explicitly does not want dark surfaces.
    ========================================================================== */
 :root {
-  /* Soleil house colours: white, beige and a soft taupe brown (client: "veel zachter"). */
+  /* Soleil house colours: white, warm beige and a soft caramel brown (client: "veel zachter", not grey). */
   --bone: #fbf9f6;       /* page */
   --paper: #ffffff;
-  --mist: #f4eee6;       /* beige surface */
-  --sand: #ece3d8;       /* deeper beige: footer, highlighted panels */
-  --forest: #86705f;     /* soft brown: buttons (white text 4.7:1). Name kept from the first draft. */
-  --forest-2: #75614f;   /* hover */
-  --ink: #4a3f37;        /* soft dark brown text */
-  --moss: #6e625a;       /* secondary text */
+  --mist: #f6eee4;       /* beige surface */
+  --sand: #efe3d3;       /* deeper beige: footer, highlighted panels */
+  --forest: #946c4b;     /* soft caramel: buttons (white text 4.7:1). Name kept from the first draft. */
+  --forest-2: #82593a;   /* hover */
+  --ink: #4b3a2f;        /* warm dark brown text */
+  --moss: #73604f;       /* secondary text */
   --tan: #c4a283;        /* logo colour */
-  --tan-ink: #7f6a5a;    /* brown as text on light (4.9:1) */
+  --tan-ink: #85603f;    /* brown as text on light (5.3:1) */
   --glow: #f1e6d8;
-  --line: rgb(74 63 55 / 0.12);
+  --line: rgb(75 58 47 / 0.12);
 
   --sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --serif: 'EB Garamond Variable', Georgia, serif; /* wordmark only */
@@ -151,7 +151,7 @@ em { font-style: italic; font-weight: 400; }
 .menu-side nav a:hover, .menu-side nav a[aria-current='page'] { color: var(--tan-ink); }
 .menu-card { position: relative; display: flex; align-items: flex-end; min-height: 200px; padding: 20px; border-radius: 0; overflow: hidden; isolation: isolate; color: #fff; }
 .menu-card img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
-.menu-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 30%, rgb(60 48 40 / 0.75)); }
+.menu-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 30%, rgb(64 44 28 / 0.75)); }
 .menu-card span { display: grid; font-size: var(--fs-lg); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; }
 .menu-card small { font-size: var(--fs-small); font-weight: 400; letter-spacing: 0; opacity: 0.85; }
 .menu-contact { display: grid; gap: 8px; color: var(--moss); }
@@ -196,14 +196,14 @@ em { font-style: italic; font-weight: 400; }
 .hero { padding-block: 8px clamp(48px, 6vw, 80px); }
 .hero-frame { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: min(calc(100dvh - var(--header-top) - 24px), 860px); padding: clamp(28px, 5vw, 72px); border-radius: 0; overflow: hidden; color: #fff; }
 .hero-frame > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
-.hero-frame::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(60 48 40 / 0.72), rgb(60 48 40 / 0.35) 45%, transparent 75%), linear-gradient(0deg, rgb(60 48 40 / 0.45), transparent 50%); }
+.hero-frame::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(64 44 28 / 0.72), rgb(64 44 28 / 0.35) 45%, transparent 75%), linear-gradient(0deg, rgb(64 44 28 / 0.45), transparent 50%); }
 .hero-copy { max-width: 640px; }
 .hero h1 em { color: var(--glow); }
 .hero .lede { color: rgb(255 255 255 / 0.88); margin-block: 20px 32px; }
 .hero .link { color: #fff; }
 @media (max-width: 760px) {
   .hero-frame { min-height: 78dvh; }
-  .hero-frame::after { background: linear-gradient(0deg, rgb(60 48 40 / 0.8), rgb(60 48 40 / 0.2) 70%); }
+  .hero-frame::after { background: linear-gradient(0deg, rgb(64 44 28 / 0.8), rgb(64 44 28 / 0.2) 70%); }
   .hero-frame > img { object-position: 12% 20%; }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -278,7 +278,7 @@ em { font-style: italic; font-weight: 400; }
 /* Full-bleed CTA band (inside the max width, rounded) */
 .band { position: relative; isolation: isolate; overflow: hidden; border-radius: 0; min-height: clamp(420px, 52vw, 640px); display: flex; align-items: flex-end; padding: clamp(28px, 5vw, 64px); color: var(--bone); }
 .band img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
-.band::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(60 48 40 / 0.78), rgb(60 48 40 / 0.15) 70%); }
+.band::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(64 44 28 / 0.78), rgb(64 44 28 / 0.15) 70%); }
 .band .h1 { max-width: 14ch; margin-bottom: 28px; }
 
 /* ==========================================================================

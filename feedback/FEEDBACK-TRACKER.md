@@ -138,8 +138,8 @@ Test rows P2 to P6 (Claude / Stijn tests) are ignored.
 | R2-1 | Treatments: drop "vanaf" before the price | Removed in cards, overview, menus and part prices, A and B | ✅ |
 | R2-2 | Font sizes inconsistent, too many variants, slightly smaller | B: seven tokens (`--fs-*`) in `v2.css`, nothing else sets a size; headings weight 400 | ✅ |
 | R2-3 | Brands: version A is better | B uses A's square tiles with the intro line | ✅ |
-| R2-4 | Brown too harsh, much softer | B accent `#86705f`; brown surfaces became sand `#ece3d8` | ✅ |
+| R2-4 | Brown too harsh, much softer | B accent caramel `#946c4b` (taupe `#86705f` read grey); brown surfaces became sand `#efe3d3` | ✅ |
 | R2-5 | Nav: logo bigger at the start, smaller after scrolling | B header 104px / logo 84px, shrinks to 72px / 54px | ✅ |
 | R2-6 | Footer in the new colour, calmer text | B footer sand, small muted text | ✅ |
-| R2-7 | Newsletter popup, not too big | `Newsletter.astro`, both versions, Netlify Forms "nieuwsbrief" | ✅ (needs form detection on in Netlify) |
+| R2-7 | Newsletter popup, not too big | `Newsletter.astro`, both versions, front-end only (prototype) | ✅ |
 | R2-8 | No rounded corners | All radii 0 in A and B | ✅ |
