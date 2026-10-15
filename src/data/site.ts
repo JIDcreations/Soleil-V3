@@ -362,13 +362,13 @@ export const usps = [
   { icon: 'house-line', title: 'Ook thuis begeleid', text: '75% van het resultaat komt van je verzorging thuis. Die stem ik mee af.' },
 ];
 
-/* Reviews. PLACEHOLDERS until the client sends real ones: set placeholder to false
-   (or remove the flag) per review once it is a real, approved review. While any review
-   is a placeholder, the section shows a visible "voorbeeldreviews" label. */
-export const reviews = [
-  { text: 'Na drie peelings voelt mijn huid zoveel zachter. Saskia neemt echt de tijd om uit te leggen wat ze doet en waarom.', name: 'Voorbeeldreview', place: 'Skin Expert Peel', placeholder: true },
-  { text: 'De Skin Discovery was een eyeopener. Eindelijk weet ik welke producten bij mijn huid passen.', name: 'Voorbeeldreview', place: 'Skin Discovery', placeholder: true },
-  { text: 'Een uur Skin Relax en ik ben weer helemaal mezelf. Rustig, warm en altijd persoonlijk.', name: 'Voorbeeldreview', place: 'Skin Relax', placeholder: true },
+/* Reviews: real client reviews (Google and the booking system), chosen from the documents
+   the client sent. Quoted verbatim, names shortened to first name + initial.
+   A review with placeholder: true shows the "voorbeeldreviews" label again. */
+export const reviews: { text: string; name: string; place: string; placeholder?: boolean }[] = [
+  { text: 'Professioneel, vriendelijk en een echte expert in huidverzorging/verbetering. Saskia kent overduidelijk haar vak en heeft een heel aangename aanpak. Een madam met passie en al stiekem aan het aftellen naar de volgende behandeling.', name: 'Aurélie V.', place: 'Huidverbetering' },
+  { text: 'Heel lieve dame, hartelijke ontvangst. Heel proper en stijlvol salon. Gekregen waar we voor gekomen waren, een fantastische gezichtsverzorging en massage voor ons twee. Zeker voor herhaling vatbaar.', name: 'Ann G.', place: 'Verwennen met twee' },
+  { text: 'Gelaatsverzorging en maquillage: een rustig moment op een fijne plek: gerealiseerd door een lieve en vakbekwame dame!', name: 'Hilde V.', place: 'Gelaatsverzorging & make-up' },
 ];
 export const reviewsArePlaceholders = reviews.some((r) => r.placeholder);
 
