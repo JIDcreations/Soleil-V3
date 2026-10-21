@@ -59,6 +59,14 @@ export type Treatment = {
   /* Problem the visitor recognises, what Soleil does about it, what she gains. Kept to one or two lines each. */
   why?: { problem: string; solution: string; benefit: string };
   parts?: { id: string; name: string; img: string; alt: string; text: string; prices: PriceGroup[] }[];
+  /* Own page layout (make-up): intro questions, a brand block and simple service blocks instead of the price panel. */
+  page?: {
+    title: string;
+    questions: string[];
+    cta: string;
+    story: { label: string; title: string; text: string[]; img: string; alt: string };
+    services: { name: string; tag?: string; text: string; dur: string; price: number | string }[];
+  };
 };
 
 export const discovery: Row = ['Skin Discovery', '90 min', 105, 'analyse + verzorging + advies, 1e kennismakingsbehandeling'];
@@ -304,24 +312,38 @@ export const relax: Treatment[] = [
   },
   {
     slug: 'make-up',
-    why: { problem: 'Make-up die je huid uitdroogt of verstopt, of je weet niet goed hoe je ermee werkt.', solution: 'Minerale make-up van Jane Iredale, met persoonlijke uitleg, altijd individueel.', benefit: 'Make-up die je huid verzorgt terwijl je ze draagt, en die je zelf leert aanbrengen.' },
     name: 'Make-up',
     sub: 'minerale make-up',
     img: 'make-up',
     alt: 'Make-up wordt aangebracht met een kwast',
-    from: 20,
-    intro: 'Minerale make-up van Jane Iredale. Leer ermee werken, altijd individueel.',
-    prices: [
-      {
-        rows: [
-          ['Make-up foundation test', '20 min', 'gratis'],
-          ['Make-up + serum', '30 min', 35],
-          ['Make-up cursus, 1 persoon', '60 min', 60],
-          ['Verven wimpers', '15 min', 20],
-          ['Verven wenkbrauwen + epilatie', '20 min', 25],
+    from: 45,
+    intro: 'Minerale make-up van Jane Iredale.',
+    prices: [],
+    page: {
+      title: 'Skincare make-up',
+      questions: [
+        'Wil jij een mooie natuurlijke uitstraling?',
+        'Geen gedoe meer met poriën verstoppende producten?',
+        'En daarbovenop make-up die effectief huidverbeterend werkt?',
+      ],
+      cta: 'Boek dan jouw persoonlijke minerale make-up consultatie!',
+      story: {
+        label: 'Jane iredale minerale make up.',
+        title: 'wist je dat...jane iredale veel meer is dan een klassiek mineraal of clean beauty make-up merk?',
+        text: [
+          'Natuurlijk zijn de producten vrij van schadelijke stoffen, dat is de basis, maar bij jane iredale gaat het een flinke stap verder. De formules zitten boordevol actieve ingrediënten zoals antioxidanten en botanische extracten die je huid écht verbeteren. Ze hydrateren, beschermen tegen UV- en blauw licht en ondersteunen de gezondheid van de huid.',
+          'Geen plamuurlaagje dus, maar verzorgende make-up die je huid laat ademen, kalmeert én versterkt.',
         ],
+        img: 'producten-jane-iredale',
+        alt: 'Make-up producten van Jane Iredale',
       },
-    ],
+      services: [
+        { name: 'Foundation test', text: 'Ben je op zoek naar de perfecte foundation van jane iredale en heb je deze nog niet eerder gebruikt? Maar je wilt geen volledige make-up look? Boek en vind jouw ideale match.', dur: '25 min', price: 'gratis' },
+        { name: 'Kort make-up advies', tag: 'SNEL & SPECIFIEK', text: 'Heb je een kleine vraag of wil je 1 specifiek item uittesten (bv. Foundationkleur afstemmen, blush, lipstick, oogschaduw)? Dan is dit mini-moment ideaal.', dur: '20 min', price: 'gratis' },
+        { name: 'Make-up', tag: 'make-up voor jouw mooiste momenten', text: 'Een frisse, verzorgde look waarin jij straalt, zonder dat het te veel wordt. Zo zie je er fantastisch uit en kan je vol zelfvertrouwen schitteren', dur: '30 min', price: 45 },
+        { name: 'Make up cursus', text: 'Je leert stap voor stap alles zelf aanbrengen, met volop ruimte voor jouw vragen. Ideaal om je routine te verfijnen, iets bij te leren of gewoon te genieten van een moment voor jezelf.', dur: '70 min', price: 70 },
+      ],
+    },
   },
   {
     slug: 'laser',
@@ -337,6 +359,7 @@ export const relax: Treatment[] = [
   },
 ];
 
+relax.forEach((t) => { if (t.page) t.prices = [{ rows: t.page.services.map((x): Row => [x.name, x.dur, x.price]) }]; });
 skin.forEach((t) => (t.group = 'Huidverbetering'));
 relax.forEach((t) => (t.group = 'Ontspanning'));
 /* Every treatment, in menu order. One page each at /behandelingen/<slug>/. */

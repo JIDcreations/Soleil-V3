@@ -26,65 +26,106 @@ const lowest = (gs: { rows: [string, string, number | string, string?][] }[]) =>
     </nav>
   </div>
 
-  <header class="wrap thero">
-    <div>
-      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href={`/behandelingen/#${t.group?.toLowerCase()}`}>{t.group}</a></li><li aria-current="page">{t.name}</li></ol>
-      <h1 class="h1 rv">{t.name}</h1>
-      <p class="lede rv" style="--d:1">{t.intro}</p>
-      {t.from > 0 && <p class="rv" style="--d:2;margin-top:20px;font-weight:500">{euro(t.from)}</p>}
-    </div>
-    <figure class="ph rv-img"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
-  </header>
-
-  <section class="wrap tbody">
-    <div>
-      {t.why && (
-        <div class="why">
-          <div class="rv"><Icon name="question" /><h3>Herken je dit?</h3><p>{t.why.problem}</p></div>
-          <div class="rv" style="--d:1"><Icon name="hand-heart" /><h3>Wat ik doe</h3><p>{t.why.solution}</p></div>
-          <div class="rv" style="--d:2"><Icon name="sparkle" /><h3>Wat jij eraan hebt</h3><p>{t.why.benefit}</p></div>
+  {t.page ? (
+    <>
+      <header class="wrap thero">
+        <div>
+          <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href={`/behandelingen/#${t.group?.toLowerCase()}`}>{t.group}</a></li><li aria-current="page">{t.name}</li></ol>
+          <h1 class="h1 rv">{t.page.title}</h1>
+          <ul class="asks rv" style="--d:1" role="list">{t.page.questions.map((q) => <li>{q}</li>)}</ul>
+          <p class="rv" style="--d:2;margin-top:24px;font-weight:500">{t.page.cta}</p>
+          <div class="actions rv" style="--d:2;margin-top:24px"><a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a></div>
         </div>
-      )}
-      {t.parts && (
-        <div class="parts" style="margin-top:clamp(48px,6vw,80px)">
-          {t.parts.map((p) => (
-            <article class="part rv" id={p.id}>
-              <figure class="ph"><img src={`/img/${p.img}.webp`} alt={p.alt} loading="lazy" /></figure>
-              <div>
-                <h2 class="h3">{p.name}</h2>
-                <p class="from">{euro(lowest(p.prices))}</p>
-                <p>{p.text}</p>
-                {p.prices.map((g) => <Prices rows={g.rows} title={g.title} />)}
-              </div>
-            </article>
+        <figure class="ph rv-img"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+      </header>
+
+      <section class="wrap section brand-block" aria-labelledby="merk">
+        <figure class="ph rv-img"><img src={`/img/${t.page.story.img}.webp`} alt={t.page.story.alt} loading="lazy" /></figure>
+        <div class="rv">
+          <p class="label">{t.page.story.label}</p>
+          <h2 id="merk" class="h2">{t.page.story.title}</h2>
+          {t.page.story.text.map((x) => <p>{x}</p>)}
+        </div>
+      </section>
+
+      <section class="wrap" aria-labelledby="aanbod">
+        <h2 id="aanbod" class="h2 rv" style="margin-bottom:clamp(28px,4vw,48px)">Make-up behandelingen</h2>
+        <ul class="services" role="list">
+          {t.page.services.map((x, si) => (
+            <li class="rv" style={`--d:${si}`}>
+              <h3 class="h3">{x.name}</h3>
+              {x.tag && <p class="label">{x.tag}</p>}
+              <p>{x.text}</p>
+              <div class="services-foot"><span>{x.dur}</span><strong>{euro(x.price)}</strong></div>
+              <a class="link" href={info.booking} target="_blank" rel="noopener">Boek nu<Icon name="arrow-up-right" /></a>
+            </li>
           ))}
-        </div>
-      )}
-    </div>
+        </ul>
+      </section>
+    </>
+  ) : (
+    <>
+    <header class="wrap thero">
+      <div>
+        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href={`/behandelingen/#${t.group?.toLowerCase()}`}>{t.group}</a></li><li aria-current="page">{t.name}</li></ol>
+        <h1 class="h1 rv">{t.name}</h1>
+        <p class="lede rv" style="--d:1">{t.intro}</p>
+        {t.from > 0 && <p class="rv" style="--d:2;margin-top:20px;font-weight:500">{euro(t.from)}</p>}
+      </div>
+      <figure class="ph rv-img"><img src={`/img/${t.img}.webp`} alt={t.alt} fetchpriority="high" /></figure>
+    </header>
 
-    <aside class="panel rv" aria-labelledby="prijzen">
-      {t.prices.length > 0 ? (
-        <>
-          <h2 id="prijzen">Prijzen</h2>
-          {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
-          {t.note && <p class="price-note">{t.note}</p>}
-        </>
-      ) : t.parts ? (
-        <>
-          <h2 id="prijzen">Skin Expert</h2>
-          <p class="muted">Peel en Needling vanaf €125, Neo-Lift vanaf €120. Alle prijzen staan bij elke behandeling hiernaast.</p>
-        </>
-      ) : (
-        <h2 id="prijzen">{t.name}</h2>
-      )}
-      {t.tip && <p class="price-note">{t.tip}</p>}
-      {t.link ? (
-        <a class="btn" href={t.link.href} target="_blank" rel="noopener">{t.link.label}<Icon name="arrow-up-right" /></a>
-      ) : (
-        <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
-      )}
-    </aside>
-  </section>
+    <section class="wrap tbody">
+      <div>
+        {t.why && (
+          <div class="why">
+            <div class="rv"><Icon name="question" /><h3>Herken je dit?</h3><p>{t.why.problem}</p></div>
+            <div class="rv" style="--d:1"><Icon name="hand-heart" /><h3>Wat ik doe</h3><p>{t.why.solution}</p></div>
+            <div class="rv" style="--d:2"><Icon name="sparkle" /><h3>Wat jij eraan hebt</h3><p>{t.why.benefit}</p></div>
+          </div>
+        )}
+        {t.parts && (
+          <div class="parts" style="margin-top:clamp(48px,6vw,80px)">
+            {t.parts.map((p) => (
+              <article class="part rv" id={p.id}>
+                <figure class="ph"><img src={`/img/${p.img}.webp`} alt={p.alt} loading="lazy" /></figure>
+                <div>
+                  <h2 class="h3">{p.name}</h2>
+                  <p class="from">{euro(lowest(p.prices))}</p>
+                  <p>{p.text}</p>
+                  {p.prices.map((g) => <Prices rows={g.rows} title={g.title} />)}
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <aside class="panel rv" aria-labelledby="prijzen">
+        {t.prices.length > 0 ? (
+          <>
+            <h2 id="prijzen">Prijzen</h2>
+            {t.prices.map((g) => <Prices rows={g.rows} title={g.title} note={g.note} />)}
+            {t.note && <p class="price-note">{t.note}</p>}
+          </>
+        ) : t.parts ? (
+          <>
+            <h2 id="prijzen">Skin Expert</h2>
+            <p class="muted">Peel en Needling vanaf €125, Neo-Lift vanaf €120. Alle prijzen staan bij elke behandeling hiernaast.</p>
+          </>
+        ) : (
+          <h2 id="prijzen">{t.name}</h2>
+        )}
+        {t.tip && <p class="price-note">{t.tip}</p>}
+        {t.link ? (
+          <a class="btn" href={t.link.href} target="_blank" rel="noopener">{t.link.label}<Icon name="arrow-up-right" /></a>
+        ) : (
+          <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
+        )}
+      </aside>
+    </section>
+    </>
+  )}
 
   <nav class="wrap section" style="padding-bottom:0" aria-label="Vorige en volgende behandeling">
     <div class="pager">
