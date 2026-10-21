@@ -2,15 +2,13 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import VersionSwitch from '../components/VersionSwitch.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { info } from '../data/site';
-interface Props { title: string; description: string; image?: string; footerCta?: boolean; footerHours?: boolean }
-const { title, description, image = '/img/zaakvoerder-behandeling.webp', footerCta = true, footerHours = true } = Astro.props;
+interface Props { title: string; description: string; image?: string }
+const { title, description, image = '/img/zaakvoerder-behandeling.webp' } = Astro.props;
 const full = title.includes('Soleil') ? title : `${title} | Instituut Soleil Beervelde`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-// Review-laag (post-its, repo stijndemulder-wiz/postit-review). Weghalen voor de livegang.
-const postitProject = 'soleil';
+// Review layer (post-its, repo stijndemulder-wiz/postit-review). Remove before go-live.
 const postitSrc = import.meta.env.PUBLIC_POSTIT_SRC ?? 'https://wizarts-postits.netlify.app/postits.js';
 const ld = {
   '@context': 'https://schema.org',
@@ -33,7 +31,7 @@ const ld = {
     <title>{full}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbf9f6" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={full} />
@@ -43,18 +41,13 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
     <script is:inline>document.documentElement.classList.add('js');</script>
     <slot name="head" />
-    {postitProject && (
-      <script is:inline defer src={postitSrc} data-postit-laag data-project={postitProject} data-vaste-header="[data-header]"></script>
-    )}
+    <script is:inline defer src={postitSrc} data-postit-laag data-project="soleil" data-vaste-header="[data-header]"></script>
   </head>
   <body>
     <Header />
-    <main id="main" tabindex="-1">
-      <slot />
-    </main>
-    <Footer cta={footerCta} hours={footerHours} />
+    <main id="main" tabindex="-1"><slot /></main>
+    <Footer />
     <Newsletter />
-    <VersionSwitch />
     <script>
       import '../scripts/main.ts';
     </script>

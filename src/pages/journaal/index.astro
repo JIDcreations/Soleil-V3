@@ -4,14 +4,10 @@ import PostCard from '../../components/PostCard.astro';
 import journal from '../../data/journal.json';
 ---
 <Base title="Journaal" description="Huidtips per seizoen en nieuws uit Instituut Soleil in Beervelde.">
-  <header class="page-head">
-    <div class="wrap">
-      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Journaal</li></ol>
-      <h1>Journaal</h1>
-      <p class="intro">Huidtips per seizoen en nieuws uit het instituut.</p>
-    </div>
+  <header class="wrap ph-head">
+    <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Journaal</li></ol>
+    <h1 class="h1">Journaal</h1>
+    <p class="lede">Huidtips per seizoen en nieuws uit het instituut.</p>
   </header>
-  <section class="section" style="padding-top:8px">
-    <div class="wrap posts">{journal.map((p) => <PostCard post={p} />)}</div>
-  </section>
+  <section class="wrap posts" style="padding-bottom:var(--section)">{journal.map((p) => <PostCard post={p} />)}</section>
 </Base>

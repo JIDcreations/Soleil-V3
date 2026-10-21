@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Week from '../../components/Week.astro';
+import Icon from '../../components/Icon.astro';
 import PostCard from '../../components/PostCard.astro';
 import journal from '../../data/journal.json';
 import { info } from '../../data/site';
@@ -21,32 +22,28 @@ for (const b of p.blocks as B[]) {
 const more = journal.filter((x) => x.slug !== p.slug).slice(0, 3);
 ---
 <Base title={p.title} description={p.excerpt.slice(0, 155)} image={`/img/${p.img}.webp`}>
-  <article>
-    <header class="page-head" style="padding-bottom:0">
-      <div class="wrap--narrow">
-        <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/journaal/">Journaal</a></li><li aria-current="page">{p.cat}</li></ol>
-        <p class="post-meta"><span>{p.cat}</span><time datetime={p.date}>{date}</time></p>
-        <h1 style="margin-top:8px">{p.title}</h1>
-      </div>
+  <article class="wrap article">
+    <header class="ph-head">
+      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li><a href="/journaal/">Journaal</a></li><li aria-current="page">{p.cat}</li></ol>
+      <p class="post-meta" style="margin-top:24px"><span class="label">{p.cat}</span><time datetime={p.date}>{date}</time></p>
+      <h1 class="h1">{p.title}</h1>
     </header>
-    <div class="wrap--narrow"><figure class="article-hero"><img src={`/img/${p.img}.webp`} alt="" /></figure></div>
-    <div class="wrap--narrow prose">
+    <figure class="ph article-hero"><img src={`/img/${p.img}.webp`} alt="" fetchpriority="high" /></figure>
+    <div class="prose">
       {blocks.map((b: any) =>
-        b.type === 'h2' ? <h2>{b.text}</h2> :
+        b.type === 'h2' ? <h2 class="h3">{b.text}</h2> :
         b.type === 'ul' ? <ul role="list">{b.items.map((i: string) => <li>{i}</li>)}</ul> :
         b.type === 'hours' ? <div style="margin-block:1.6em"><Week /></div> :
         <p>{b.text}</p>
       )}
       <div class="actions" style="margin-top:56px">
-        <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken</a>
-        <a class="link" href="/behandelingen/skin-discovery/">Nieuw? Begin met een Discovery-behandeling</a>
+        <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
+        <a class="link" href="/behandelingen/skin-discovery/">Nieuw? Start met een Skin Discovery<Icon name="arrow-right" /></a>
       </div>
     </div>
   </article>
-  <section class="section" aria-labelledby="meer">
-    <div class="wrap">
-      <h2 id="meer" style="margin-bottom:28px">Meer uit het journaal</h2>
-      <div class="posts posts--home">{more.map((m) => <PostCard post={m} />)}</div>
-    </div>
+  <section class="section wrap" aria-labelledby="meer">
+    <div class="sec-head"><h2 id="meer" class="h2">Meer uit het journaal</h2><a class="link" href="/journaal/">Alle artikels<Icon name="arrow-right" /></a></div>
+    <div class="posts">{more.map((m) => <PostCard post={m} />)}</div>
   </section>
 </Base>

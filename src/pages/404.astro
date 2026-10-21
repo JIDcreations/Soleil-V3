@@ -1,12 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
 ---
 <Base title="Pagina niet gevonden" description="Deze pagina bestaat niet (meer).">
-  <header class="page-head" style="min-height:50dvh">
-    <div class="wrap">
-      <h1>Deze pagina bestaat niet (meer).</h1>
-      <p class="intro">Misschien is ze verhuisd. Bekijk de behandelingen of ga terug naar de homepagina.</p>
-      <div class="actions"><a class="btn" href="/behandelingen/">Naar de behandelingen</a><a class="link" href="/">Naar de homepagina</a></div>
-    </div>
+  <header class="wrap ph-head" style="min-height:50dvh">
+    <h1 class="h1">Deze pagina bestaat niet (meer).</h1>
+    <p class="lede">Misschien is ze verhuisd. Bekijk de behandelingen of ga terug naar de homepagina.</p>
+    <div class="actions" style="margin-top:32px"><a class="btn" href="/behandelingen/">Naar de behandelingen<Icon name="arrow-right" /></a><a class="link" href="/">Naar de homepagina</a></div>
   </header>
 </Base>

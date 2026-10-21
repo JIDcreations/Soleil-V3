@@ -4,3 +4,4 @@
 /behandelingen/peelings/           /behandelingen/skin-expert/#peel      301
 /behandelingen/microneedling/      /behandelingen/skin-expert/#needling  301
 /behandelingen/neo-lift/           /behandelingen/skin-expert/#neo-lift  301
+/v2/*                             /:splat                         301

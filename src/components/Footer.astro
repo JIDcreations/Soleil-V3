@@ -1,48 +1,35 @@
 ---
 import Week from './Week.astro';
-import Book from './Book.astro';
+import Icon from './Icon.astro';
 import { info, footerTreatments } from '../data/site';
-interface Props { cta?: boolean; hours?: boolean }
-const { cta = true, hours = true } = Astro.props;
 ---
-<footer class="footer">
-  {cta && (
-    <div class="wrap footer-cta">
-      <h2>Gun je huid de aandacht die ze verdient.</h2>
+<footer class="ft">
+  <div class="wrap ft-top">
+    <div>
+      <p class="h2">Gun je huid de aandacht die ze verdient.</p>
       <div class="actions">
-        <Book />
-        <a class="link" href="/behandelingen/skin-discovery/">Nieuw? Begin met een Discovery-behandeling</a>
+        <a class="btn btn--light" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
+        <a class="link" href="/behandelingen/skin-discovery/">Nieuw? Start met een Skin Discovery</a>
       </div>
-    </div>
-  )}
-  <div class="wrap footer-grid">
-    <div>
-      <h3>Instituut Soleil</h3>
-      <p>Ik sta voor je klaar en help je de mooiste versie van jezelf te ontdekken.</p>
-      <p>Tijdens behandelingen wordt de telefoon niet beantwoord. Ik contacteer je zo vlug mogelijk.</p>
-      <p>Ben je onverwacht verhinderd? Neem dan uiterlijk 48 uur op voorhand contact op.</p>
-    </div>
-    {hours && (
-      <div>
-        <h3>Openingsuren</h3>
-        <Week />
-      </div>
-    )}
-    <div>
-      <h3>Behandelingen</h3>
-      <ul role="list">
-        {footerTreatments.map((t) => <li><a href={t.href}>{t.label}</a></li>)}
-      </ul>
+      <p style="margin-top:28px;max-width:44ch">Tijdens behandelingen wordt de telefoon niet beantwoord, ik contacteer je zo vlug mogelijk. Onverwacht verhinderd? Laat het uiterlijk 48 uur op voorhand weten.</p>
     </div>
     <div>
-      <h3>Contact</h3>
+      <h4>Openingsuren</h4>
+      <Week />
+    </div>
+    <div>
+      <h4>Behandelingen</h4>
+      <ul role="list">{footerTreatments.map((t) => <li><a href={t.href}>{t.label}</a></li>)}</ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
       <p>{info.street}<br />{info.city}</p>
-      <p><a href={info.phoneHref}>{info.phone}</a><br /><a href={`mailto:${info.email}`}>{info.email}</a></p>
-      <p><a href={info.webshop} target="_blank" rel="noopener">Webshop</a> · <a href={info.instagram} target="_blank" rel="noopener">Instagram</a> · <a href={info.facebook} target="_blank" rel="noopener">Facebook</a></p>
+      <p style="margin-top:12px"><a href={info.phoneHref}>{info.phone}</a><br /><a href={`mailto:${info.email}`}>{info.email}</a></p>
+      <p style="margin-top:12px"><a href={info.webshop} target="_blank" rel="noopener">Webshop</a><br /><a href={info.instagram} target="_blank" rel="noopener">Instagram</a><br /><a href={info.facebook} target="_blank" rel="noopener">Facebook</a></p>
     </div>
   </div>
-  <div class="wrap footer-base">
-    <span>© {new Date().getFullYear()} Instituut Soleil · btw {info.vat}</span>
-    <span><a href="/journaal/">Journaal</a> · <a href="https://instituutsoleil.be/privacy-policy/">Privacybeleid</a></span>
+  <div class="wrap ft-base">
+    <span>© {new Date().getFullYear()} Instituut Soleil, btw {info.vat}</span>
+    <span><a href="/journaal/">Journaal</a>, <a href="https://instituutsoleil.be/privacy-policy/">Privacybeleid</a></span>
   </div>
 </footer>

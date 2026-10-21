@@ -1,66 +1,55 @@
 ---
 import Base from '../layouts/Base.astro';
-import Week from '../components/Week.astro';
-import Book from '../components/Book.astro';
 import Icon from '../components/Icon.astro';
+import Week from '../components/Week.astro';
 import { info } from '../data/site';
 ---
-<Base title="Contact" description="Instituut Soleil, Rivierstraat 70, 9080 Beervelde. Boek online, bel 0470 22 92 02 of stuur een bericht." footerCta={false} footerHours={false}>
-  <header class="page-head">
-    <div class="wrap">
-      <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Contact</li></ol>
-      <h1>Contact</h1>
-      <p class="intro">Een afspraak maak je het makkelijkst online. Een vraag? Bel, mail of stuur hieronder een bericht.</p>
-    </div>
+<Base title="Contact" description="Instituut Soleil, Rivierstraat 70, 9080 Beervelde. Boek online, bel of stuur een bericht.">
+  <header class="wrap ph-head">
+    <ol class="crumbs" role="list"><li><a href="/">Home</a></li><li aria-current="page">Contact</li></ol>
+    <h1 class="h1">Kom langs in Beervelde</h1>
+    <p class="lede">Een afspraak maak je het makkelijkst online. Een vraag? Bel, mail of stuur hieronder een bericht.</p>
   </header>
-
-  <section style="padding-bottom:clamp(40px,5vw,64px)">
-    <div class="wrap split split--even" style="align-items:start">
-      <div>
-        <h2 class="h3">Instituut Soleil</h2>
-        <p style="margin-top:8px">{info.street}<br />{info.city}</p>
-        <p style="margin-top:12px"><a class="link" href={info.phoneHref}>{info.phone}</a><br /><a class="link" href={`mailto:${info.email}`}>{info.email}</a></p>
-        <div class="actions"><Book /><a class="btn btn--line" href={info.phoneHref}><Icon name="phone" />Bellen</a></div>
-      </div>
-      <div>
-        <h2 class="h3" style="margin-bottom:8px">Openingsuren</h2>
-        <Week />
+  <section class="wrap contact">
+    <div class="card rv">
+      <p class="big-line">{info.street}<br />{info.city}</p>
+      <p style="margin-top:20px"><a class="link" href={info.phoneHref}>{info.phone}</a></p>
+      <p style="margin-top:8px"><a class="link" href={`mailto:${info.email}`}>{info.email}</a></p>
+      <div class="actions" style="margin-top:28px">
+        <a class="btn" href={info.booking} target="_blank" rel="noopener">Afspraak maken<Icon name="arrow-up-right" /></a>
       </div>
     </div>
-  </section>
-
-  <section aria-labelledby="route">
-    <div class="wrap">
-      <div class="block split split--even">
-        <figure class="ratio-43"><img src="/img/instituut-massage.webp" alt="De behandelruimte van Instituut Soleil" loading="lazy" /></figure>
-        <div>
-          <h2 id="route">Zo kom je bij Soleil</h2>
-          <p class="muted" style="margin-top:10px">{info.street} in {info.city}, deelgemeente van Lochristi, vlak bij Gent.</p>
-          <div class="actions"><a class="btn" href={info.route} target="_blank" rel="noopener"><Icon name="map-pin" />Route plannen</a></div>
-        </div>
+    <div class="card card--forest rv" style="--d:1">
+      <h2>Openingsuren</h2>
+      <Week />
+      <p class="muted" style="margin-top:20px">Tijdens behandelingen neem ik de telefoon niet op. Laat je naam en nummer achter, ik bel je zo vlug mogelijk terug.</p>
+    </div>
+    <div class="card route rv">
+      <figure class="ph"><img src="/img/instituut-massage.webp" alt="De behandelruimte van Instituut Soleil" loading="lazy" /></figure>
+      <div>
+        <h2>Zo kom je bij Soleil</h2>
+        <p class="muted">{info.street} in {info.city}, deelgemeente van Lochristi, vlak bij Gent.</p>
+        <div class="actions" style="margin-top:24px"><a class="btn btn--ghost" href={info.route} target="_blank" rel="noopener"><Icon name="map-pin" />Route plannen</a></div>
       </div>
     </div>
-  </section>
-
-  <section class="section" aria-labelledby="bericht">
-    <div class="wrap split">
-      <div>
+    <div class="card route rv" style="grid-template-columns:minmax(0,0.8fr) minmax(0,1.2fr)">
+      <div style="padding:clamp(24px,3vw,40px);align-self:start">
         <h2 id="bericht">Stuur een bericht</h2>
-        <p class="muted" style="margin-top:10px">Een vraag over een behandeling of een cadeaubon? Ik antwoord zo snel mogelijk.</p>
+        <p class="muted">Een vraag over een behandeling of een cadeaubon? Ik antwoord zo snel mogelijk.</p>
       </div>
-      <div>
+      <div style="padding:clamp(24px,3vw,40px)">
         <form class="form" data-form data-mailto={info.email} novalidate>
           <div class="form-row">
             <div class="field"><label for="n">Naam</label><input id="n" name="naam" autocomplete="name" required aria-describedby="n-err" /><span class="err" id="n-err">Vul je naam in.</span></div>
             <div class="field"><label for="t">Telefoon <small>(niet verplicht)</small></label><input id="t" name="telefoon" type="tel" autocomplete="tel" /></div>
           </div>
-          <div class="field"><label for="e">E-mail</label><input id="e" name="email" type="email" autocomplete="email" required aria-describedby="e-err" /><span class="err" id="e-err">Vul een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.be.</span></div>
+          <div class="field"><label for="e">E-mail</label><input id="e" name="email" type="email" autocomplete="email" required aria-describedby="e-err" /><span class="err" id="e-err">Vul een geldig e-mailadres in.</span></div>
           <div class="field"><label for="m">Je vraag</label><textarea id="m" name="vraag" required aria-describedby="m-err"></textarea><span class="err" id="m-err">Schrijf kort je vraag.</span></div>
-          <div class="actions" style="margin-top:4px"><button class="btn" type="submit">Mail je vraag</button><span class="small muted">Je mailprogramma opent met je bericht.</span></div>
+          <div class="actions"><button class="btn" type="submit">Verstuur via e-mail</button></div>
         </form>
-        <div class="done flow" tabindex="-1" hidden>
+        <div class="done" tabindex="-1" hidden>
           <p class="h3">Je mailprogramma is geopend</p>
-          <p class="muted">Verstuur het bericht daar. Opende er niets? Mail dan naar <a class="link" href={`mailto:${info.email}`}>{info.email}</a> of bel <a class="link" href={info.phoneHref}>{info.phone}</a>.</p>
+          <p class="muted" style="margin-top:8px">Verstuur het bericht daar. Opende er niets? Mail naar <a class="link" href={`mailto:${info.email}`}>{info.email}</a>.</p>
         </div>
       </div>
     </div>

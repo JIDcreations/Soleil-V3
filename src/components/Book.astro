@@ -1,7 +1,0 @@
----
-/* The one booking button: always the Optios online booking. */
-import { info } from '../data/site';
-interface Props { label?: string; class?: string }
-const { label = 'Afspraak maken', class: cls = '' } = Astro.props;
----
-<a class:list={['btn', cls]} href={info.booking} target="_blank" rel="noopener">{label}</a>

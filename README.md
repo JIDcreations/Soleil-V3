@@ -9,7 +9,7 @@ npm run build    # static site in dist/
 ```
 
 ## Pages
-Home, Behandelingen (overview + Huidanalyse & advies, Skin Relax, Skin Expert), Ontspanning (`/verwennen/`), Tarieven, Over Soleil, Journaal, Contact, 404. Old URLs redirect via `public/_redirects`.
+Home, Behandelingen (overview + Huidanalyse & advies, Skin Relax, Skin Expert), Ontspanning (`/verwennen/`), Tarieven, Over Soleil, Journaal, Contact, 404. Old URLs (including the `/v2/` review links) redirect via `public/_redirects`.
 All prices, treatments and hours live in `src/data/site.ts`. Articles are in `src/data/journal.json`.
 
 ## Sources
@@ -19,9 +19,9 @@ All prices, treatments and hours live in `src/data/site.ts`. Articles are in `sr
 - Photos: the same set as V2 (`public/img`).
 
 ## Brand
-- **Look:** modelled on genevieveoushoorn.be at the client's request: white page, light beige frames behind photos and text, small light headings, no black surfaces, content max 1120px wide.
-- **Colours:** white `#ffffff`, beige `#f6f0e8`, sand gold `#ece1d3` (footer), bronze `#946a43` (buttons, labels, bronze block), logo tan `#bf8e63` (logo and thin rules only), ink `#3b322b`.
-- **Type:** Raleway (everything) and EB Garamond (wordmark only).
+- **Look:** modern editorial, photo-led. Light theme only, no rounded corners (client request). Styles in `src/styles/global.css`.
+- **Colours:** page `#fbf9f6`, beige `#f5efe6`, deeper beige `#ece4d6` (footer, panels), hazelnut `#a58a68` (buttons), logo tan `#c4a283`, ink `#4b3a2f`.
+- **Type:** Hanken Grotesk (everything) and EB Garamond (wordmark only).
 - **Owner:** Saskia (Ferket). 27 years confirmed by her own copy.
 
 ## Still to confirm with the client
